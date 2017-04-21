@@ -27,10 +27,10 @@ app.get('/', (req, res) => {
 app.get('/main/:facebookId', (req, res) => {
     const facebookId = req.params.facebookId;
     Flashcards.find({ facebookId: facebookId })
-        .count()
         .exec()
-        .then(count => {
-            if (count === 0) {
+        .then(data => {
+            console.log(1, data);
+            if (data.length === 0) {
                 //add a new user in database
                 const newUser = {
                     facebookId: facebookId,
@@ -40,6 +40,8 @@ app.get('/main/:facebookId', (req, res) => {
                 Flashcards.create(newUser).then(user => {
                     res.json({ user });
                 });
+            } else {
+                res.json({ data });
             }
         })
         .catch(err => {
