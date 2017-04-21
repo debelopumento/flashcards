@@ -34,8 +34,27 @@ app.get('/main/:facebookId', (req, res) => {
                 //add a new user in database
                 const newUser = {
                     facebookId: facebookId,
-                    decks: [],
-                    cards: [],
+                    decks: [
+                        { deckName: 'Japanese Greetings' },
+                        { deckName: 'Japanese Numbers' },
+                    ],
+                    cards: [
+                        {
+                            cardFront: 'こんにちわ',
+                            cardBack: 'Hello',
+                            deckName: 'Japanese Greetings',
+                        },
+                        {
+                            cardFront: 'じゃね',
+                            cardBack: 'Bye',
+                            deckName: 'Japanese Greetings',
+                        },
+                        {
+                            cardFront: 'いち',
+                            cardBack: 'One',
+                            deckName: 'Japanese Numbers',
+                        },
+                    ],
                 };
                 Flashcards.create(newUser).then(user => {
                     res.json({ user });
