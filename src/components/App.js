@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import FacebookLoginButton from './facebookLogin';
-import '../App.css';
+import './App.css';
 
 class App extends Component {
   componentWillMount() {
