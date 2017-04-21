@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
+    "cors": "^2.8.3",
+    "mongoose": "^4.9.5",
+    "morgan": "^1.8.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-facebook-login": "^3.5.0",
