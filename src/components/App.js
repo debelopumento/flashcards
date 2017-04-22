@@ -1,13 +1,24 @@
 /*global FB*/
 
-import React, { Component } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import FacebookLoginButton from './facebookLogin';
+import { connect } from 'react-redux';
+
 import store from '../store';
 import * as actions from '../actions/actionIndex';
 import './App.css';
 import DeckContainer from './deckContainer';
 
-class App extends Component {
+const { array } = PropTypes;
+
+class App extends PureComponent {
+  static PropTypes = {
+    decks: array,
+  };
+  state = {
+    decks: [],
+  };
+
   componentWillMount() {
     // This is called with the results from from FB.getLoginStatus().
     window.fbAsyncInit = () => {
@@ -51,4 +62,8 @@ class App extends Component {
   }
 }
 
-export default App;
+//export default App;
+
+export default connect(storeState => ({
+  decks: storeState.decks,
+}))(App);
