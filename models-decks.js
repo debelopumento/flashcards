@@ -8,6 +8,11 @@ const deckSchema = mongoose.Schema({
             userId: String,
         },
     ],
+    cards: [
+        {
+            cardId: String,
+        },
+    ],
 });
 
 deckSchema.methods.apiRepr = () => {
@@ -15,6 +20,7 @@ deckSchema.methods.apiRepr = () => {
         id: this._id,
         deckName: this.deckName,
         users: this.users,
+        cards: this.cards,
     };
 };
 

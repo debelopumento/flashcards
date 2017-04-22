@@ -1,6 +1,15 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Route, Link } from 'react-router-dom';
+
+const Deck = ({ match }) => {
+  console.log(15);
+  return (
+    <div>
+      hellooo
+    </div>
+  );
+};
 
 const { array } = PropTypes;
 class DeckContainer extends PureComponent {
@@ -18,7 +27,7 @@ class DeckContainer extends PureComponent {
       console.log(12, deckId, index, deck);
       return (
         <li key={index}>
-          {deck.deckName}
+          <Link to={`/${deck.deckName}`}>{deck.deckName}</Link>
         </li>
       );
     });
@@ -28,15 +37,13 @@ class DeckContainer extends PureComponent {
         <ul>
           {decksDisplay}
         </ul>
+
+        <Route exact path="/deckA" component={Deck} />
+
       </div>
     );
   }
 }
-const Deck = ({ match }) => (
-  <div>
-    <h3>{match.params.deckName}</h3>
-  </div>
-);
 
 export default connect(storeState => ({
   decks: storeState.decks,

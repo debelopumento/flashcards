@@ -3,7 +3,6 @@
 import React, { PureComponent, PropTypes } from 'react';
 import FacebookLoginButton from './facebookLogin';
 import { connect } from 'react-redux';
-
 import store from '../store';
 import * as actions from '../actions/actionIndex';
 import './App.css';
@@ -57,6 +56,7 @@ class App extends PureComponent {
       <div className="App">
         <FacebookLoginButton />
         <DeckContainer />
+
       </div>
     );
   }

@@ -66,6 +66,7 @@ app.post('/createDeck/:deckName/:userId', (req, res) => {
                 const newDeckObj = {
                     deckId: newDeckId,
                     deckName: deckName,
+                    card: [],
                 };
                 decks.push(newDeckObj);
                 const newUser = {
@@ -80,6 +81,20 @@ app.post('/createDeck/:deckName/:userId', (req, res) => {
                         res.json({ message: 'Internal server error' });
                     });
             });
+        })
+        .catch(err => {
+            res.json({ message: 'Internal server error' });
+        });
+});
+
+//check out deck
+app.get('/deck/:deckId', (req, res) => {
+    const deckId = req.params.deckId;
+    Decks.findById(deckId)
+        .exec()
+        .then(deck => {
+            console.log(deck);
+            res.json({ deck });
         })
         .catch(err => {
             res.json({ message: 'Internal server error' });

@@ -17,7 +17,6 @@ class NewDeck extends PureComponent {
 
     submit = event => {
         const deckName = this.state.deckName;
-        const facebookId = store.getState().facebookId;
         store.dispatch(actions.createDeck(deckName));
         this.setState({ redirect: true });
     };

@@ -1,10 +1,8 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
-import store from '../store';
-import * as actions from '../actions/actionIndex';
 
 const responseFacebook = response => {
-    const facebookId = response.id;
+    console.log('successful login');
 };
 
 const FacebookLoginButton = () => (
