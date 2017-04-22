@@ -93,9 +93,17 @@ app.get('/deck/:deckId', (req, res) => {
     Decks.findById(deckId)
         .exec()
         .then(deck => {
-            console.log(deck);
-
-            res.json({ deck });
+            console.log(12, deck);
+            Flashcards.find({
+                decks: {
+                    $elemMatch: { deckId: deckId },
+                },
+            })
+                .exec()
+                .then(cards => {
+                    res.json({ deck, cards });
+                });
+            //res.json({ deck });
         })
         .catch(err => {
             res.json({ message: 'Internal server error' });
@@ -107,21 +115,16 @@ app.post('/createnewcard', (req, res) => {
     const newCard = req.body;
     const deckId = newCard.decks[0].deckId;
 
-    console.log(15, newCard, deckId);
     Flashcards.create(newCard)
         .then(newCard => {
-            console.log(16, newCard, deckId);
             Decks.findById(deckId).exec().then(deck => {
-                console.log(14, deck);
                 const cards = deck.cards;
                 cards.push({ cardId: newCard._id });
                 const newDeck = { cards: cards };
-                console.log(18, deckId, newDeck);
                 Decks.findByIdAndUpdate(deckId, newDeck)
                     .exec()
                     .then(newDeck => {
-                        console.log(17, newDeck);
-                        res.json({ newCard, newDeck });
+                        res.json({ newCard });
                     })
                     .catch(e => {
                         res.json({ message: 'Internal server error' });
