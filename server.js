@@ -14,6 +14,8 @@ const { PORT, DATABASE_URL } = require('./config');
 console.log('DATABASE_URL: ', DATABASE_URL);
 
 const { Flashcards } = require('./models-flashcards');
+const { Users } = require('./models-users');
+const { Decks } = require('./models-decks');
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,6 +24,30 @@ app.use(morgan('common'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/main/:facebookId', (req, res) => {
+    const facebookId = req.params.facebookId;
+    Users.find({ facebookId: facebookId })
+        .exec()
+        .then(data => {
+            console.log(1, data);
+            if (data.length === 0) {
+                //add a new user to userscollection
+                const newUser = {
+                    facebookId: facebookId,
+                    decks: [],
+                };
+                Users.create(newUser).then(user => {
+                    res.json({ user });
+                });
+            } else {
+                res.json({ data });
+            }
+        })
+        .catch(err => {
+            res.json({ message: 'Internal server error' });
+        });
 });
 
 /*
