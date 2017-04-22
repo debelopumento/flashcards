@@ -4,7 +4,11 @@ const flashcardSchema = mongoose.Schema({
     id: String,
     cardFront: String,
     cardBack: String,
-    deckId: String,
+    decks: [
+        {
+            deckId: String,
+        },
+    ],
 });
 
 flashcardSchema.methods.apiRepr = () => {
@@ -12,7 +16,7 @@ flashcardSchema.methods.apiRepr = () => {
         id: this._id,
         cardFront: this.cardFront,
         cardBack: this.cardBack,
-        deckId: this.deckId,
+        decks: this.decks,
     };
 };
 
