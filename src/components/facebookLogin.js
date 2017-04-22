@@ -5,9 +5,6 @@ import * as actions from '../actions/actionIndex';
 
 const responseFacebook = response => {
     const facebookId = response.id;
-    console.log(2, facebookId);
-    store.dispatch(actions.updateFacebookId(facebookId));
-    store.dispatch(actions.lookupUser(facebookId));
 };
 
 const FacebookLoginButton = () => (

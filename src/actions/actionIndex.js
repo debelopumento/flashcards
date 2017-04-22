@@ -20,6 +20,29 @@ export const updateCards = cards => ({
     payload: cards,
 });
 
+export const updateUserId = userId => ({
+    type: 'LOAD_USERID',
+    payload: userId,
+});
+
+export const createDeck = deckName =>
+    dispatch => {
+        const userId = store.getState().userId;
+        const url = host + 'createDeck/' + deckName + '/' + userId;
+        console.log(3, url, userId);
+        return axios
+            .post(url)
+            .then(data => {
+                const newDeck = data.data.newDeck;
+                const decks = store.getState().decks;
+                decks.push(newDeck);
+                dispatch(updateDecks(decks));
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const lookupUser = facebookId =>
     dispatch => {
         const url = host + 'main/' + facebookId;
@@ -27,8 +50,8 @@ export const lookupUser = facebookId =>
             .get(url)
             .then(data => {
                 console.log(1, data.data.data[0]);
+                dispatch(updateUserId(data.data.data[0]._id));
                 dispatch(updateDecks(data.data.data[0].decks));
-                dispatch(updateCards(data.data.data[0].cards));
             })
             .catch(e => {
                 console.log(e);

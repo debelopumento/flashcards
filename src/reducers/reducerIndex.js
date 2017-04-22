@@ -30,7 +30,18 @@ const cardsReducer = (state = [], action) => {
     }
 };
 
+const userIdReducer = (state = '', action) => {
+    switch (action.type) {
+        case 'LOAD_USERID': {
+            return action.payload;
+        }
+        default:
+            return state;
+    }
+};
+
 const allReducers = combineReducers({
+    userId: userIdReducer,
     facebookId: facebookIdReducer,
     decks: decksReducer,
     cards: cardsReducer,

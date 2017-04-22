@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import FacebookLoginButton from './facebookLogin';
+import store from '../store';
+import * as actions from '../actions/actionIndex';
 import './App.css';
 import DeckContainer from './deckContainer';
 
@@ -21,7 +23,8 @@ class App extends Component {
         if (response.status === 'connected') {
           FB.api('/me', response => {
             const facebookId = response.id;
-            //console.log(2, facebookId);
+            store.dispatch(actions.updateFacebookId(facebookId));
+            store.dispatch(actions.lookupUser(facebookId));
           });
         }
       });

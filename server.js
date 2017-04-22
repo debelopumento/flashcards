@@ -31,7 +31,6 @@ app.get('/main/:facebookId', (req, res) => {
     Users.find({ facebookId: facebookId })
         .exec()
         .then(data => {
-            console.log(1, data);
             if (data.length === 0) {
                 //add a new user to userscollection
                 const newUser = {
@@ -44,6 +43,43 @@ app.get('/main/:facebookId', (req, res) => {
             } else {
                 res.json({ data });
             }
+        })
+        .catch(err => {
+            res.json({ message: 'Internal server error' });
+        });
+});
+
+app.post('/createDeck/:deckName/:userId', (req, res) => {
+    const deckName = req.params.deckName;
+    const userId = req.params.userId;
+    const newDeck = {
+        deckName: deckName,
+        users: [{ userId: userId }],
+    };
+    Decks.create(newDeck)
+        .then(newDeck => {
+            const newDeckId = newDeck._id;
+            Users.findById(userId).exec().then(user => {
+                console.log(4, user);
+                const decks = user.decks;
+                const newDeckObj = {
+                    deckId: newDeckId,
+                    deckName: deckName,
+                };
+                decks.push(newDeckObj);
+                const newUser = {
+                    decks: decks,
+                };
+                console.log(5, decks, 6, newDeckObj);
+                Users.findByIdAndUpdate(userId, newUser)
+                    .exec()
+                    .then(user => {
+                        res.json({ newDeck });
+                    })
+                    .catch(err => {
+                        res.json({ message: 'Internal server error' });
+                    });
+            });
         })
         .catch(err => {
             res.json({ message: 'Internal server error' });
