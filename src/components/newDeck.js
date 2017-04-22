@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
+import { Redirect } from 'react-router';
+
 import store from '../store';
 import * as actions from '../actions/actionIndex';
 
 class NewDeck extends PureComponent {
     state = {
         deckName: '',
+        redirect: false,
     };
 
     handleChange = event => {
@@ -13,17 +16,17 @@ class NewDeck extends PureComponent {
     };
 
     submit = event => {
-        console.log(2, actions.createDeck);
         const deckName = this.state.deckName;
-        console.log(3, deckName);
-
         const facebookId = store.getState().facebookId;
-        //store.dispatch(actions.lookupUser(facebookId));
-
         store.dispatch(actions.createDeck(deckName));
+        this.setState({ redirect: true });
     };
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/" />;
+        }
+
         return (
             <div>
                 <input
