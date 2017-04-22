@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+//look up user in users collection
 app.get('/main/:facebookId', (req, res) => {
     const facebookId = req.params.facebookId;
     Users.find({ facebookId: facebookId })
@@ -49,6 +50,7 @@ app.get('/main/:facebookId', (req, res) => {
         });
 });
 
+//create a new deck, add this deck to decks collection and add its id to users collection
 app.post('/createDeck/:deckName/:userId', (req, res) => {
     const deckName = req.params.deckName;
     const userId = req.params.userId;
@@ -60,7 +62,6 @@ app.post('/createDeck/:deckName/:userId', (req, res) => {
         .then(newDeck => {
             const newDeckId = newDeck._id;
             Users.findById(userId).exec().then(user => {
-                console.log(4, user);
                 const decks = user.decks;
                 const newDeckObj = {
                     deckId: newDeckId,
@@ -70,7 +71,6 @@ app.post('/createDeck/:deckName/:userId', (req, res) => {
                 const newUser = {
                     decks: decks,
                 };
-                console.log(5, decks, 6, newDeckObj);
                 Users.findByIdAndUpdate(userId, newUser)
                     .exec()
                     .then(user => {
@@ -85,52 +85,6 @@ app.post('/createDeck/:deckName/:userId', (req, res) => {
             res.json({ message: 'Internal server error' });
         });
 });
-
-/*
-app.get('/main/:facebookId', (req, res) => {
-    const facebookId = req.params.facebookId;
-    Flashcards.find({ facebookId: facebookId })
-        .exec()
-        .then(data => {
-            console.log(1, data);
-            if (data.length === 0) {
-                //add a new user in database
-                const newUser = {
-                    facebookId: facebookId,
-                    decks: [
-                        { deckName: 'Japanese Greetings' },
-                        { deckName: 'Japanese Numbers' },
-                    ],
-                    cards: [
-                        {
-                            cardFront: 'こんにちわ',
-                            cardBack: 'Hello',
-                            deckName: 'Japanese Greetings',
-                        },
-                        {
-                            cardFront: 'じゃね',
-                            cardBack: 'Bye',
-                            deckName: 'Japanese Greetings',
-                        },
-                        {
-                            cardFront: 'いち',
-                            cardBack: 'One',
-                            deckName: 'Japanese Numbers',
-                        },
-                    ],
-                };
-                Flashcards.create(newUser).then(user => {
-                    res.json({ user });
-                });
-            } else {
-                res.json({ data });
-            }
-        })
-        .catch(err => {
-            res.json({ message: 'Internal server error' });
-        });
-});
-*/
 
 app.use('*', function(req, res) {
     res.status(404).json({ message: 'Not Found' });
