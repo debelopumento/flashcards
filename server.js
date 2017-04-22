@@ -13,7 +13,7 @@ try {
 const { PORT, DATABASE_URL } = require('./config');
 console.log('DATABASE_URL: ', DATABASE_URL);
 
-const { Flashcards } = require('./models');
+const { Flashcards } = require('./models-flashcards');
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+/*
 app.get('/main/:facebookId', (req, res) => {
     const facebookId = req.params.facebookId;
     Flashcards.find({ facebookId: facebookId })
@@ -67,6 +68,7 @@ app.get('/main/:facebookId', (req, res) => {
             res.json({ message: 'Internal server error' });
         });
 });
+*/
 
 app.use('*', function(req, res) {
     res.status(404).json({ message: 'Not Found' });

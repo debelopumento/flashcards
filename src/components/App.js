@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import FacebookLoginButton from './facebookLogin';
 import './App.css';
+import DeckContainer from './deckContainer';
 
 class App extends Component {
   componentWillMount() {
@@ -41,7 +42,7 @@ class App extends Component {
     return (
       <div className="App">
         <FacebookLoginButton />
-
+        <DeckContainer />
       </div>
     );
   }
