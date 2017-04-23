@@ -24,8 +24,10 @@ export const passCard = cardIndex =>
     dispatch => {
         let cards = store.getState().cards;
         if (cards.length === 1) {
-            //go to congratulations page
-            console.log('this is it');
+            dispatch({
+                type: 'FINISHED_DECK',
+                payload: null,
+            });
         } else {
             cards.splice(cardIndex, 1);
             dispatch(updateCards(cards));

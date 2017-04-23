@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actionIndex';
+import { Route, Link } from 'react-router-dom';
 
 const { array, number, bool, object, string } = PropTypes;
 
@@ -44,17 +45,23 @@ class Deck extends PureComponent {
                 ? this.props.cards[this.props.cardIndex].cardFront
                 : this.props.cards[this.props.cardIndex].cardBack;
 
-            return (
-                <div>
-                    <input
-                        onClick={this.flipcard}
-                        type="submit"
-                        value={display}
-                    />
-                    <input onClick={this.no} type="submit" value="no" />
-                    <input onClick={this.yes} type="submit" value="yes" />
-                </div>
-            );
+            return this.props.finishedDeck === true
+                ? <div>
+                      <span>Congratulations! You have finished this deck.</span>
+                      <span>
+                          <Link to="/">Back to dashboard</Link>
+                      </span>
+
+                  </div>
+                : <div>
+                      <input
+                          onClick={this.flipcard}
+                          type="submit"
+                          value={display}
+                      />
+                      <input onClick={this.no} type="submit" value="no" />
+                      <input onClick={this.yes} type="submit" value="yes" />
+                  </div>;
         }
         return <div />;
     }
@@ -65,6 +72,7 @@ export default connect(
         decks: storeState.decks,
         cards: storeState.cards,
         cardIndex: storeState.cardIndex,
+        finishedDeck: storeState.finishedDeck,
     }),
     {
         lookupDeck: actions.lookupDeck,
