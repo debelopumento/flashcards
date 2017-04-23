@@ -38,6 +38,11 @@ export const lookupDeck = deckId =>
             });
     };
 
+export const goToNextCard = () => ({
+    type: 'GO_TO_NEXT_CARD',
+    payload: null,
+});
+
 export const createDeck = deckName =>
     dispatch => {
         const userId = store.getState().userId;

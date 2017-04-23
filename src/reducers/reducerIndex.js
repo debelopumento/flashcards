@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import store from '../store';
 
 const facebookIdReducer = (state = null, action) => {
     switch (action.type) {
@@ -40,11 +41,26 @@ const userIdReducer = (state = '', action) => {
     }
 };
 
+const cardIndexReducer = (state = 0, action) => {
+    switch (action.type) {
+        case 'GO_TO_NEXT_CARD': {
+            const cardNumber = store.getState().cards.length;
+            if (state === cardNumber - 1) {
+                return 0;
+            } else
+                return state + 1;
+        }
+        default:
+            return state;
+    }
+};
+
 const allReducers = combineReducers({
     userId: userIdReducer,
     facebookId: facebookIdReducer,
     decks: decksReducer,
     cards: cardsReducer,
+    cardIndex: cardIndexReducer,
 });
 
 export default allReducers;

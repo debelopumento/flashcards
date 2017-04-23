@@ -7,14 +7,12 @@ const { array, number, bool, object, string } = PropTypes;
 class Deck extends PureComponent {
     static PropTypes = {
         cards: array,
-        index: number,
-        showFront: bool,
+        cardIndex: number,
     };
 
     static defaultProps = {
         cards: null,
-        index: 0,
-        showFront: true,
+        cardIndex: 0,
     };
 
     state = {
@@ -23,6 +21,14 @@ class Deck extends PureComponent {
 
     flipcard = () => {
         this.setState({ showFront: !this.state.showFront });
+    };
+
+    no = () => {
+        this.props.goToNextCard();
+    };
+
+    yes = () => {
+        this.props.goToNextCard();
     };
 
     componentWillMount() {
@@ -34,8 +40,9 @@ class Deck extends PureComponent {
     render() {
         if (this.props.cards.length !== 0) {
             const display = this.state.showFront === true
-                ? this.props.cards[this.props.index].cardFront
-                : this.props.cards[this.props.index].cardBack;
+                ? this.props.cards[this.props.cardIndex].cardFront
+                : this.props.cards[this.props.cardIndex].cardBack;
+
             return (
                 <div>
                     <input
@@ -43,6 +50,8 @@ class Deck extends PureComponent {
                         type="submit"
                         value={display}
                     />
+                    <input onClick={this.no} type="submit" value="no" />
+                    <input onClick={this.yes} type="submit" value="yes" />
                 </div>
             );
         }
@@ -54,8 +63,10 @@ export default connect(
     storeState => ({
         decks: storeState.decks,
         cards: storeState.cards,
+        cardIndex: storeState.cardIndex,
     }),
     {
         lookupDeck: actions.lookupDeck,
+        goToNextCard: actions.goToNextCard,
     }
 )(Deck);
