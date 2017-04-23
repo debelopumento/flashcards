@@ -110,6 +110,7 @@ app.get('/deck/:deckId', (req, res) => {
 
 //create a card
 app.post('/createnewcard', (req, res) => {
+    console.log(9, req.body);
     const newCard = req.body;
     const deckId = newCard.decks[0].deckId;
 

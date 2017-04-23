@@ -20,6 +20,22 @@ export const updateCards = cards => ({
     payload: cards,
 });
 
+export const createNewCard = newCard =>
+    dispatch => {
+        const url = host + 'createnewcard/';
+        return axios
+            .post(url, newCard)
+            .then(data => {
+                const addedCard = data.data.newCard;
+                const cards = store.getState().cards;
+                cards.push(addedCard);
+                dispatch(updateCards(cards));
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const passCard = cardIndex =>
     dispatch => {
         let cards = store.getState().cards;

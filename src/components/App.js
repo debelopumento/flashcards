@@ -65,8 +65,6 @@ class App extends PureComponent {
   }
 }
 
-//export default App;
-
 export default connect(
   storeState => ({
     decks: storeState.decks,
