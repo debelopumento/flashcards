@@ -71,6 +71,11 @@ export const finishedDeck = () => ({
     payload: null,
 });
 
+export const resetDeck = () => ({
+    type: 'RESET_DECK',
+    payload: null,
+});
+
 export const createDeck = deckName =>
     dispatch => {
         const userId = store.getState().userId;
@@ -103,3 +108,13 @@ export const lookupUser = facebookId =>
                 console.log(e);
             });
     };
+
+export const hideCurrentDeck = () => ({
+    type: 'HIDE_DECK',
+    payload: null,
+});
+
+export const showCurrentDeck = () => ({
+    type: 'SHOW_DECK',
+    payload: null,
+});

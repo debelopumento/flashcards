@@ -56,6 +56,22 @@ const finishedDeckReducer = (state = false, action) => {
         case 'FINISHED_DECK': {
             return true;
         }
+        case 'RESET_DECK': {
+            return false;
+        }
+        default:
+            return state;
+    }
+};
+
+const hideDeckReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'HIDE_DECK': {
+            return true;
+        }
+        case 'SHOW_DECK': {
+            return false;
+        }
         default:
             return state;
     }
@@ -68,6 +84,7 @@ const allReducers = combineReducers({
     cards: cardsReducer,
     cardIndex: cardIndexReducer,
     finishedDeck: finishedDeckReducer,
+    hideDeck: hideDeckReducer,
 });
 
 export default allReducers;

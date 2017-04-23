@@ -49,6 +49,9 @@ class App extends PureComponent {
       js.src = '//connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
+    //
+
+    this.props.resetDeck();
   }
 
   render() {
@@ -64,6 +67,12 @@ class App extends PureComponent {
 
 //export default App;
 
-export default connect(storeState => ({
-  decks: storeState.decks,
-}))(App);
+export default connect(
+  storeState => ({
+    decks: storeState.decks,
+    finishedDeck: storeState.finishedDeck,
+  }),
+  {
+    resetDeck: actions.resetDeck,
+  }
+)(App);
