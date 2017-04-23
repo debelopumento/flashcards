@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
+import Deck from './components/deck';
 import App from './components/App';
 import NewDeck from './components/newDeck';
 import './index.css';
@@ -19,6 +18,7 @@ ReactDOM.render(
                 </ul>
                 <hr />
                 <Route exact path="/" component={App} />
+                <Route path="/:deck" component={Deck} />
                 <Route exact path="/newDeck" component={NewDeck} />
             </div>
         </Router>

@@ -1,15 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Route, Link } from 'react-router-dom';
-
-const Deck = ({ match }) => {
-  console.log(15);
-  return (
-    <div>
-      hellooo
-    </div>
-  );
-};
+import { Route, Link } from 'react-router-dom';
 
 const { array } = PropTypes;
 class DeckContainer extends PureComponent {
@@ -21,13 +12,11 @@ class DeckContainer extends PureComponent {
   };
   render() {
     const decks = this.props.decks;
-    console.log(11, decks);
     const decksDisplay = Object.keys(decks).map((deckId, index) => {
       const deck = decks[deckId];
-      console.log(12, deckId, index, deck);
       return (
         <li key={index}>
-          <Link to={`/${deck.deckName}`}>{deck.deckName}</Link>
+          <Link to={`/${deck.deckId}`}>{deck.deckName}</Link>
         </li>
       );
     });
@@ -37,8 +26,6 @@ class DeckContainer extends PureComponent {
         <ul>
           {decksDisplay}
         </ul>
-
-        <Route exact path="/deckA" component={Deck} />
 
       </div>
     );

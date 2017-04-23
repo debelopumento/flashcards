@@ -93,7 +93,6 @@ app.get('/deck/:deckId', (req, res) => {
     Decks.findById(deckId)
         .exec()
         .then(deck => {
-            console.log(12, deck);
             Flashcards.find({
                 decks: {
                     $elemMatch: { deckId: deckId },
@@ -103,7 +102,6 @@ app.get('/deck/:deckId', (req, res) => {
                 .then(cards => {
                     res.json({ deck, cards });
                 });
-            //res.json({ deck });
         })
         .catch(err => {
             res.json({ message: 'Internal server error' });

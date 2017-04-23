@@ -25,6 +25,19 @@ export const updateUserId = userId => ({
     payload: userId,
 });
 
+export const lookupDeck = deckId =>
+    dispatch => {
+        const url = host + 'deck/' + deckId;
+        return axios
+            .get(url)
+            .then(data => {
+                dispatch(updateCards(data.data.cards));
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const createDeck = deckName =>
     dispatch => {
         const userId = store.getState().userId;
