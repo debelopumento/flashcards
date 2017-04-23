@@ -53,7 +53,7 @@ class Deck extends PureComponent {
 
           </div>
         : <div>
-            <Link to="/">Main</Link>
+            <Link to="/">Home</Link>
 
             <input onClick={this.flipcard} type="submit" value={display} />
             <input onClick={this.no} type="submit" value="no" />
@@ -63,7 +63,16 @@ class Deck extends PureComponent {
             </Link>
           </div>;
     }
-    return <div />;
+    return (
+      <div>
+        <Link to="/">Home</Link>
+
+        <Link to={`/${this.props.match.params.deck}/newCard`}>
+          Add a New Card
+        </Link>
+        <span>There are no flashcards in this deck.</span>
+      </div>
+    );
   }
 }
 
