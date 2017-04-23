@@ -20,6 +20,21 @@ export const updateCards = cards => ({
     payload: cards,
 });
 
+export const passCard = cardIndex =>
+    dispatch => {
+        let cards = store.getState().cards;
+        if (cards.length === 1) {
+            //go to congratulations page
+            console.log('this is it');
+        } else {
+            cards.splice(cardIndex, 1);
+            dispatch(updateCards(cards));
+            if (cardIndex === cards.length) {
+                store.dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
+            }
+        }
+    };
+
 export const updateUserId = userId => ({
     type: 'LOAD_USERID',
     payload: userId,
@@ -38,8 +53,19 @@ export const lookupDeck = deckId =>
             });
     };
 
-export const goToNextCard = () => ({
-    type: 'GO_TO_NEXT_CARD',
+export const goToNextCard = () =>
+    dispatch => {
+        const cardNumber = store.getState().cards.length;
+        const cardIndex = store.getState().cardIndex;
+        if (cardIndex === cardNumber - 1) {
+            dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
+        } else {
+            dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardIndex + 1 });
+        }
+    };
+
+export const finishedDeck = () => ({
+    type: 'FINISHED_DECK',
     payload: null,
 });
 

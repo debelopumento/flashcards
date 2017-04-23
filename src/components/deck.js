@@ -28,7 +28,8 @@ class Deck extends PureComponent {
     };
 
     yes = () => {
-        this.props.goToNextCard();
+        this.props.passCard(this.props.cardIndex);
+        //this.props.goToNextCard();
     };
 
     componentWillMount() {
@@ -68,5 +69,6 @@ export default connect(
     {
         lookupDeck: actions.lookupDeck,
         goToNextCard: actions.goToNextCard,
+        passCard: actions.passCard,
     }
 )(Deck);

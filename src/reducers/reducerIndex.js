@@ -43,12 +43,18 @@ const userIdReducer = (state = '', action) => {
 
 const cardIndexReducer = (state = 0, action) => {
     switch (action.type) {
-        case 'GO_TO_NEXT_CARD': {
-            const cardNumber = store.getState().cards.length;
-            if (state === cardNumber - 1) {
-                return 0;
-            } else
-                return state + 1;
+        case 'UPDATE_CARD_INDEX': {
+            return action.payload;
+        }
+        default:
+            return state;
+    }
+};
+
+const finishedDeckReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'FINISHED_DECK': {
+            return true;
         }
         default:
             return state;
@@ -61,6 +67,7 @@ const allReducers = combineReducers({
     decks: decksReducer,
     cards: cardsReducer,
     cardIndex: cardIndexReducer,
+    finishedDeck: finishedDeckReducer,
 });
 
 export default allReducers;
