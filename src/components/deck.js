@@ -53,6 +53,8 @@ class Deck extends PureComponent {
 
           </div>
         : <div>
+            <Link to="/">Main</Link>
+
             <input onClick={this.flipcard} type="submit" value={display} />
             <input onClick={this.no} type="submit" value="no" />
             <input onClick={this.yes} type="submit" value="yes" />

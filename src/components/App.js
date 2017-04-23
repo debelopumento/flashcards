@@ -7,6 +7,7 @@ import store from '../store';
 import * as actions from '../actions/actionIndex';
 import './App.css';
 import DeckContainer from './deckContainer';
+import { Route, Link } from 'react-router-dom';
 
 const { array } = PropTypes;
 
@@ -33,6 +34,7 @@ class App extends PureComponent {
         if (response.status === 'connected') {
           FB.api('/me', response => {
             const facebookId = response.id;
+            store.dispatch({ type: 'LOGIN', payload: null });
             store.dispatch(actions.updateFacebookId(facebookId));
             store.dispatch(actions.lookupUser(facebookId));
           });
@@ -55,13 +57,22 @@ class App extends PureComponent {
   }
 
   render() {
-    return (
-      <div className="App">
-        <FacebookLoginButton />
-        <DeckContainer />
+    if (this.props.logedIn === true) {
+      return (
+        <div className="App">
 
-      </div>
-    );
+          <Link to="/newDeck">New Deck</Link>
+          <DeckContainer />
+
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <FacebookLoginButton />
+        </div>
+      );
+    }
   }
 }
 
@@ -69,6 +80,7 @@ export default connect(
   storeState => ({
     decks: storeState.decks,
     finishedDeck: storeState.finishedDeck,
+    logedIn: storeState.logedIn,
   }),
   {
     resetDeck: actions.resetDeck,

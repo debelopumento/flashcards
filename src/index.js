@@ -13,11 +13,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router>
             <div>
-                <ul>
-                    <li><Link to="/">Main</Link></li>
-                    <li><Link to="/newDeck">New Deck</Link></li>
-                </ul>
-                <hr />
+
                 <Route exact path="/" component={App} />
                 <Route path="/:deck" component={Deck} />
                 <Route path="/:deck/newCard" component={NewCard} />
