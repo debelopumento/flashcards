@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import store from '../store';
 import * as actions from '../actions/actionIndex';
 
-class NewCard extends PureComponent {
+class Card extends PureComponent {
     state = {
         cardFront: '',
         cardBack: '',
@@ -41,6 +41,7 @@ class NewCard extends PureComponent {
     componentWillMount() {
         this.setState({ deckId: this.props.match.params.deck });
         this.props.hideCurrentDeck();
+        console.log(99, this.props.match);
     }
     componentWillUnmount() {
         this.props.showCurrentDeck();
@@ -78,4 +79,4 @@ export default connect(
         showCurrentDeck: actions.showCurrentDeck,
         createNewCard: actions.createNewCard,
     }
-)(NewCard);
+)(Card);

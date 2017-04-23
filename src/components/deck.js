@@ -44,10 +44,14 @@ class Deck extends PureComponent {
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
   }
+  componentWillUnmount() {
+    console.log(1, 'unload cards');
+    this.props.unloadCards();
+  }
 
   render() {
-    if (this.props.cards.length !== 0 && this.props.hideDeck === false) {
-      const display = this.state.showFront === true
+    if (this.props.cardsLoaded && this.props.hideDeck === false) {
+      let display = this.state.showFront === true
         ? this.props.cards[this.props.cardIndex].cardFront
         : this.props.cards[this.props.cardIndex].cardBack;
 
@@ -70,21 +74,30 @@ class Deck extends PureComponent {
               type="submit"
               value="Delete This Card"
             />
+            <Link
+              to={
+                `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
+              }
+            >
+              Edit Card
+            </Link>
             <Link to={`/${this.props.match.params.deck}/newCard`}>
               Add a New Card
             </Link>
           </div>;
-    }
-    return (
-      <div>
-        <Link to="/">Home</Link>
+    } else if (this.props.cards.length === 0) {
+      return (
+        <div>
+          <Link to="/">Home</Link>
 
-        <Link to={`/${this.props.match.params.deck}/newCard`}>
-          Add a New Card
-        </Link>
-        <span>There are no flashcards in this deck.</span>
-      </div>
-    );
+          <Link to={`/${this.props.match.params.deck}/newCard`}>
+            Add a New Card
+          </Link>
+          <span>There are no flashcards in this deck.</span>
+        </div>
+      );
+    } else
+      return <div />;
   }
 }
 
@@ -95,6 +108,7 @@ export default connect(
     cardIndex: storeState.cardIndex,
     finishedDeck: storeState.finishedDeck,
     hideDeck: storeState.hideDeck,
+    cardsLoaded: storeState.cardsLoaded,
   }),
   {
     lookupDeck: actions.lookupDeck,
@@ -103,5 +117,6 @@ export default connect(
     hideCurrentDeck: actions.hideCurrentDeck,
     showCurrentDeck: actions.showCurrentDeck,
     deleteCard: actions.deleteCard,
+    unloadCards: actions.unloadCards,
   }
 )(Deck);

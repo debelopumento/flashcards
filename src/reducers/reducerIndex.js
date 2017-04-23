@@ -87,6 +87,19 @@ const logedInReducer = (state = false, action) => {
     }
 };
 
+const cardsLoadedReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'CARDS_LOADED': {
+            return true;
+        }
+        case 'UNLOAD_CARDS': {
+            return false;
+        }
+        default:
+            return state;
+    }
+};
+
 const allReducers = combineReducers({
     userId: userIdReducer,
     facebookId: facebookIdReducer,
@@ -96,6 +109,7 @@ const allReducers = combineReducers({
     finishedDeck: finishedDeckReducer,
     hideDeck: hideDeckReducer,
     logedIn: logedInReducer,
+    cardsLoaded: cardsLoadedReducer,
 });
 
 export default allReducers;

@@ -59,11 +59,26 @@ export const passCard = cardIndex =>
                 payload: null,
             });
         } else {
+            const cardNumber = store.getState().cards.length;
+            const cardIndex = store.getState().cardIndex;
+            if (cardIndex === cardNumber - 1) {
+                dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
+            } else {
+                dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardIndex + 1 });
+            }
             cards.splice(cardIndex, 1);
             dispatch(updateCards(cards));
-            if (cardIndex === cards.length) {
-                store.dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
-            }
+        }
+    };
+
+export const goToNextCard = () =>
+    dispatch => {
+        const cardNumber = store.getState().cards.length;
+        const cardIndex = store.getState().cardIndex;
+        if (cardIndex === cardNumber - 1) {
+            dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
+        } else {
+            dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardIndex + 1 });
         }
     };
 
@@ -80,21 +95,21 @@ export const lookupDeck = deckId =>
             .then(data => {
                 dispatch(updateCards(data.data.cards));
             })
+            .then(() => {
+                dispatch({
+                    type: 'CARDS_LOADED',
+                    payload: null,
+                });
+            })
             .catch(e => {
                 console.log(e);
             });
     };
 
-export const goToNextCard = () =>
-    dispatch => {
-        const cardNumber = store.getState().cards.length;
-        const cardIndex = store.getState().cardIndex;
-        if (cardIndex === cardNumber - 1) {
-            dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
-        } else {
-            dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardIndex + 1 });
-        }
-    };
+export const unloadCards = () => ({
+    type: 'UNLOAD_CARDS',
+    payload: null,
+});
 
 export const finishedDeck = () => ({
     type: 'FINISHED_DECK',
