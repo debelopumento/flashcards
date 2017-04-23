@@ -34,7 +34,6 @@ class NewCard extends PureComponent {
                 },
             ],
         };
-        console.log(15, newCard);
         this.props.createNewCard(newCard);
         this.setState({ redirect: true });
     };

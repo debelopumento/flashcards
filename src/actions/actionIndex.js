@@ -20,6 +20,20 @@ export const updateCards = cards => ({
     payload: cards,
 });
 
+export const deleteCard = (cardId, cardIndex) =>
+    dispatch => {
+        const url = host + 'deleteCard/' + cardId;
+        return axios
+            .delete(url)
+            .then(data => {
+                console.log('card deleted');
+                dispatch(passCard(cardIndex));
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const createNewCard = newCard =>
     dispatch => {
         const url = host + 'createnewcard/';

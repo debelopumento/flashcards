@@ -110,10 +110,8 @@ app.get('/deck/:deckId', (req, res) => {
 
 //create a card
 app.post('/createnewcard', (req, res) => {
-    console.log(9, req.body);
     const newCard = req.body;
     const deckId = newCard.decks[0].deckId;
-
     Flashcards.create(newCard)
         .then(newCard => {
             Decks.findById(deckId).exec().then(deck => {
@@ -129,6 +127,19 @@ app.post('/createnewcard', (req, res) => {
                         res.json({ message: 'Internal server error' });
                     });
             });
+        })
+        .catch(e => {
+            res.json({ message: 'Internal server error' });
+        });
+});
+
+//delete a card
+app.delete('/deleteCard/:cardId', (req, res) => {
+    const cardId = req.params.cardId;
+    Flashcards.findByIdAndRemove(cardId)
+        .exec()
+        .then(data => {
+            res.json({ data });
         })
         .catch(e => {
             res.json({ message: 'Internal server error' });

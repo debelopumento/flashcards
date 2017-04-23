@@ -32,6 +32,13 @@ class Deck extends PureComponent {
     this.props.passCard(this.props.cardIndex);
   };
 
+  deleteCard = () => {
+    this.props.deleteCard(
+      this.props.cards[this.props.cardIndex]._id,
+      this.props.cardIndex
+    );
+  };
+
   componentWillMount() {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
@@ -58,6 +65,11 @@ class Deck extends PureComponent {
             <input onClick={this.flipcard} type="submit" value={display} />
             <input onClick={this.no} type="submit" value="no" />
             <input onClick={this.yes} type="submit" value="yes" />
+            <input
+              onClick={this.deleteCard}
+              type="submit"
+              value="Delete This Card"
+            />
             <Link to={`/${this.props.match.params.deck}/newCard`}>
               Add a New Card
             </Link>
@@ -90,5 +102,6 @@ export default connect(
     passCard: actions.passCard,
     hideCurrentDeck: actions.hideCurrentDeck,
     showCurrentDeck: actions.showCurrentDeck,
+    deleteCard: actions.deleteCard,
   }
 )(Deck);
