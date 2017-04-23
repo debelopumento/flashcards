@@ -133,6 +133,19 @@ app.post('/createnewcard', (req, res) => {
         });
 });
 
+//edit a card
+app.put('/editCard/:cardId', (req, res) => {
+    const cardId = req.params.cardId;
+    Flashcards.findByIdAndUpdate(cardId, req.body)
+        .exec()
+        .then(data => {
+            res.json({ data });
+        })
+        .catch(e => {
+            res.json({ message: 'Internal server error' });
+        });
+});
+
 //delete a card
 app.delete('/deleteCard/:cardId', (req, res) => {
     const cardId = req.params.cardId;
