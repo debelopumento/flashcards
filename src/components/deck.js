@@ -26,10 +26,12 @@ class Deck extends PureComponent {
 
   no = () => {
     this.props.goToNextCard();
+    this.setState({ showFront: true });
   };
 
   yes = () => {
     this.props.passCard(this.props.cardIndex);
+    this.setState({ showFront: true });
   };
 
   deleteCard = () => {
