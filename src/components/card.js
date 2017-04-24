@@ -53,14 +53,16 @@ class Card extends PureComponent {
             ? 'newCard'
             : 'editCard';
 
-        //this.state.type = type;
-        this.setState({ type: type });
+        this.state.type = type;
+        //this.setState({ type: type });
         if (this.state.type === 'editCard') {
             this.props.loadEditedCard();
         }
     }
 
     componentDidUpdate() {
+        console.log(40, this.props.editCard, 41, this.state);
+
         this.setState({
             cardFront: this.state.type === 'editCard'
                 ? this.props.editCard.cardFront
@@ -75,7 +77,6 @@ class Card extends PureComponent {
     }
 
     render() {
-        console.log(40, this.props, 41, this.state);
         if (this.state.redirect) {
             return <Redirect to={`/${this.state.deckId}`} />;
         }
