@@ -38,7 +38,6 @@ class Card extends PureComponent {
                 },
             ],
         };
-        console.log(23, newCard);
         if (this.state.type === 'newCard') {
             this.props.createNewCard(newCard);
         } else {

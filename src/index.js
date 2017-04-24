@@ -18,7 +18,10 @@ ReactDOM.render(
                 <Route exact path="/" component={App} />
                 <Route path="/newDeck" component={NewDeck} />
                 <Route path="/:deck" component={Deck} />
-                <Route path="/editdeck/:deckid" component={EditDeck} />
+                <Route
+                    path="/editdeck/:deckId-:deckName"
+                    component={EditDeck}
+                />
                 <Route path="/:deck/newCard" component={Card} />
                 <Route path="/:deck/editCard/:card" component={Card} />
 

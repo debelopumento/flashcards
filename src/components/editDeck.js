@@ -8,6 +8,7 @@ class EditDeck extends PureComponent {
     state = {
         deckName: '',
         redirect: false,
+        deckId: '',
     };
 
     handleChange = event => {
@@ -21,6 +22,12 @@ class EditDeck extends PureComponent {
         this.setState({ redirect: true });
     };
 
+    componentWillMount() {
+        console.log(2, this.props.match);
+        this.setState({ deckId: this.props.match.params.deckId });
+        this.setState({ deckName: this.props.match.params.deckName });
+    }
+
     render() {
         if (this.state.redirect) {
             return <Redirect to="/" />;
@@ -31,7 +38,7 @@ class EditDeck extends PureComponent {
                 <input
                     type="text"
                     onChange={this.handleChange}
-                    placeholder="Enter Deck Name"
+                    value={this.state.deckName}
                 />
                 <input type="submit" value="Submit" onClick={this.submit} />
             </div>

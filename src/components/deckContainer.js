@@ -18,7 +18,9 @@ class DeckContainer extends PureComponent {
       return (
         <li key={index}>
           <Link to={`/${deck.deckId}`}>{deck.deckName}</Link>
-          <Link to={`/editdeck/${deck.deckId}`}>Edit Deck</Link>
+          <Link to={`/editdeck/${deck.deckId}-${deck.deckName}`}>
+            Edit Deck
+          </Link>
         </li>
       );
     });

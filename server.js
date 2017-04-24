@@ -26,12 +26,15 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+let FACEBOOKID;
+
 //look up user in users collection
 app.get('/main/:facebookId', (req, res) => {
     const facebookId = req.params.facebookId;
     Users.find({ facebookId: facebookId })
         .exec()
         .then(data => {
+            FACEBOOKID = facebookId;
             if (data.length === 0) {
                 //add a new user to userscollection
                 const newUser = {
@@ -104,6 +107,42 @@ app.get('/deck/:deckId', (req, res) => {
                 });
         })
         .catch(err => {
+            res.json({ message: 'Internal server error' });
+        });
+});
+
+//edit a deck
+app.put('/editdeck/:deckId', (req, res) => {
+    const deckId = req.params.deckId;
+    const newDeck = req.body.deckInfo;
+    const userId = req.body.userInfo.userId;
+    Decks.findByIdAndUpdate(deckId, newDeck)
+        .exec()
+        .then(data => {
+            Users.findById(userId).exec().then(user => {
+                let decks = user.decks;
+                const newDecks = decks.map(deck => {
+                    if (deck.deckId === deckId) {
+                        const updatedDeck = {
+                            deckName: newDeck.deckName,
+                            deckId: deckId,
+                        };
+                        return updatedDeck;
+                    } else
+                        return deck;
+                });
+                user.decks = newDecks;
+                Users.findByIdAndUpdate(userId, user)
+                    .exec()
+                    .then(result => {
+                        res.json({ newDeck, user });
+                    })
+                    .catch(e => {
+                        res.json({ message: 'Internal server error' });
+                    });
+            });
+        })
+        .catch(e => {
             res.json({ message: 'Internal server error' });
         });
 });
