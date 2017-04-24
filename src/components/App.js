@@ -62,7 +62,6 @@ class App extends PureComponent {
     if (this.props.logedIn === true) {
       return (
         <div className="App">
-
           <Link to="/newDeck">New Deck</Link>
           <DeckContainer />
 

@@ -51,16 +51,23 @@ class Deck extends PureComponent {
     this.props.unloadCards();
   }
   componentDidUpdate() {
-    const display = this.state.showFront === true
-      ? this.props.cards[this.props.cardIndex].cardFront
-      : this.props.cards[this.props.cardIndex].cardBack;
-    this.setState({
-      display: display,
-    });
+    if (this.props.cards.length > 0) {
+      const display = this.state.showFront === true
+        ? this.props.cards[this.props.cardIndex].cardFront
+        : this.props.cards[this.props.cardIndex].cardBack;
+      this.setState({
+        display: display,
+      });
+    }
   }
 
   render() {
-    if (this.props.cardsLoaded && this.props.hideDeck === false) {
+    if (
+      this.props.cardsLoaded &&
+      this.props.hideDeck === false &&
+      this.props.cards.length > 0
+    ) {
+      console.log('deck not empty');
       return this.props.finishedDeck === true
         ? <div>
             <span>Congratulations! You have finished this deck.</span>
@@ -96,6 +103,8 @@ class Deck extends PureComponent {
             </Link>
           </div>;
     } else if (this.props.cardsLoaded && this.props.cards.length === 0) {
+      console.log('deck empty');
+
       return (
         <div>
           <Link to="/">Home</Link>

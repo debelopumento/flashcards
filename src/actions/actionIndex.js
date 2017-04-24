@@ -103,7 +103,6 @@ export const passCard = cardIndex =>
         } else {
             const cardLength = store.getState().cards.length;
             const cardIndex = store.getState().cardIndex;
-            //const updatedCards = cards.splice(cardIndex, 1);
             let updatedCards = [];
             let index = 0;
             cards.forEach(card => {
@@ -141,9 +140,20 @@ export const createNewCard = newCard =>
             .post(url, newCard)
             .then(data => {
                 const addedCard = data.data.newCard;
+                /* ??????????????????
                 const cards = store.getState().cards;
                 cards.push(addedCard);
-                dispatch(updateCards(cards));
+                */
+                const oldCards = store.getState().cards;
+                let newCards = [];
+                for (let i = 0; i <= oldCards.length; i++) {
+                    if (i < oldCards.length) {
+                        newCards.push(oldCards[i]);
+                    } else
+                        newCards.push(addedCard);
+                }
+
+                dispatch(updateCards(newCards));
             })
             .catch(e => {
                 console.log(e);
@@ -196,6 +206,7 @@ export const lookupDeck = deckId =>
         return axios
             .get(url)
             .then(data => {
+                console.log(50, data.data.cards);
                 dispatch(updateCards(data.data.cards));
             })
             .then(() => {
@@ -203,6 +214,7 @@ export const lookupDeck = deckId =>
                     type: 'CARDS_LOADED',
                     payload: null,
                 });
+                console.log(51);
             })
             .catch(e => {
                 console.log(e);

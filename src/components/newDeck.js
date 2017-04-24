@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router';
-
+import { Link } from 'react-router-dom';
 import store from '../store';
 import * as actions from '../actions/actionIndex';
 
@@ -28,6 +28,8 @@ class NewDeck extends PureComponent {
 
         return (
             <div>
+                <Link to="/">Home</Link>
+
                 <input
                     type="text"
                     onChange={this.handleChange}
