@@ -100,6 +100,16 @@ const cardsLoadedReducer = (state = false, action) => {
     }
 };
 
+const editCardReducer = (state = null, action) => {
+    switch (action.type) {
+        case 'LOAD_EDITED_CARD': {
+            return action.payload;
+        }
+        default:
+            return state;
+    }
+};
+
 const allReducers = combineReducers({
     userId: userIdReducer,
     facebookId: facebookIdReducer,
@@ -110,6 +120,7 @@ const allReducers = combineReducers({
     hideDeck: hideDeckReducer,
     logedIn: logedInReducer,
     cardsLoaded: cardsLoadedReducer,
+    editCard: editCardReducer,
 });
 
 export default allReducers;

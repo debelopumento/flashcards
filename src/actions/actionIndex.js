@@ -50,6 +50,22 @@ export const createNewCard = newCard =>
             });
     };
 
+export const editCardAction = (cardId, newCard) =>
+    dispatch => {
+        const url = host + 'editCard/' + cardId;
+        return axios
+            .put(url, newCard)
+            .then(data => {
+                let cards = store.getState().cards;
+                const cardIndex = store.getState().cardIndex;
+                cards[cardIndex] = newCard;
+                dispatch(updateCards(cards));
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const passCard = cardIndex =>
     dispatch => {
         let cards = store.getState().cards;
@@ -152,6 +168,18 @@ export const lookupUser = facebookId =>
             .catch(e => {
                 console.log(e);
             });
+    };
+
+export const loadEditedCard = () =>
+    dispatch => {
+        const cards = store.getState().cards;
+        const cardIndex = store.getState().cardIndex;
+        const card = cards[cardIndex];
+        console.log(21, card);
+        dispatch({
+            type: 'LOAD_EDITED_CARD',
+            payload: card,
+        });
     };
 
 export const hideCurrentDeck = () => ({

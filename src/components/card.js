@@ -11,15 +11,19 @@ class Card extends PureComponent {
         cardBack: '',
         redirect: false,
         deckId: '',
+        cardId: '',
+        type: '',
     };
 
     cardFront = event => {
         const cardFront = event.target.value;
-        this.setState({ cardFront: cardFront });
+        //this.setState({ cardFront: cardFront });
+        this.state.cardFront = cardFront;
     };
     cardBack = event => {
         const cardBack = event.target.value;
-        this.setState({ cardBack: cardBack });
+        //this.setState({ cardBack: cardBack });
+        this.state.cardBack = cardBack;
     };
 
     submit = event => {
@@ -34,14 +38,38 @@ class Card extends PureComponent {
                 },
             ],
         };
-        this.props.createNewCard(newCard);
+        console.log(23, newCard);
+        if (this.state.type === 'newCard') {
+            this.props.createNewCard(newCard);
+        } else {
+            this.props.editCardAction(this.props.editCard._id, newCard);
+        }
         this.setState({ redirect: true });
     };
 
     componentWillMount() {
         this.setState({ deckId: this.props.match.params.deck });
         this.props.hideCurrentDeck();
-        console.log(99, this.props.match);
+        const type = this.props.match.params.card === undefined
+            ? 'newCard'
+            : 'editCard';
+
+        this.state.type = type;
+        if (this.state.type === 'editCard') {
+            this.props.loadEditedCard();
+        }
+    }
+
+    componentDidUpdate() {
+        this.setState({ cardFront: this.props.editCard.cardFront });
+        this.setState({
+            cardFront: this.state.type === 'editCard'
+                ? this.props.editCard.cardFront
+                : 'Flashcard Front',
+            cardBack: this.state.type === 'editCard'
+                ? this.props.editCard.cardBack
+                : 'Flashcard Back',
+        });
     }
     componentWillUnmount() {
         this.props.showCurrentDeck();
@@ -57,12 +85,12 @@ class Card extends PureComponent {
                 <input
                     type="text"
                     onChange={this.cardFront}
-                    placeholder="Flashcard Front"
+                    placeholder={this.state.cardFront}
                 />
                 <input
                     type="text"
                     onChange={this.cardBack}
-                    placeholder="Flashcard Back"
+                    placeholder={this.state.cardBack}
                 />
                 <input type="submit" value="Submit" onClick={this.submit} />
             </div>
@@ -73,10 +101,13 @@ class Card extends PureComponent {
 export default connect(
     storeState => ({
         hideDeck: storeState.hideDeck,
+        editCard: storeState.editCard,
     }),
     {
         hideCurrentDeck: actions.hideCurrentDeck,
         showCurrentDeck: actions.showCurrentDeck,
         createNewCard: actions.createNewCard,
+        loadEditedCard: actions.loadEditedCard,
+        editCardAction: actions.editCardAction,
     }
 )(Card);
