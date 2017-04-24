@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-
-import store from '../store';
 import * as actions from '../actions/actionIndex';
 
 class Card extends PureComponent {
@@ -17,13 +15,13 @@ class Card extends PureComponent {
 
     cardFront = event => {
         const cardFront = event.target.value;
-        //this.setState({ cardFront: cardFront });
-        this.state.cardFront = cardFront;
+        this.setState({ cardFront: cardFront });
+        //this.state.cardFront = cardFront;
     };
     cardBack = event => {
         const cardBack = event.target.value;
-        //this.setState({ cardBack: cardBack });
-        this.state.cardBack = cardBack;
+        this.setState({ cardBack: cardBack });
+        //this.state.cardBack = cardBack;
     };
 
     submit = event => {
@@ -53,7 +51,8 @@ class Card extends PureComponent {
             ? 'newCard'
             : 'editCard';
 
-        this.state.type = type;
+        //this.state.type = type;
+        this.setState({ type: type });
         if (this.state.type === 'editCard') {
             this.props.loadEditedCard();
         }

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import store from '../store';
 import * as actions from '../actions/actionIndex';
 
 class EditDeck extends PureComponent {

@@ -1,9 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actionIndex';
-import { Route, Link } from 'react-router-dom';
-import store from '../store';
-const { array, number, object, string } = PropTypes;
+import { Link } from 'react-router-dom';
+
+const { array, number } = PropTypes;
 
 class Deck extends PureComponent {
   static PropTypes = {

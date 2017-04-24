@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import store from '../store';
 
 const facebookIdReducer = (state = null, action) => {
     switch (action.type) {

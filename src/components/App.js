@@ -7,7 +7,7 @@ import store from '../store';
 import * as actions from '../actions/actionIndex';
 import './App.css';
 import DeckContainer from './deckContainer';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { array } = PropTypes;
 

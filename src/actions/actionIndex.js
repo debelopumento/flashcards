@@ -92,6 +92,34 @@ export const deleteDeck = (deckId, userId) =>
             });
     };
 
+export const passCard = cardIndex =>
+    dispatch => {
+        const cards = store.getState().cards;
+        if (cards.length === 1) {
+            dispatch({
+                type: 'FINISHED_DECK',
+                payload: null,
+            });
+        } else {
+            const cardLength = store.getState().cards.length;
+            const cardIndex = store.getState().cardIndex;
+            //const updatedCards = cards.splice(cardIndex, 1);
+            let updatedCards = [];
+            let index = 0;
+            cards.forEach(card => {
+                if (index !== cardIndex) {
+                    updatedCards.push(card);
+                }
+                index++;
+            });
+            dispatch(updateCards(updatedCards));
+            if (cardIndex === cardLength - 1) {
+                //when the displayed card is the last one in deck
+                dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
+            }
+        }
+    };
+
 export const deleteCard = (cardId, cardIndex) =>
     dispatch => {
         const url = host + 'deleteCard/' + cardId;
@@ -144,34 +172,6 @@ export const editCardAction = (cardId, newCard) =>
             .catch(e => {
                 console.log(e);
             });
-    };
-
-export const passCard = cardIndex =>
-    dispatch => {
-        const cards = store.getState().cards;
-        if (cards.length === 1) {
-            dispatch({
-                type: 'FINISHED_DECK',
-                payload: null,
-            });
-        } else {
-            const cardLength = store.getState().cards.length;
-            const cardIndex = store.getState().cardIndex;
-            //const updatedCards = cards.splice(cardIndex, 1);
-            let updatedCards = [];
-            let index = 0;
-            cards.forEach(card => {
-                if (index !== cardIndex) {
-                    updatedCards.push(card);
-                }
-                index++;
-            });
-            dispatch(updateCards(updatedCards));
-            if (cardIndex === cardLength - 1) {
-                //when the displayed card is the last one in deck
-                dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
-            }
-        }
     };
 
 export const goToNextCard = () =>
