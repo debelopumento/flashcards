@@ -16,10 +16,17 @@ class EditDeck extends PureComponent {
         this.setState({ deckName: deckName });
     };
 
-    submit = event => {
+    submitChange = event => {
         const deckName = this.state.deckName;
         const deckId = this.state.deckId;
-        store.dispatch(actions.editDeck(deckName, deckId));
+        this.props.editDeck(deckName, deckId);
+        this.setState({ redirect: true });
+    };
+
+    deleteDeck = event => {
+        const userId = this.props.userId;
+        console.log(22, userId);
+        this.props.deleteDeck(this.state.deckId, userId);
         this.setState({ redirect: true });
     };
 
@@ -41,7 +48,16 @@ class EditDeck extends PureComponent {
                     onChange={this.handleChange}
                     value={this.state.deckName}
                 />
-                <input type="submit" value="Submit" onClick={this.submit} />
+                <input
+                    type="submit"
+                    value="Submit"
+                    onClick={this.submitChange}
+                />
+                <input
+                    type="submit"
+                    value="Delete Deck"
+                    onClick={this.deleteDeck}
+                />
             </div>
         );
     }
@@ -49,15 +65,10 @@ class EditDeck extends PureComponent {
 
 export default connect(
     storeState => ({
-        hideDeck: storeState.hideDeck,
-        editCard: storeState.editCard,
+        userId: storeState.userId,
     }),
     {
-        hideCurrentDeck: actions.hideCurrentDeck,
-        showCurrentDeck: actions.showCurrentDeck,
-        createNewCard: actions.createNewCard,
-        loadEditedCard: actions.loadEditedCard,
-        editCardAction: actions.editCardAction,
         editDeck: actions.editDeck,
+        deleteDeck: actions.deleteDeck,
     }
 )(EditDeck);

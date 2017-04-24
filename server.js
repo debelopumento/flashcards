@@ -119,10 +119,8 @@ app.put('/editdeck/:deckId', (req, res) => {
     Decks.findByIdAndUpdate(deckId, newDeck)
         .exec()
         .then(data => {
-            console.log(80, deckId, 80.1, newDeck, 80.2, userId);
-            console.log(81, data);
             Users.findById(userId).exec().then(user => {
-                let decks = user.decks;
+                const decks = user.decks;
                 const newDecks = decks.map(deck => {
                     if (deck.deckId === deckId) {
                         const updatedDeck = {
@@ -133,12 +131,10 @@ app.put('/editdeck/:deckId', (req, res) => {
                     } else
                         return deck;
                 });
-                console.log(82);
                 user.decks = newDecks;
                 Users.findByIdAndUpdate(userId, user)
                     .exec()
                     .then(result => {
-                        console.log(83);
                         res.json({ newDeck, user });
                     })
                     .catch(e => {
@@ -152,12 +148,34 @@ app.put('/editdeck/:deckId', (req, res) => {
 });
 
 //delete a deck
-app.delete('/deletedeck/:deckId', (req, res) => {
+app.delete('/deletedeck/:deckId/:userId', (req, res) => {
     const deckId = req.params.deckId;
+    const userId = req.params.userId;
+    console.log(81, deckId, userId);
     Decks.findByIdAndRemove(deckId)
         .exec()
         .then(deck => {
-            res.json({ deck });
+            console.log(82, deck);
+            //update user's deck list in user database collection
+            Users.findById(userId).exec().then(user => {
+                const decks = user.decks;
+                let newDecks = [];
+                decks.forEach(deck => {
+                    if (deck.deckId !== deckId) {
+                        newDecks.push(deck);
+                    }
+                });
+                console.log(83, newDecks);
+                user.decks = newDecks;
+                Users.findByIdAndUpdate(userId, user)
+                    .exec()
+                    .then(result => {
+                        res.json({ newDecks, user });
+                    })
+                    .catch(e => {
+                        res.json({ message: 'Internal server error' });
+                    });
+            });
         })
         .catch(err => {
             res.json({ message: 'Internal server error' });

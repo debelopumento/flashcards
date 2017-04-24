@@ -35,7 +35,6 @@ export const editDeck = (deckName, deckId) =>
         return axios
             .put(url, reqBody)
             .then(data => {
-                console.log(44, data);
                 const oldDecks = store.getState().decks;
                 const newDecks = oldDecks.map(deck => {
                     if (deck.deckId === deckId) {
@@ -46,6 +45,22 @@ export const editDeck = (deckName, deckId) =>
                     } else
                         return deck;
                 });
+                dispatch(updateDecks(newDecks));
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
+export const deleteDeck = (deckId, userId) =>
+    dispatch => {
+        const url = host + 'deletedeck/' + deckId + '/' + userId;
+        console.log(23, url);
+        return axios
+            .delete(url)
+            .then(data => {
+                console.log(22, data);
+                const newDecks = data.data.newDecks;
                 dispatch(updateDecks(newDecks));
             })
             .catch(e => {

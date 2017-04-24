@@ -10,10 +10,6 @@ class NewDeck extends PureComponent {
         redirect: false,
     };
 
-    componentWillMount() {
-        console.log(31);
-    }
-
     handleChange = event => {
         const deckName = event.target.value;
         this.setState({ deckName: deckName });
