@@ -20,6 +20,39 @@ export const updateCards = cards => ({
     payload: cards,
 });
 
+export const editDeck = (deckName, deckId) =>
+    dispatch => {
+        const userId = store.getState().userId;
+        const url = host + 'editdeck/' + deckId;
+        const reqBody = {
+            deckInfo: {
+                deckName: deckName,
+            },
+            userInfo: {
+                userId: userId,
+            },
+        };
+        return axios
+            .put(url, reqBody)
+            .then(data => {
+                console.log(44, data);
+                const oldDecks = store.getState().decks;
+                const newDecks = oldDecks.map(deck => {
+                    if (deck.deckId === deckId) {
+                        return {
+                            deckId: deckId,
+                            deckName: deckName,
+                        };
+                    } else
+                        return deck;
+                });
+                dispatch(updateDecks(newDecks));
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const deleteCard = (cardId, cardIndex) =>
     dispatch => {
         const url = host + 'deleteCard/' + cardId;

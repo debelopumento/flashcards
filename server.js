@@ -119,6 +119,8 @@ app.put('/editdeck/:deckId', (req, res) => {
     Decks.findByIdAndUpdate(deckId, newDeck)
         .exec()
         .then(data => {
+            console.log(80, deckId, 80.1, newDeck, 80.2, userId);
+            console.log(81, data);
             Users.findById(userId).exec().then(user => {
                 let decks = user.decks;
                 const newDecks = decks.map(deck => {
@@ -131,10 +133,12 @@ app.put('/editdeck/:deckId', (req, res) => {
                     } else
                         return deck;
                 });
+                console.log(82);
                 user.decks = newDecks;
                 Users.findByIdAndUpdate(userId, user)
                     .exec()
                     .then(result => {
+                        console.log(83);
                         res.json({ newDeck, user });
                     })
                     .catch(e => {

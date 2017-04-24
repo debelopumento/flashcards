@@ -18,7 +18,8 @@ class EditDeck extends PureComponent {
 
     submit = event => {
         const deckName = this.state.deckName;
-        store.dispatch(actions.createDeck(deckName));
+        const deckId = this.state.deckId;
+        store.dispatch(actions.editDeck(deckName, deckId));
         this.setState({ redirect: true });
     };
 
@@ -57,5 +58,6 @@ export default connect(
         createNewCard: actions.createNewCard,
         loadEditedCard: actions.loadEditedCard,
         editCardAction: actions.editCardAction,
+        editDeck: actions.editDeck,
     }
 )(EditDeck);
