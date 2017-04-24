@@ -2,7 +2,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actionIndex';
 import { Route, Link } from 'react-router-dom';
-
+import store from '../store';
 const { array, number, object, string } = PropTypes;
 
 class Deck extends PureComponent {
@@ -48,16 +48,15 @@ class Deck extends PureComponent {
     this.props.showCurrentDeck();
   }
   componentWillUnmount() {
-    console.log(1, 'unload cards');
     this.props.unloadCards();
   }
   componentDidUpdate() {
+    const display = this.state.showFront === true
+      ? this.props.cards[this.props.cardIndex].cardFront
+      : this.props.cards[this.props.cardIndex].cardBack;
     this.setState({
-      display: this.state.showFront === true
-        ? this.props.cards[this.props.cardIndex].cardFront
-        : this.props.cards[this.props.cardIndex].cardBack,
+      display: display,
     });
-    console.log(30, JSON.stringify(this.props.cards), this.state.display);
   }
 
   render() {

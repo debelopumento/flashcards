@@ -55,11 +55,9 @@ export const editDeck = (deckName, deckId) =>
 export const deleteDeck = (deckId, userId) =>
     dispatch => {
         const url = host + 'deletedeck/' + deckId + '/' + userId;
-        console.log(23, url);
         return axios
             .delete(url)
             .then(data => {
-                console.log(22, data);
                 const newDecks = data.data.newDecks;
                 dispatch(updateDecks(newDecks));
             })
@@ -104,11 +102,18 @@ export const editCardAction = (cardId, newCard) =>
         return axios
             .put(url, newCard)
             .then(data => {
-                let cards = store.getState().cards;
+                const cards = store.getState().cards;
                 const cardIndex = store.getState().cardIndex;
-                cards[cardIndex] = newCard;
-                console.log(28);
-                dispatch(updateCards(cards));
+                let newCards = [];
+                let index = 0;
+                cards.forEach(card => {
+                    if (index === cardIndex) {
+                        newCards.push(newCard);
+                    } else
+                        newCards.push(card);
+                    index++;
+                });
+                dispatch(updateCards(newCards));
             })
             .catch(e => {
                 console.log(e);
@@ -117,30 +122,37 @@ export const editCardAction = (cardId, newCard) =>
 
 export const passCard = cardIndex =>
     dispatch => {
-        let cards = store.getState().cards;
+        const cards = store.getState().cards;
         if (cards.length === 1) {
             dispatch({
                 type: 'FINISHED_DECK',
                 payload: null,
             });
         } else {
-            const cardNumber = store.getState().cards.length;
+            const cardLength = store.getState().cards.length;
             const cardIndex = store.getState().cardIndex;
-            if (cardIndex === cardNumber - 1) {
+            //const updatedCards = cards.splice(cardIndex, 1);
+            let updatedCards = [];
+            let index = 0;
+            cards.forEach(card => {
+                if (index !== cardIndex) {
+                    updatedCards.push(card);
+                }
+                index++;
+            });
+            dispatch(updateCards(updatedCards));
+            if (cardIndex === cardLength - 1) {
+                //when the displayed card is the last one in deck
                 dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
-            } else {
-                dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardIndex + 1 });
             }
-            cards.splice(cardIndex, 1);
-            dispatch(updateCards(cards));
         }
     };
 
 export const goToNextCard = () =>
     dispatch => {
-        const cardNumber = store.getState().cards.length;
+        const cardLength = store.getState().cards.length;
         const cardIndex = store.getState().cardIndex;
-        if (cardIndex === cardNumber - 1) {
+        if (cardIndex === cardLength - 1) {
             dispatch({ type: 'UPDATE_CARD_INDEX', payload: 0 });
         } else {
             dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardIndex + 1 });
@@ -171,10 +183,12 @@ export const lookupDeck = deckId =>
             });
     };
 
-export const unloadCards = () => ({
-    type: 'UNLOAD_CARDS',
-    payload: null,
-});
+export const unloadCards = () =>
+    dispatch => {
+        dispatch({ type: 'UNLOAD_CARDS', payload: null });
+        dispatch({ type: 'RESET_CARDS', payload: null });
+        dispatch({ type: 'RESET_DECK', payload: null });
+    };
 
 export const finishedDeck = () => ({
     type: 'FINISHED_DECK',

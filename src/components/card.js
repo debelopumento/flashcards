@@ -75,6 +75,7 @@ class Card extends PureComponent {
     }
 
     render() {
+        console.log(40, this.props, 41, this.state);
         if (this.state.redirect) {
             return <Redirect to={`/${this.state.deckId}`} />;
         }

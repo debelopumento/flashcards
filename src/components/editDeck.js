@@ -25,7 +25,6 @@ class EditDeck extends PureComponent {
 
     deleteDeck = event => {
         const userId = this.props.userId;
-        console.log(22, userId);
         this.props.deleteDeck(this.state.deckId, userId);
         this.setState({ redirect: true });
     };

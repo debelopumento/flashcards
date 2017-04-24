@@ -26,6 +26,9 @@ const cardsReducer = (state = [], action) => {
         case 'LOAD_CARDS': {
             return action.payload;
         }
+        case 'RESET_CARDS': {
+            return [];
+        }
         default:
             return state;
     }
