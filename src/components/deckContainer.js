@@ -2,15 +2,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
-const { array } = PropTypes;
 class DeckContainer extends PureComponent {
-  static PropTypes = {
-    decks: array,
-  };
-  state = {
-    decks: [],
-  };
-
   render() {
     const decks = this.props.decks;
     const decksDisplay = Object.keys(decks).map((deckId, index) => {
@@ -27,11 +19,9 @@ class DeckContainer extends PureComponent {
 
     return (
       <div className="DeckContainer">
-
         <ul>
           {decksDisplay}
         </ul>
-
       </div>
     );
   }

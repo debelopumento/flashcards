@@ -20,8 +20,33 @@ export const updateCards = cards => ({
     payload: cards,
 });
 
+export const createDeck = deckName =>
+    dispatch => {
+        const userId = store.getState().userId;
+        const url = host + 'createDeck/' + deckName + '/' + userId;
+        return axios
+            .post(url)
+            .then(data => {
+                const newDeck = data.data.newDeck;
+                const oldDecks = store.getState().decks;
+                let newDecks = [];
+                for (let index = 0; index <= oldDecks.length; index++) {
+                    if (index < oldDecks.length) {
+                        newDecks.push(oldDecks[index]);
+                    } else {
+                        newDecks.push(newDeck);
+                    }
+                }
+                dispatch(updateDecks(newDecks));
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const editDeck = (deckName, deckId) =>
     dispatch => {
+        console.log(93, deckName, deckId);
         const userId = store.getState().userId;
         const url = host + 'editdeck/' + deckId;
         const reqBody = {
@@ -35,6 +60,7 @@ export const editDeck = (deckName, deckId) =>
         return axios
             .put(url, reqBody)
             .then(data => {
+                console.log(94, data, url);
                 const oldDecks = store.getState().decks;
                 const newDecks = oldDecks.map(deck => {
                     if (deck.deckId === deckId) {
@@ -199,24 +225,6 @@ export const resetDeck = () => ({
     type: 'RESET_DECK',
     payload: null,
 });
-
-export const createDeck = deckName =>
-    dispatch => {
-        const userId = store.getState().userId;
-        const url = host + 'createDeck/' + deckName + '/' + userId;
-        console.log(3, url, userId);
-        return axios
-            .post(url)
-            .then(data => {
-                const newDeck = data.data.newDeck;
-                const decks = store.getState().decks;
-                decks.push(newDeck);
-                dispatch(updateDecks(decks));
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
 
 export const lookupUser = facebookId =>
     dispatch => {

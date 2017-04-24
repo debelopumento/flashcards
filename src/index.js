@@ -14,7 +14,6 @@ ReactDOM.render(
     <Provider store={store}>
         <Router>
             <div>
-
                 <Route exact path="/" component={App} />
                 <Route path="/newDeck" component={NewDeck} />
                 <Route path="/:deck" component={Deck} />
@@ -24,7 +23,6 @@ ReactDOM.render(
                 />
                 <Route path="/:deck/newCard" component={Card} />
                 <Route path="/:deck/editCard/:card" component={Card} />
-
             </div>
         </Router>
     </Provider>,
