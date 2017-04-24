@@ -53,8 +53,10 @@ class App extends PureComponent {
     })(document, 'script', 'facebook-jssdk');
     //
 
-    this.props.resetDeck();
+    //this.props.resetDeck();
   }
+
+  componentWillUnmount() {}
 
   render() {
     if (this.props.logedIn === true) {

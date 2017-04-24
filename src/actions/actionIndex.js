@@ -59,6 +59,7 @@ export const editCardAction = (cardId, newCard) =>
                 let cards = store.getState().cards;
                 const cardIndex = store.getState().cardIndex;
                 cards[cardIndex] = newCard;
+                console.log(28);
                 dispatch(updateCards(cards));
             })
             .catch(e => {

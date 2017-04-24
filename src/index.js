@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Deck from './components/deck';
 import App from './components/App';
 import NewDeck from './components/newDeck';
+import EditDeck from './components/editDeck';
 import Card from './components/card';
 import './index.css';
 
@@ -15,10 +16,12 @@ ReactDOM.render(
             <div>
 
                 <Route exact path="/" component={App} />
+                <Route path="/newDeck" component={NewDeck} />
                 <Route path="/:deck" component={Deck} />
+                <Route path="/editdeck/:deckid" component={EditDeck} />
                 <Route path="/:deck/newCard" component={Card} />
                 <Route path="/:deck/editCard/:card" component={Card} />
-                <Route exact path="/newDeck" component={NewDeck} />
+
             </div>
         </Router>
     </Provider>,

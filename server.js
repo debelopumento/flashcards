@@ -108,6 +108,19 @@ app.get('/deck/:deckId', (req, res) => {
         });
 });
 
+//delete a deck
+app.delete('/deletedeck/:deckId', (req, res) => {
+    const deckId = req.params.deckId;
+    Decks.findByIdAndRemove(deckId)
+        .exec()
+        .then(deck => {
+            res.json({ deck });
+        })
+        .catch(err => {
+            res.json({ message: 'Internal server error' });
+        });
+});
+
 //create a card
 app.post('/createnewcard', (req, res) => {
     const newCard = req.body;

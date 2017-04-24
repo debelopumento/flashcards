@@ -10,6 +10,7 @@ class DeckContainer extends PureComponent {
   state = {
     decks: [],
   };
+
   render() {
     const decks = this.props.decks;
     const decksDisplay = Object.keys(decks).map((deckId, index) => {
@@ -17,6 +18,7 @@ class DeckContainer extends PureComponent {
       return (
         <li key={index}>
           <Link to={`/${deck.deckId}`}>{deck.deckName}</Link>
+          <Link to={`/editdeck/${deck.deckId}`}>Edit Deck</Link>
         </li>
       );
     });

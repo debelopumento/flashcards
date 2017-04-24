@@ -18,6 +18,7 @@ class Deck extends PureComponent {
 
   state = {
     showFront: true,
+    display: '',
   };
 
   flipcard = () => {
@@ -50,13 +51,17 @@ class Deck extends PureComponent {
     console.log(1, 'unload cards');
     this.props.unloadCards();
   }
+  componentDidUpdate() {
+    this.setState({
+      display: this.state.showFront === true
+        ? this.props.cards[this.props.cardIndex].cardFront
+        : this.props.cards[this.props.cardIndex].cardBack,
+    });
+    console.log(30, JSON.stringify(this.props.cards), this.state.display);
+  }
 
   render() {
     if (this.props.cardsLoaded && this.props.hideDeck === false) {
-      let display = this.state.showFront === true
-        ? this.props.cards[this.props.cardIndex].cardFront
-        : this.props.cards[this.props.cardIndex].cardBack;
-
       return this.props.finishedDeck === true
         ? <div>
             <span>Congratulations! You have finished this deck.</span>
@@ -68,7 +73,11 @@ class Deck extends PureComponent {
         : <div>
             <Link to="/">Home</Link>
 
-            <input onClick={this.flipcard} type="submit" value={display} />
+            <input
+              onClick={this.flipcard}
+              type="submit"
+              value={this.state.display}
+            />
             <input onClick={this.no} type="submit" value="no" />
             <input onClick={this.yes} type="submit" value="yes" />
             <input
@@ -87,7 +96,7 @@ class Deck extends PureComponent {
               Add a New Card
             </Link>
           </div>;
-    } else if (this.props.cards.length === 0) {
+    } else if (this.props.cardsLoaded && this.props.cards.length === 0) {
       return (
         <div>
           <Link to="/">Home</Link>

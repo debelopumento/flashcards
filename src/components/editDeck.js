@@ -1,18 +1,14 @@
 import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router';
-
+import { connect } from 'react-redux';
 import store from '../store';
 import * as actions from '../actions/actionIndex';
 
-class NewDeck extends PureComponent {
+class EditDeck extends PureComponent {
     state = {
         deckName: '',
         redirect: false,
     };
-
-    componentWillMount() {
-        console.log(31);
-    }
 
     handleChange = event => {
         const deckName = event.target.value;
@@ -43,4 +39,16 @@ class NewDeck extends PureComponent {
     }
 }
 
-export default NewDeck;
+export default connect(
+    storeState => ({
+        hideDeck: storeState.hideDeck,
+        editCard: storeState.editCard,
+    }),
+    {
+        hideCurrentDeck: actions.hideCurrentDeck,
+        showCurrentDeck: actions.showCurrentDeck,
+        createNewCard: actions.createNewCard,
+        loadEditedCard: actions.loadEditedCard,
+        editCardAction: actions.editCardAction,
+    }
+)(EditDeck);
