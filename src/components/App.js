@@ -58,11 +58,15 @@ class App extends PureComponent {
     const styles = reactCSS({
       default: {
         navBar: {
-          backgroundColor: 'red',
-          height: 70,
+          height: 50,
+          paddingTop: 20,
+          paddingBottom: 10,
+          textAlign: 'center',
         },
         icon: {
           float: 'right',
+          color: '#4a4c52',
+          padding: 20,
         },
       },
     });

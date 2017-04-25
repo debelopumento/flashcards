@@ -4,6 +4,7 @@ import * as actions from '../actions/actionIndex';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Card from './card';
+import reactCSS from 'reactcss';
 const { array, number } = PropTypes;
 
 class Deck extends PureComponent {
@@ -63,6 +64,29 @@ class Deck extends PureComponent {
   }
 
   render() {
+    const styles = reactCSS({
+      default: {
+        navBar: {
+          height: 40,
+          backgroundColor: 'white',
+          textAlign: 'center',
+          paddingTop: 30,
+          paddingBottom: 0,
+        },
+        icon: {
+          color: '#4a4c52',
+          padding: 20,
+        },
+        card: {
+          backgroundColor: '#4a4c52',
+          color: 'white',
+          height: 200,
+          width: '100%',
+          border: 0,
+          fontSize: 70,
+        },
+      },
+    });
     if (
       this.props.cardsLoaded &&
       this.props.hideDeck === false &&
@@ -78,15 +102,21 @@ class Deck extends PureComponent {
 
           </div>
         : <div>
-            <Link to="/">Home</Link>
+            <div style={styles.navBar}>
+              <Link style={styles.icon} to="/">
+                <i className="fa fa-home fa-2x" aria-hidden="true" />
 
+              </Link>
+            </div>
             <input
+              style={styles.card}
               onClick={this.flipcard}
               type="submit"
               value={this.state.display}
             />
-            <input onClick={this.no} type="submit" value="no" />
-            <input onClick={this.yes} type="submit" value="yes" />
+            <input onClick={this.no} type="submit" value="✘" />
+
+            <input onClick={this.yes} type="submit" value="✓" />
             <input
               onClick={this.deleteCard}
               type="submit"
