@@ -81,9 +81,11 @@ class Card extends PureComponent {
                 inputArea: {
                     height: 400,
                     paddingTop: 100,
+                    display: 'table',
                 },
                 input: {
-                    display: 'block',
+                    display: 'table-cell',
+
                     height: 80,
                     width: '96%',
                     border: '1px #cccccc solid',
@@ -91,6 +93,7 @@ class Card extends PureComponent {
                     color: '#555555',
                     borderRadius: 2,
                     textAlign: 'center',
+                    verticalAlign: 'middle',
                     margin: 'auto',
                     marginTop: 20,
                 },

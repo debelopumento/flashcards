@@ -90,7 +90,12 @@ class Deck extends PureComponent {
         button_addCard: {
           float: 'right',
         },
+        cardContainer: {
+          width: '100%',
+          height: 300,
+        },
         card: {
+          textAlign: 'center',
           backgroundColor: '#4a4c52',
           color: 'white',
           height: '100%',
@@ -103,10 +108,7 @@ class Deck extends PureComponent {
           width: '100%',
           textAlign: 'center',
         },
-        cardContainer: {
-          width: '100%',
-          height: 300,
-        },
+
         button_editCard: {
           marginTop: 260,
           marginLeft: '80%',

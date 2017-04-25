@@ -13,17 +13,18 @@ class DeckContainer extends PureComponent {
         },
         deck: {
           backgroundColor: '#4a4c52',
+          width: '100%',
+          display: 'table',
           height: 200,
           width: '100%',
           borderBottom: '1px white solid',
-
-          textAlign: 'center',
         },
         deckNameContainer: {
+          width: '70%',
           verticalAlign: 'middle',
-          marginLeft: 60,
-          marginRight: 10,
-          padding: 15,
+          display: 'table-cell',
+          paddingLeft: 35,
+          textAlign: 'left',
         },
         deckName: {
           margin: 'auto',
@@ -32,10 +33,10 @@ class DeckContainer extends PureComponent {
           fontSize: 40,
         },
         iconContainer: {
-          marginRight: 0,
-          float: 'right',
-          paddingRight: 30,
-          paddingTop: 15,
+          paddingRight: 35,
+          verticalAlign: 'middle',
+          display: 'table-cell',
+          textAlign: 'right',
         },
         icon: {
           color: '#fbfbfb',

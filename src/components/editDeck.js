@@ -94,12 +94,11 @@ class EditDeck extends PureComponent {
                 </div>
                 <div style={styles.inputArea}>
                     <div>
-
                         <input
                             style={styles.input}
                             type="text"
                             onChange={this.handleChange}
-                            value={this.state.deckName}
+                            placeholder={this.state.deckName}
                         />
                     </div>
                     <div style={styles.buttonContainer}>

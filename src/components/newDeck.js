@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import store from '../store';
 import * as actions from '../actions/actionIndex';
+import reactCSS from 'reactcss';
 
 class NewDeck extends PureComponent {
     state = {
@@ -22,19 +23,73 @@ class NewDeck extends PureComponent {
     };
 
     render() {
+        const styles = reactCSS({
+            default: {
+                navBar: {
+                    height: 40,
+                    paddingTop: 20,
+                    paddingBottom: 0,
+                    textAlign: 'center',
+                },
+                button_home: {
+                    float: 'center',
+                    color: '#4a4c52',
+                    padding: 10,
+                },
+                inputArea: {
+                    height: 400,
+                },
+                input: {
+                    display: 'block',
+                    height: 80,
+                    width: '96%',
+                    border: '1px #cccccc solid',
+                    color: '#555555',
+                    borderRadius: 2,
+                    textAlign: 'center',
+                    margin: 'auto',
+                    marginTop: 100,
+                },
+                button: {
+                    display: 'block',
+                    height: 80,
+                    width: 'calc(96% + 3px)',
+                    fontSize: 20,
+                    backgroundColor: '#02ddba',
+                    border: 0,
+                    borderRadius: 2,
+                    color: 'white',
+                    margin: 'auto',
+                    marginTop: 15,
+                    fontSize: 30,
+                },
+            },
+        });
         if (this.state.redirect) {
             return <Redirect to="/" />;
         }
 
         return (
             <div>
-                <Link to="/">Home</Link>
-                <input
-                    type="text"
-                    onChange={this.handleChange}
-                    placeholder="Enter Deck Name"
-                />
-                <input type="submit" value="Submit" onClick={this.submit} />
+                <div style={styles.navBar}>
+                    <Link style={styles.button_home} to="/">
+                        <i className="fa fa-home fa-2x" aria-hidden="true" />
+                    </Link>
+                </div>
+                <div style={styles.inputArea}>
+                    <input
+                        style={styles.input}
+                        type="text"
+                        onChange={this.handleChange}
+                        placeholder="Enter Deck Name"
+                    />
+                    <input
+                        style={styles.button}
+                        type="submit"
+                        value="Submit"
+                        onClick={this.submit}
+                    />
+                </div>
             </div>
         );
     }
