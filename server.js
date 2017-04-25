@@ -64,6 +64,9 @@ app.post('/createDeck/:deckName/:userId', (req, res) => {
     Decks.create(newDeck)
         .then(newDeck => {
             const newDeckId = newDeck._id;
+            const updatedDeck = newDeck.toObject();
+            updatedDeck.deckId = newDeckId;
+            console.log(49, updatedDeck);
             Users.findById(userId).exec().then(user => {
                 const decks = user.decks;
                 const newDeckObj = {
@@ -78,7 +81,8 @@ app.post('/createDeck/:deckName/:userId', (req, res) => {
                 Users.findByIdAndUpdate(userId, newUser)
                     .exec()
                     .then(user => {
-                        res.json({ newDeck });
+                        console.log(50, updatedDeck);
+                        res.json({ newDeck: updatedDeck });
                     })
                     .catch(err => {
                         res.json({ message: 'Internal server error' });

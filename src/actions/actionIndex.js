@@ -27,6 +27,7 @@ export const createDeck = deckName =>
         return axios
             .post(url)
             .then(data => {
+                console.log(10, data.data);
                 const newDeck = data.data.newDeck;
                 const oldDecks = store.getState().decks;
                 let newDecks = [];
@@ -34,6 +35,7 @@ export const createDeck = deckName =>
                     if (index < oldDecks.length) {
                         newDecks.push(oldDecks[index]);
                     } else {
+                        //newDeck.deckId = newDeck._id;
                         newDecks.push(newDeck);
                     }
                 }

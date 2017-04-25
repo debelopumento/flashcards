@@ -8,29 +8,31 @@ class Card extends PureComponent {
         cardFront: '',
         cardBack: '',
         redirect: false,
-        deckId: '',
+        deckId: this.props.match.params.deck,
         cardId: '',
-        type: '',
+        type: this.props.match.params.card === undefined
+            ? 'newCard'
+            : 'editCard',
     };
 
     cardFront = event => {
         const cardFront = event.target.value;
-        //this.setState({ cardFront: cardFront });
+        this.setState({ cardFront });
         console.log(1, cardFront);
-        this.state.cardFront = cardFront;
+        //this.state.cardFront = cardFront;
     };
     cardBack = event => {
         const cardBack = event.target.value;
-        //this.setState({ cardBack: cardBack });
-        this.state.cardBack = cardBack;
+        this.setState({ cardBack });
+        //this.state.cardBack = cardBack;
     };
 
     submit = event => {
         const cardFront = this.state.cardFront;
         const cardBack = this.state.cardBack;
         const newCard = {
-            cardFront: cardFront,
-            cardBack: cardBack,
+            cardFront,
+            cardBack,
             decks: [
                 {
                     deckId: this.state.deckId,
@@ -47,31 +49,13 @@ class Card extends PureComponent {
     };
 
     componentWillMount() {
-        this.setState({ deckId: this.props.match.params.deck });
         this.props.hideCurrentDeck();
-        const type = this.props.match.params.card === undefined
-            ? 'newCard'
-            : 'editCard';
 
-        this.state.type = type;
-        //this.setState({ type: type });
         if (this.state.type === 'editCard') {
             this.props.loadEditedCard();
         }
     }
 
-    componentDidUpdate() {
-        console.log(40, this.props.editCard, 41, this.state);
-
-        this.setState({
-            cardFront: this.state.type === 'editCard'
-                ? this.props.editCard.cardFront
-                : 'Flashcard Front',
-            cardBack: this.state.type === 'editCard'
-                ? this.props.editCard.cardBack
-                : 'Flashcard Back',
-        });
-    }
     componentWillUnmount() {
         this.props.showCurrentDeck();
     }
@@ -86,12 +70,20 @@ class Card extends PureComponent {
                 <input
                     type="text"
                     onChange={this.cardFront}
-                    placeholder={this.state.cardFront}
+                    placeholder={
+                        this.state.type === 'editCard'
+                            ? this.props.editCard.cardFront
+                            : 'Flashcard Front'
+                    }
                 />
                 <input
                     type="text"
                     onChange={this.cardBack}
-                    placeholder={this.state.cardBack}
+                    placeholder={
+                        this.state.type === 'editCard'
+                            ? this.props.editCard.cardBack
+                            : 'Flashcard Back'
+                    }
                 />
                 <input type="submit" value="Submit" onClick={this.submit} />
             </div>

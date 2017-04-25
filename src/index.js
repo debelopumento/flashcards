@@ -15,7 +15,6 @@ import './index.css';
 ReactDOM.render(
     <Provider store={store}>
         <div>
-
             <Router>
                 <div>
                     <Route exact path="/" component={App} />

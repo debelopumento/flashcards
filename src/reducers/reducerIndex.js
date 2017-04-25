@@ -102,7 +102,7 @@ const cardsLoadedReducer = (state = false, action) => {
     }
 };
 
-const editCardReducer = (state = null, action) => {
+const editCardReducer = (state = { cardFront: '', cardBack: '' }, action) => {
     switch (action.type) {
         case 'LOAD_EDITED_CARD': {
             return action.payload;

@@ -2,7 +2,8 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actionIndex';
 import { Link } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Card from './card';
 const { array, number } = PropTypes;
 
 class Deck extends PureComponent {
@@ -101,13 +102,13 @@ class Deck extends PureComponent {
             <Link to={`/${this.props.match.params.deck}/newCard`}>
               Add a New Card
             </Link>
+
           </div>;
     } else if (this.props.cardsLoaded && this.props.cards.length === 0) {
       console.log('deck empty');
 
       return (
         <div>
-          <Link to="/">Home</Link>
 
           <Link to={`/${this.props.match.params.deck}/newCard`}>
             Add a New Card
