@@ -21,12 +21,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('common'));
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
-
-let FACEBOOKID;
 
 //look up user in users collection
 app.get('/main/:facebookId', (req, res) => {

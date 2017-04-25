@@ -189,7 +189,6 @@ export const lookupDeck = deckId =>
         return axios
             .get(url)
             .then(data => {
-                console.log(50, data.data.cards);
                 dispatch(updateCards(data.data.cards));
             })
             .then(() => {
@@ -197,7 +196,6 @@ export const lookupDeck = deckId =>
                     type: 'CARDS_LOADED',
                     payload: null,
                 });
-                console.log(51);
             })
             .catch(e => {
                 console.log(e);
@@ -241,7 +239,6 @@ export const loadEditedCard = () =>
         const cards = store.getState().cards;
         const cardIndex = store.getState().cardIndex;
         const card = cards[cardIndex];
-        console.log(21, card);
         dispatch({
             type: 'LOAD_EDITED_CARD',
             payload: card,
