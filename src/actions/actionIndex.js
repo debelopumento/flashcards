@@ -27,18 +27,9 @@ export const createDeck = deckName =>
         return axios
             .post(url)
             .then(data => {
-                console.log(10, data.data);
                 const newDeck = data.data.newDeck;
                 const oldDecks = store.getState().decks;
-                let newDecks = [];
-                for (let index = 0; index <= oldDecks.length; index++) {
-                    if (index < oldDecks.length) {
-                        newDecks.push(oldDecks[index]);
-                    } else {
-                        //newDeck.deckId = newDeck._id;
-                        newDecks.push(newDeck);
-                    }
-                }
+                const newDecks = [...oldDecks, newDeck];
                 dispatch(updateDecks(newDecks));
             })
             .catch(e => {
