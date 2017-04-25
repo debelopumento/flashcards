@@ -10,8 +10,6 @@ import EditDeck from './components/editDeck';
 import Card from './components/card';
 import { Link } from 'react-router-dom';
 
-import './index.css';
-
 ReactDOM.render(
     <Provider store={store}>
         <div>

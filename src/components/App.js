@@ -8,6 +8,7 @@ import * as actions from '../actions/actionIndex';
 import './App.css';
 import DeckContainer from './deckContainer';
 import { Link } from 'react-router-dom';
+import reactCSS from 'reactcss';
 
 const { array } = PropTypes;
 
@@ -51,18 +52,30 @@ class App extends PureComponent {
       js.src = '//connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
-    //
-
-    //this.props.resetDeck();
   }
 
-  componentWillUnmount() {}
-
   render() {
+    const styles = reactCSS({
+      default: {
+        navBar: {
+          backgroundColor: 'red',
+          height: 70,
+        },
+        icon: {
+          float: 'right',
+        },
+      },
+    });
+
     if (this.props.logedIn === true) {
       return (
         <div className="App">
-          <Link to="/newDeck">New Deck</Link>
+          <div style={styles.navBar}>
+            <Link to="/newDeck" style={styles.icon}>
+              <i className="fa fa-plus fa-2x" aria-hidden="true" />
+
+            </Link>
+          </div>
           <DeckContainer />
 
         </div>

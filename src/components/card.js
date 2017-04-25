@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actionIndex';
+import { Link } from 'react-router-dom';
 
 class Card extends PureComponent {
     state = {
@@ -67,6 +68,7 @@ class Card extends PureComponent {
 
         return (
             <div>
+                <Link to="/">Home</Link>
                 <input
                     type="text"
                     onChange={this.cardFront}

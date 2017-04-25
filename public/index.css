@@ -1,0 +1,14 @@
+
+
+html, body {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+::-webkit-input-placeholder {
+	font-size: 22px;
+	color: #555555;
+	transform: scaleY(1.2);
+}

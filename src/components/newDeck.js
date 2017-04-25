@@ -29,7 +29,6 @@ class NewDeck extends PureComponent {
         return (
             <div>
                 <Link to="/">Home</Link>
-
                 <input
                     type="text"
                     onChange={this.handleChange}
