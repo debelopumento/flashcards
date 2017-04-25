@@ -133,19 +133,9 @@ export const createNewCard = newCard =>
             .post(url, newCard)
             .then(data => {
                 const addedCard = data.data.newCard;
-                /* ??????????????????
                 const cards = store.getState().cards;
                 cards.push(addedCard);
-                */
-                const oldCards = store.getState().cards;
-                let newCards = [];
-                for (let i = 0; i <= oldCards.length; i++) {
-                    if (i < oldCards.length) {
-                        newCards.push(oldCards[i]);
-                    } else
-                        newCards.push(addedCard);
-                }
-
+                const newCards = [...cards, addedCard];
                 dispatch(updateCards(newCards));
             })
             .catch(e => {
