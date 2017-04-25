@@ -16,6 +16,8 @@ class DeckContainer extends PureComponent {
           height: 200,
           width: '100%',
           borderBottom: '1px white solid',
+
+          textAlign: 'center',
         },
         deckNameContainer: {
           verticalAlign: 'middle',

@@ -70,6 +70,9 @@ class Deck extends PureComponent {
   render() {
     const styles = reactCSS({
       default: {
+        deck: {
+          height: '100%',
+        },
         navBar: {
           height: 40,
           width: '100%',
@@ -90,19 +93,19 @@ class Deck extends PureComponent {
         card: {
           backgroundColor: '#4a4c52',
           color: 'white',
-          height: 300,
+          height: '100%',
           width: '100%',
           border: 0,
           fontSize: 70,
         },
 
         buttonContainer: {
-          display: 'block',
           width: '100%',
           textAlign: 'center',
         },
         cardContainer: {
           width: '100%',
+          height: 300,
         },
         button_editCard: {
           marginTop: 260,
@@ -114,7 +117,7 @@ class Deck extends PureComponent {
         button_deleteCard: {
           backgroundColor: '#4a4c52',
           border: 'none',
-          marginTop: 258,
+          marginTop: 255,
           marginLeft: '88%',
           position: 'absolute',
           color: 'white',
@@ -156,7 +159,7 @@ class Deck extends PureComponent {
             </span>
 
           </div>
-        : <div>
+        : <div style={styles.deck}>
             <div style={styles.navBar}>
 
               <span>
@@ -171,11 +174,10 @@ class Deck extends PureComponent {
                   to={`/${this.props.match.params.deck}/newCard`}
                 >
                   <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
-
                 </Link>
               </span>
-
             </div>
+
             <div style={styles.cardContainer}>
               <Link
                 style={styles.button_editCard}

@@ -58,15 +58,15 @@ class App extends PureComponent {
     const styles = reactCSS({
       default: {
         navBar: {
-          height: 50,
+          height: 40,
           paddingTop: 20,
-          paddingBottom: 10,
+          paddingBottom: 0,
           textAlign: 'center',
         },
         icon: {
-          float: 'right',
+          float: 'center',
           color: '#4a4c52',
-          padding: 20,
+          padding: 10,
         },
       },
     });
@@ -76,7 +76,7 @@ class App extends PureComponent {
         <div className="App">
           <div style={styles.navBar}>
             <Link to="/newDeck" style={styles.icon}>
-              <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
+              <i className="fa fa-plus-square-o fa-3x" aria-hidden="true" />
 
             </Link>
           </div>
@@ -104,3 +104,11 @@ export default connect(
     resetDeck: actions.resetDeck,
   }
 )(App);
+
+/*
+baseline - This is the default value. top - Align the top of the element and its descendants with the top of the entire line. bottom - Align the bottom of the element and its descendants with the bottom of the entire line. middle - Aligns the middle of the element with the middle of lowercase letters in the parent. text-top - Aligns the top of the element with the top of the parent element's font text-bottom - Aligns the bottom of the element with the bottom of the parent element's font. sub - Aligns the baseline of the element with the subscript-baseline of its parent. Like where a <sub> would sit. super - Aligns the baseline of the element with the superscript-baseline of its parent. Like where a <sup> would sit. length - Aligns the baseline of the element at the given length above the baseline of its parent. (e.g. px, %, em, rem, etc.)
+
+
+.parent { position: relative; } .child { position: absolute; top: 50%; transform: translateY(-50%); }
+
+*/
