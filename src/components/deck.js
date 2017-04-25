@@ -38,10 +38,14 @@ class Deck extends PureComponent {
   };
 
   deleteCard = () => {
-    this.props.deleteCard(
-      this.props.cards[this.props.cardIndex]._id,
-      this.props.cardIndex
-    );
+    if (
+      confirm('Are you sure you want to delete this flashcard permanently?')
+    ) {
+      this.props.deleteCard(
+        this.props.cards[this.props.cardIndex]._id,
+        this.props.cardIndex
+      );
+    }
   };
 
   componentWillMount() {
@@ -68,22 +72,73 @@ class Deck extends PureComponent {
       default: {
         navBar: {
           height: 40,
+          width: '100%',
           backgroundColor: 'white',
           textAlign: 'center',
           paddingTop: 30,
           paddingBottom: 0,
         },
-        icon: {
+        button_home: {
           color: '#4a4c52',
-          padding: 20,
+          paddingLeft: 20,
+
+          float: 'center',
+        },
+        button_addCard: {
+          float: 'right',
         },
         card: {
           backgroundColor: '#4a4c52',
           color: 'white',
-          height: 200,
+          height: 300,
           width: '100%',
           border: 0,
           fontSize: 70,
+        },
+
+        buttonContainer: {
+          display: 'block',
+          width: '100%',
+          textAlign: 'center',
+        },
+        cardContainer: {
+          width: '100%',
+        },
+        button_editCard: {
+          marginTop: 260,
+          marginLeft: '80%',
+          position: 'absolute',
+          color: 'white',
+          float: 'left',
+        },
+        button_deleteCard: {
+          backgroundColor: '#4a4c52',
+          border: 'none',
+          marginTop: 258,
+          marginLeft: '88%',
+          position: 'absolute',
+          color: 'white',
+          float: 'left',
+        },
+        button_cross: {
+          borderRadius: '100%',
+          border: 'none',
+          backgroundColor: '#ff795b',
+          color: 'white',
+          fontSize: 60,
+          width: 120,
+          height: 120,
+          margin: 15,
+        },
+        button_check: {
+          borderRadius: '100%',
+          border: 'none',
+          backgroundColor: '#02ddba',
+          color: 'white',
+          fontSize: 60,
+          width: 120,
+          height: 120,
+          margin: 15,
         },
       },
     });
@@ -103,35 +158,63 @@ class Deck extends PureComponent {
           </div>
         : <div>
             <div style={styles.navBar}>
-              <Link style={styles.icon} to="/">
-                <i className="fa fa-home fa-2x" aria-hidden="true" />
 
-              </Link>
+              <span>
+                <Link style={styles.button_home} to="/">
+                  <i className="fa fa-home fa-2x" aria-hidden="true" />
+
+                </Link>
+              </span>
+              <span>
+                <Link
+                  style={styles.button_home}
+                  to={`/${this.props.match.params.deck}/newCard`}
+                >
+                  <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
+
+                </Link>
+              </span>
+
             </div>
-            <input
-              style={styles.card}
-              onClick={this.flipcard}
-              type="submit"
-              value={this.state.display}
-            />
-            <input onClick={this.no} type="submit" value="✘" />
+            <div style={styles.cardContainer}>
+              <Link
+                style={styles.button_editCard}
+                to={
+                  `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
+                }
+              >
+                <i className="fa fa-pencil-square-o fa-lg" aria-hidden="true" />
+              </Link>
+              <button
+                style={styles.button_deleteCard}
+                onClick={this.deleteCard}
+                type="submit"
+                //value="delete this card"
+              >
+                <i className="fa fa-trash-o fa-2x" aria-hidden="true" />
+              </button>
+              <input
+                style={styles.card}
+                onClick={this.flipcard}
+                type="submit"
+                value={this.state.display}
+              />
+            </div>
+            <div style={styles.buttonContainer}>
+              <input
+                style={styles.button_cross}
+                onClick={this.no}
+                type="submit"
+                value="✘"
+              />
+              <input
+                style={styles.button_check}
+                onClick={this.yes}
+                type="submit"
+                value="✔"
+              />
 
-            <input onClick={this.yes} type="submit" value="✓" />
-            <input
-              onClick={this.deleteCard}
-              type="submit"
-              value="Delete This Card"
-            />
-            <Link
-              to={
-                `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
-              }
-            >
-              Edit Card
-            </Link>
-            <Link to={`/${this.props.match.params.deck}/newCard`}>
-              Add a New Card
-            </Link>
+            </div>
 
           </div>;
     } else if (this.props.cardsLoaded && this.props.cards.length === 0) {

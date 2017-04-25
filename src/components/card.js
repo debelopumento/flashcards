@@ -29,7 +29,9 @@ class Card extends PureComponent {
     };
 
     submit = event => {
-        const cardFront = this.state.cardFront;
+        const cardFront = this.state.cardFront !== ''
+            ? this.state.cardFront
+            : this.props.editCard.cardFront;
         const cardBack = this.state.cardBack;
         const newCard = {
             cardFront,
