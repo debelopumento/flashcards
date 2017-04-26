@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Card from './card';
 import reactCSS from 'reactcss';
+import config from '../config';
+
+const WIDTH = config.width;
 const { array, number } = PropTypes;
 
 class Deck extends PureComponent {
@@ -92,7 +95,7 @@ class Deck extends PureComponent {
         },
         cardContainer: {
           width: '100%',
-          height: 400,
+          height: 350,
         },
         card: {
           textAlign: 'center',
@@ -110,7 +113,7 @@ class Deck extends PureComponent {
         },
 
         button_editCard: {
-          marginTop: 260,
+          marginTop: 300,
           marginLeft: '80%',
           position: 'absolute',
           color: 'white',
@@ -119,7 +122,7 @@ class Deck extends PureComponent {
         button_deleteCard: {
           backgroundColor: '#4a4c52',
           border: 'none',
-          marginTop: 255,
+          marginTop: 287,
           marginLeft: '88%',
           position: 'absolute',
           color: 'white',
@@ -194,7 +197,7 @@ class Deck extends PureComponent {
                 onClick={this.deleteCard}
                 type="submit"
               >
-                <i className="fa fa-trash-o fa-2x" aria-hidden="true" />
+                <i className="fa fa-trash-o fa-lg" aria-hidden="true" />
               </button>
               <input
                 style={styles.card}

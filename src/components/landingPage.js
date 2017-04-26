@@ -49,7 +49,6 @@ class LandingPage extends PureComponent {
                 },
             },
         });
-        //let clipboard = new Clipboard('.btn');
 
         return (
             <div style={styles.page}>
@@ -72,7 +71,7 @@ class LandingPage extends PureComponent {
                                     onClick={this.copied}
                                 />
                             </CopyToClipboard>
-                            <br />Password: demo
+                            <br />Password: demopass
                         </p>
                     </div>
                 </div>
