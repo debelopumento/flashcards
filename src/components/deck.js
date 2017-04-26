@@ -7,10 +7,10 @@ import reactCSS from 'reactcss';
 import config from '../config';
 import store from '../store';
 import Instruction from './instruction';
+import ProgressBar from './progressBar';
 
 const WIDTH = config.width;
 const { array, number } = PropTypes;
-
 class Deck extends PureComponent {
   static PropTypes = {
     cards: array,
@@ -83,7 +83,6 @@ class Deck extends PureComponent {
       this.setState({
         cardPadding: paddingTop,
       });
-      console.log(15, cardWidth, displayLength, lineNumber, paddingTop);
     }
   }
 
@@ -273,6 +272,7 @@ class Deck extends PureComponent {
                 value="✔"
               />
             </div>
+            <ProgressBar />
           </div>;
     } else if (
       this.props.cardsLoaded &&

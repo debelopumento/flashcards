@@ -88,6 +88,7 @@ export const deleteDeck = (deckId, userId) =>
 export const passCard = cardIndex =>
     dispatch => {
         const cards = store.getState().cards;
+        dispatch(incrementGreenCount());
         if (cards.length === 1) {
             dispatch({
                 type: 'FINISHED_DECK',
@@ -206,6 +207,7 @@ export const unloadCards = () =>
         dispatch({ type: 'UNLOAD_CARDS', payload: null });
         dispatch({ type: 'RESET_CARDS', payload: null });
         dispatch({ type: 'RESET_DECK', payload: null });
+        dispatch({ type: 'REST_GREEN_COUNT', payload: null });
     };
 
 export const finishedDeck = () => ({
@@ -256,5 +258,10 @@ export const showCurrentDeck = () => ({
 
 export const toggleInstruction = () => ({
     type: 'TOGGLE_INSTRUCTION',
+    payload: null,
+});
+
+export const incrementGreenCount = () => ({
+    type: 'INCREMENT_GREEN_COUNT',
     payload: null,
 });
