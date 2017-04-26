@@ -41,7 +41,6 @@ export const createDeck = deckName =>
 
 export const editDeck = (deckName, deckId) =>
     dispatch => {
-        console.log(93, deckName, deckId);
         const userId = store.getState().userId;
         const url = host + 'editdeck/' + deckId;
         const reqBody = {
@@ -55,7 +54,6 @@ export const editDeck = (deckName, deckId) =>
         return axios
             .put(url, reqBody)
             .then(data => {
-                console.log(94, data, url);
                 const oldDecks = store.getState().decks;
                 const newDecks = oldDecks.map(deck => {
                     if (deck.deckId === deckId) {
@@ -136,7 +134,6 @@ export const createNewCard = newCard =>
             .then(data => {
                 const addedCard = data.data.newCard;
                 const cards = store.getState().cards;
-                cards.push(addedCard);
                 const newCards = [...cards, addedCard];
                 dispatch(updateCards(newCards));
             })
