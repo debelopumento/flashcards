@@ -24,6 +24,7 @@ class Deck extends PureComponent {
   state = {
     showFront: true,
     display: '',
+    cardPadding: '30%',
   };
 
   flipcard = () => {
@@ -67,6 +68,20 @@ class Deck extends PureComponent {
       this.setState({
         display: display,
       });
+      const displayLength = display.length;
+      const lineNumber = Math.round(displayLength / 12);
+      const padding = 30 / 100 * 10000 - (lineNumber - 1) * (10 / 100 * 10000);
+      const paddingConvertedToPercent = padding / 100 + '%';
+      this.setState({
+        cardPadding: paddingConvertedToPercent,
+      });
+      console.log(
+        15,
+        displayLength,
+        lineNumber,
+        padding,
+        paddingConvertedToPercent
+      );
     }
   }
 
@@ -95,15 +110,19 @@ class Deck extends PureComponent {
         cardContainer: {
           width: '100%',
           height: 350,
+          display: 'table',
         },
-        card: {
-          textAlign: 'center',
+        textArea: {
+          paddingTop: this.state.cardPadding,
           backgroundColor: '#4a4c52',
+          display: 'table-cell',
+          verticalAlign: 'middle',
+          textAlign: 'center',
           color: 'white',
           height: '100%',
           width: '100%',
           border: 0,
-          fontSize: 70,
+          fontSize: 60,
         },
 
         buttonContainer: {
@@ -217,8 +236,8 @@ class Deck extends PureComponent {
               >
                 <i className="fa fa-trash-o fa-lg" aria-hidden="true" />
               </button>
-              <input
-                style={styles.card}
+              <textArea
+                style={styles.textArea}
                 onClick={this.flipcard}
                 type="submit"
                 value={this.state.display}
