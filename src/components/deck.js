@@ -70,6 +70,9 @@ class Deck extends PureComponent {
       });
       const displayLength = display.length;
       const lineNumber = Math.round(displayLength / 12);
+      if (lineNumber === 0) {
+        lineNumber++;
+      }
       const padding = 30 / 100 * 10000 - (lineNumber - 1) * (10 / 100 * 10000);
       const paddingConvertedToPercent = padding / 100 + '%';
       this.setState({
