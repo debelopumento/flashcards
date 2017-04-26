@@ -49,6 +49,7 @@ class NewDeck extends PureComponent {
                     textAlign: 'center',
                     margin: 'auto',
                     marginTop: 100,
+                    fontSize: 30,
                 },
                 button: {
                     display: 'block',

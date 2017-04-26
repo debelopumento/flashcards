@@ -103,4 +103,3 @@ export default connect(
     resetDeck: actions.resetDeck,
   }
 )(App);
-
