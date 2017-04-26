@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 
+mongoose.Promise = global.Promise;
+
 try {
     require('dotenv').config();
 } catch (error) {
