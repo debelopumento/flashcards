@@ -69,22 +69,16 @@ class Deck extends PureComponent {
         display: display,
       });
       const displayLength = display.length;
-      const lineNumber = Math.round(displayLength / 12);
+      const lineNumber = Math.ceil(displayLength / 12);
       if (lineNumber === 0) {
         lineNumber++;
       }
-      const padding = 30 / 100 * 10000 - (lineNumber - 1) * (10 / 100 * 10000);
-      const paddingConvertedToPercent = padding / 100 + '%';
+      const paddingTop = 140 - (lineNumber - 1) * 35;
+      //const paddingConvertedToPercent = padding / 100 + '%';
       this.setState({
-        cardPadding: paddingConvertedToPercent,
+        cardPadding: paddingTop,
       });
-      console.log(
-        15,
-        displayLength,
-        lineNumber,
-        padding,
-        paddingConvertedToPercent
-      );
+      console.log(15, displayLength, lineNumber, paddingTop);
     }
   }
 
@@ -116,14 +110,17 @@ class Deck extends PureComponent {
           display: 'table',
         },
         textArea: {
+          height: '100%',
+          width: '95%',
           paddingTop: this.state.cardPadding,
+          paddingLeft: 15,
+          paddingRight: 15,
           backgroundColor: '#4a4c52',
           display: 'table-cell',
           verticalAlign: 'middle',
           textAlign: 'center',
           color: 'white',
-          height: '100%',
-          width: '100%',
+
           border: 0,
           fontSize: 60,
         },
