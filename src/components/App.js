@@ -5,11 +5,10 @@ import FacebookLoginButton from './facebookLogin';
 import { connect } from 'react-redux';
 import store from '../store';
 import * as actions from '../actions/actionIndex';
-import './App.css';
 import DeckContainer from './deckContainer';
 import { Link } from 'react-router-dom';
 import reactCSS from 'reactcss';
-
+import LandingPage from './landingPage';
 const { array } = PropTypes;
 
 class App extends PureComponent {
@@ -87,7 +86,7 @@ class App extends PureComponent {
     } else {
       return (
         <div className="App">
-          <FacebookLoginButton />
+          <LandingPage />
         </div>
       );
     }
@@ -105,10 +104,3 @@ export default connect(
   }
 )(App);
 
-/*
-baseline - This is the default value. top - Align the top of the element and its descendants with the top of the entire line. bottom - Align the bottom of the element and its descendants with the bottom of the entire line. middle - Aligns the middle of the element with the middle of lowercase letters in the parent. text-top - Aligns the top of the element with the top of the parent element's font text-bottom - Aligns the bottom of the element with the bottom of the parent element's font. sub - Aligns the baseline of the element with the subscript-baseline of its parent. Like where a <sub> would sit. super - Aligns the baseline of the element with the superscript-baseline of its parent. Like where a <sup> would sit. length - Aligns the baseline of the element at the given length above the baseline of its parent. (e.g. px, %, em, rem, etc.)
-
-
-.parent { position: relative; } .child { position: absolute; top: 50%; transform: translateY(-50%); }
-
-*/

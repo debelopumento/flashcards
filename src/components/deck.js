@@ -92,7 +92,7 @@ class Deck extends PureComponent {
         },
         cardContainer: {
           width: '100%',
-          height: 300,
+          height: 400,
         },
         card: {
           textAlign: 'center',
@@ -193,7 +193,6 @@ class Deck extends PureComponent {
                 style={styles.button_deleteCard}
                 onClick={this.deleteCard}
                 type="submit"
-                //value="delete this card"
               >
                 <i className="fa fa-trash-o fa-2x" aria-hidden="true" />
               </button>

@@ -5,7 +5,17 @@ html, body {
 	height: 100%;
 	padding: 0px;
 	margin: 0px;
-font-family: 'Poppins', sans-serif;
+	font-family: 'Poppins', sans-serif;
+	text-align: center;
+}
+
+button {
+	background-color: white;
+	color: #aaa;
+	border: 0.5px solid #aaa;
+	border-radius: 2px;
+	padding: 10px;
+	font-size: 20px;
 }
 
 ::-webkit-input-placeholder {
