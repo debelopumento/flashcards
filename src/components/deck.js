@@ -192,7 +192,8 @@ class Deck extends PureComponent {
         ? <div style={styles.congrats}>
             <span style={styles.congratSpan}>
               Congratulations!
-              <br />You have finished this deck.
+              <br />
+              You have finished this deck. Click on the button below to go back to the main screen.
             </span>
             <span style={styles.congratSpan}>
               <Link style={styles.button_home} to="/">
@@ -257,15 +258,31 @@ class Deck extends PureComponent {
               />
             </div>
           </div>;
-    } else if (this.props.cardsLoaded && this.props.cards.length === 0) {
+    } else if (
+      this.props.cardsLoaded &&
+      this.props.cards.length === 0 &&
+      this.props.hideDeck === false
+    ) {
       return (
         <div>
-          <span style={{ display: 'block' }}>
-            There are no flashcards in this deck.
+          <span
+            style={{
+              display: 'block',
+              padding: 40,
+              fontSize: 30,
+              color: '#4a4c52',
+            }}
+          >
+            There are no flashcards in this deck. Click on the button below to add a new card.
           </span>
-          <Link to={`/${this.props.match.params.deck}/newCard`}>
-            Add a New Card
-          </Link>
+          <span>
+            <Link
+              style={styles.button_home}
+              to={`/${this.props.match.params.deck}/newCard`}
+            >
+              <i className="fa fa-plus-square-o fa-4x" aria-hidden="true" />
+            </Link>
+          </span>
         </div>
       );
     } else
