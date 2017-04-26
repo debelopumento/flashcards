@@ -112,6 +112,16 @@ const editCardReducer = (state = { cardFront: '', cardBack: '' }, action) => {
     }
 };
 
+const showInstructionReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'TOGGLE_INSTRUCTION': {
+            return !state;
+        }
+        default:
+            return state;
+    }
+};
+
 const allReducers = combineReducers({
     userId: userIdReducer,
     facebookId: facebookIdReducer,
@@ -123,6 +133,7 @@ const allReducers = combineReducers({
     logedIn: logedInReducer,
     cardsLoaded: cardsLoadedReducer,
     editCard: editCardReducer,
+    showInstruction: showInstructionReducer,
 });
 
 export default allReducers;

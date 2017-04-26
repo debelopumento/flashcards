@@ -5,9 +5,38 @@ import { Link } from 'react-router-dom';
 import Card from './card';
 import reactCSS from 'reactcss';
 import config from '../config';
+import store from '../store';
 
 const WIDTH = config.width;
 const { array, number } = PropTypes;
+
+const Instruction = () => {
+  const styles = reactCSS({
+    default: {
+      instruction: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        border: '2px solid #02ddba',
+        borderRadius: 15,
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 45,
+        color: 'white',
+        padding: 30,
+        position: 'absolute',
+      },
+    },
+  });
+  if (store.getState().showInstruction === true) {
+    return (
+      <div style={styles.instruction}>
+        <p>
+          All flashcards in this deck would be diplayed in a loop. Please click on the green button if you DO NOT want to see this flashcard in the next round. Click on the red button if you want to review this card again in the next round.
+        </p>
+      </div>
+    );
+  } else
+    return <div />;
+};
 
 class Deck extends PureComponent {
   static PropTypes = {
@@ -38,6 +67,10 @@ class Deck extends PureComponent {
   yes = () => {
     this.props.passCard(this.props.cardIndex);
     this.setState({ showFront: true });
+  };
+
+  toggleInstruction = () => {
+    this.props.toggleInstruction();
   };
 
   deleteCard = () => {
@@ -200,14 +233,14 @@ class Deck extends PureComponent {
                 <i className="fa fa-home fa-2x" aria-hidden="true" />
               </Link>
             </span>
-
           </div>
         : <div style={styles.deck}>
             <div style={styles.navBar}>
+              <Instruction />
+
               <span>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
-
                 </Link>
               </span>
               <span>
@@ -217,6 +250,17 @@ class Deck extends PureComponent {
                 >
                   <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
                 </Link>
+              </span>
+              <span>
+                <i
+                  style={{
+                    marginLeft: 20,
+                    color: '#4a4c52',
+                  }}
+                  className="fa fa-question-circle fa-2x"
+                  aria-hidden="true"
+                  onClick={this.toggleInstruction}
+                />
               </span>
             </div>
 
@@ -283,6 +327,7 @@ class Deck extends PureComponent {
               <i className="fa fa-plus-square-o fa-4x" aria-hidden="true" />
             </Link>
           </span>
+
         </div>
       );
     } else
@@ -298,6 +343,7 @@ export default connect(
     finishedDeck: storeState.finishedDeck,
     hideDeck: storeState.hideDeck,
     cardsLoaded: storeState.cardsLoaded,
+    showInstruction: storeState.showInstruction,
   }),
   {
     lookupDeck: actions.lookupDeck,
@@ -307,5 +353,6 @@ export default connect(
     showCurrentDeck: actions.showCurrentDeck,
     deleteCard: actions.deleteCard,
     unloadCards: actions.unloadCards,
+    toggleInstruction: actions.toggleInstruction,
   }
 )(Deck);

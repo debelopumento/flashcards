@@ -253,3 +253,8 @@ export const showCurrentDeck = () => ({
     type: 'SHOW_DECK',
     payload: null,
 });
+
+export const toggleInstruction = () => ({
+    type: 'TOGGLE_INSTRUCTION',
+    payload: null,
+});
