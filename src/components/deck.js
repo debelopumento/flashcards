@@ -242,11 +242,12 @@ class Deck extends PureComponent {
     } else if (this.props.cardsLoaded && this.props.cards.length === 0) {
       return (
         <div>
-
+          <span style={{ display: 'block' }}>
+            There are no flashcards in this deck.
+          </span>
           <Link to={`/${this.props.match.params.deck}/newCard`}>
             Add a New Card
           </Link>
-          <span>There are no flashcards in this deck.</span>
         </div>
       );
     } else
