@@ -68,7 +68,7 @@ class Deck extends PureComponent {
         display: display,
       });
       const displayLength = display.length;
-      const cardWidth = WIDTH / 30;
+      const cardWidth = WIDTH / 32;
       const lineNumber = Math.ceil(displayLength / cardWidth);
       if (lineNumber === 0) {
         lineNumber++;
