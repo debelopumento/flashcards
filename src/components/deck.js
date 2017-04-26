@@ -74,7 +74,6 @@ class Deck extends PureComponent {
         lineNumber++;
       }
       const paddingTop = 140 - (lineNumber - 1) * 35;
-      //const paddingConvertedToPercent = padding / 100 + '%';
       this.setState({
         cardPadding: paddingTop,
       });
@@ -120,6 +119,7 @@ class Deck extends PureComponent {
           verticalAlign: 'middle',
           textAlign: 'center',
           color: 'white',
+          resize: 'none',
 
           border: 0,
           fontSize: 60,
