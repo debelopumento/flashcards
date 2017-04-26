@@ -1,12 +1,10 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
-import store from '../store';
-import * as actions from '../actions/actionIndex';
+import reactCSS from 'reactcss';
 
 const responseFacebook = response => {
-    const facebookId = response.id;
-    console.log(2, facebookId);
-    store.dispatch(actions.updateFacebookId(facebookId));
+    console.log('successful login');
+    location.reload();
 };
 
 const FacebookLoginButton = () => (
@@ -16,7 +14,7 @@ const FacebookLoginButton = () => (
         fields="name,email,picture"
         callback={responseFacebook}
         cssClass="my-facebook-button-class"
-        icon="fa-facebook"
+        icon="fa-facebook fa-2x"
     />
 );
 

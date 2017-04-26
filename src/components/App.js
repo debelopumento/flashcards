@@ -1,10 +1,24 @@
 /*global FB*/
 
-import React, { Component } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import FacebookLoginButton from './facebookLogin';
-import '../App.css';
+import { connect } from 'react-redux';
+import store from '../store';
+import * as actions from '../actions/actionIndex';
+import DeckContainer from './deckContainer';
+import { Link } from 'react-router-dom';
+import reactCSS from 'reactcss';
+import LandingPage from './landingPage';
+const { array } = PropTypes;
 
-class App extends Component {
+class App extends PureComponent {
+  static PropTypes = {
+    decks: array,
+  };
+  state = {
+    decks: [],
+  };
+
   componentWillMount() {
     // This is called with the results from from FB.getLoginStatus().
     window.fbAsyncInit = () => {
@@ -20,7 +34,9 @@ class App extends Component {
         if (response.status === 'connected') {
           FB.api('/me', response => {
             const facebookId = response.id;
-            //console.log(2, facebookId);
+            store.dispatch({ type: 'LOGIN', payload: null });
+            store.dispatch(actions.updateFacebookId(facebookId));
+            store.dispatch(actions.lookupUser(facebookId));
           });
         }
       });
@@ -38,13 +54,51 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        <FacebookLoginButton />
+    const styles = reactCSS({
+      default: {
+        navBar: {
+          height: 40,
+          paddingTop: 20,
+          paddingBottom: 0,
+          textAlign: 'center',
+        },
+        icon: {
+          float: 'center',
+          color: '#4a4c52',
+          padding: 10,
+        },
+      },
+    });
 
-      </div>
-    );
+    if (this.props.logedIn === true) {
+      return (
+        <div className="App">
+          <div style={styles.navBar}>
+            <Link to="/newDeck" style={styles.icon}>
+              <i className="fa fa-plus-square-o fa-3x" aria-hidden="true" />
+            </Link>
+          </div>
+          <DeckContainer />
+
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <LandingPage />
+        </div>
+      );
+    }
   }
 }
 
-export default App;
+export default connect(
+  storeState => ({
+    decks: storeState.decks,
+    finishedDeck: storeState.finishedDeck,
+    logedIn: storeState.logedIn,
+  }),
+  {
+    resetDeck: actions.resetDeck,
+  }
+)(App);
