@@ -2,7 +2,6 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actionIndex';
 import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Card from './card';
 import reactCSS from 'reactcss';
 import config from '../config';
@@ -69,7 +68,8 @@ class Deck extends PureComponent {
         display: display,
       });
       const displayLength = display.length;
-      const lineNumber = Math.ceil(displayLength / 12);
+      const cardWidth = WIDTH / 30;
+      const lineNumber = Math.ceil(displayLength / cardWidth);
       if (lineNumber === 0) {
         lineNumber++;
       }
@@ -77,7 +77,7 @@ class Deck extends PureComponent {
       this.setState({
         cardPadding: paddingTop,
       });
-      console.log(15, displayLength, lineNumber, paddingTop);
+      console.log(15, cardWidth, displayLength, lineNumber, paddingTop);
     }
   }
 
@@ -120,7 +120,6 @@ class Deck extends PureComponent {
           textAlign: 'center',
           color: 'white',
           resize: 'none',
-
           border: 0,
           fontSize: 60,
         },
