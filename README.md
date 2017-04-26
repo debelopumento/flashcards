@@ -5,7 +5,7 @@
 Live demo:
 [https://virtual-flashcards.herokuapp.com/](https://virtual-flashcards.herokuapp.com/)
 
-![Screenshot](https://github.com/debelopumento/flashcards/blob/dev/images/flashcards-screenShots.png?raw=true)
+![Screenshot](https://github.com/debelopumento/flashcards/blob/dev/public/images/flashcards-screenShots.png?raw=true)
 
 ## Technical
 - The Front End of the app is built using HTML, CSS, React and Redux.
