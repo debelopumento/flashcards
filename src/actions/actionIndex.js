@@ -1,9 +1,12 @@
 import axios from 'axios';
 import store from '../store';
 
+/*
 const host = process.env.NODE_ENV === 'production'
     ? window.location.href
     : 'http://localhost:8080/';
+*/
+const host = 'https://virtual-flashcards.herokuapp.com/';
 
 export const updateFacebookId = facebookId => ({
     type: 'UPDATE_FACEBOOKID',
