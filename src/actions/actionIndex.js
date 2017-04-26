@@ -6,6 +6,7 @@ const host = process.env.NODE_ENV === 'production'
     : 'http://localhost:8080/';
 
 //const host = 'https://virtual-flashcards.herokuapp.com/';
+console.log(10, process.env.NODE_ENV);
 
 export const updateFacebookId = facebookId => ({
     type: 'UPDATE_FACEBOOKID',
