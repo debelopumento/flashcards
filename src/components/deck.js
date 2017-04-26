@@ -208,9 +208,8 @@ class Deck extends PureComponent {
             </span>
           </div>
         : <div style={styles.deck}>
+            <Instruction />
             <div style={styles.navBar}>
-              <Instruction />
-
               <span>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
