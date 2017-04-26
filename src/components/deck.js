@@ -87,7 +87,6 @@ class Deck extends PureComponent {
         button_home: {
           color: '#4a4c52',
           paddingLeft: 20,
-
           float: 'center',
         },
         button_addCard: {
@@ -148,6 +147,22 @@ class Deck extends PureComponent {
           height: 120,
           margin: 15,
         },
+        congrats: {
+          width: '90%',
+          paddingTop: 200,
+          fontSize: 30,
+          display: 'block',
+          padding: 15,
+          color: '#4a4c52',
+          textAlign: 'center',
+          float: 'center',
+        },
+        congratSpan: {
+          marginTop: 30,
+          display: 'block',
+          color: '#02ddba',
+          textDecoration: 'none',
+        },
       },
     });
     if (
@@ -155,18 +170,21 @@ class Deck extends PureComponent {
       this.props.hideDeck === false &&
       this.props.cards.length > 0
     ) {
-      console.log('deck not empty');
       return this.props.finishedDeck === true
-        ? <div>
-            <span>Congratulations! You have finished this deck.</span>
-            <span>
-              <Link to="/">Back to dashboard</Link>
+        ? <div style={styles.congrats}>
+            <span style={styles.congratSpan}>
+              Congratulations!
+              <br />You have finished this deck.
+            </span>
+            <span style={styles.congratSpan}>
+              <Link style={styles.button_home} to="/">
+                <i className="fa fa-home fa-2x" aria-hidden="true" />
+              </Link>
             </span>
 
           </div>
         : <div style={styles.deck}>
             <div style={styles.navBar}>
-
               <span>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
@@ -219,13 +237,9 @@ class Deck extends PureComponent {
                 type="submit"
                 value="✔"
               />
-
             </div>
-
           </div>;
     } else if (this.props.cardsLoaded && this.props.cards.length === 0) {
-      console.log('deck empty');
-
       return (
         <div>
 
