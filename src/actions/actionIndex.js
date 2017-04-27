@@ -69,6 +69,22 @@ export const editDeck = (deckName, deckId) =>
             });
     };
 
+export const rearrangeDecks = decks =>
+    dispatch => {
+        const userId = store.getState().userId;
+        const url = host + 'rearrangeDecks/' + userId;
+        return axios
+            .put(url, decks)
+            .then(data => {
+                console.log(12, data.data);
+                const newDecks = data.data;
+                return newDecks;
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const deleteDeck = (deckId, userId) =>
     dispatch => {
         const url = host + 'deletedeck/' + deckId + '/' + userId;

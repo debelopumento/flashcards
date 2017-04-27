@@ -61,7 +61,6 @@ app.put('/rearrangeDecks/:userId', (req, res) => {
     Users.findByIdAndUpdate(userId, req.body)
         .exec()
         .then(data => {
-            console.log(20, data);
             res.json({ data });
         })
         .catch(err => {

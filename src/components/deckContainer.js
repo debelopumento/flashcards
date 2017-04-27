@@ -2,8 +2,56 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import reactCSS from 'reactcss';
+import * as actions from '../actions/actionIndex';
 
 class DeckContainer extends PureComponent {
+  moveUp = event => {
+    const deckIndex = parseInt(event.target.id);
+    const oldDecks = this.props.decks;
+    let newDecks = [];
+    let swappingDeckIndex;
+    if (deckIndex !== 0) {
+      swappingDeckIndex = deckIndex - 1;
+      for (let i = 0; i < oldDecks.length; i++) {
+        console.log(18, i, swappingDeckIndex, deckIndex, oldDecks);
+        if (i === swappingDeckIndex) {
+          newDecks[deckIndex] = oldDecks[swappingDeckIndex];
+        } else if (i === deckIndex) {
+          newDecks[swappingDeckIndex] = oldDecks[deckIndex];
+        } else {
+          newDecks[i] = oldDecks[i];
+        }
+        console.log(20, newDecks);
+      }
+      this.props.updateDecks(newDecks);
+      this.props.rearrangeDecks({ decks: newDecks });
+    }
+  };
+
+  moveDown = event => {
+    const deckIndex = parseInt(event.target.id);
+    const oldDecks = this.props.decks;
+    let newDecks = [];
+    let swappingDeckIndex;
+    if (deckIndex < oldDecks.length - 1) {
+      swappingDeckIndex = deckIndex + 1;
+      for (let i = 0; i < oldDecks.length; i++) {
+        console.log(19, i, swappingDeckIndex, deckIndex, oldDecks);
+
+        if (i === swappingDeckIndex) {
+          newDecks[deckIndex] = oldDecks[swappingDeckIndex];
+        } else if (i === deckIndex) {
+          newDecks[swappingDeckIndex] = oldDecks[deckIndex];
+        } else {
+          newDecks[i] = oldDecks[i];
+        }
+        console.log(21, newDecks);
+      }
+      this.props.updateDecks(newDecks);
+      this.props.rearrangeDecks({ decks: newDecks });
+    }
+  };
+
   render() {
     const styles = reactCSS({
       default: {
@@ -54,6 +102,22 @@ class DeckContainer extends PureComponent {
               {deck.deckName}
             </Link>
           </span>
+          <span
+            style={{ color: 'red' }}
+            id={index}
+            className="up"
+            onClick={this.moveUp}
+          >
+            up
+          </span>
+          <span
+            style={{ color: 'red' }}
+            id={index}
+            className="down"
+            onClick={this.moveDown}
+          >
+            down
+          </span>
           <span style={styles.iconContainer}>
             <Link
               style={styles.icon}
@@ -76,6 +140,12 @@ class DeckContainer extends PureComponent {
   }
 }
 
-export default connect(storeState => ({
-  decks: storeState.decks,
-}))(DeckContainer);
+export default connect(
+  storeState => ({
+    decks: storeState.decks,
+  }),
+  {
+    updateDecks: actions.updateDecks,
+    rearrangeDecks: actions.rearrangeDecks,
+  }
+)(DeckContainer);
