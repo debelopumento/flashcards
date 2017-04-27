@@ -122,6 +122,20 @@ const showInstructionReducer = (state = false, action) => {
     }
 };
 
+const greenCountReducer = (state = 0, action) => {
+    switch (action.type) {
+        case 'INCREMENT_GREEN_COUNT': {
+            state++;
+            return state;
+        }
+        case 'REST_GREEN_COUNT': {
+            return 0;
+        }
+        default:
+            return state;
+    }
+};
+
 const allReducers = combineReducers({
     userId: userIdReducer,
     facebookId: facebookIdReducer,
@@ -134,6 +148,7 @@ const allReducers = combineReducers({
     cardsLoaded: cardsLoadedReducer,
     editCard: editCardReducer,
     showInstruction: showInstructionReducer,
+    greenCount: greenCountReducer,
 });
 
 export default allReducers;

@@ -6,38 +6,11 @@ import Card from './card';
 import reactCSS from 'reactcss';
 import config from '../config';
 import store from '../store';
+import Instruction from './instruction';
+import ProgressBar from './progressBar';
 
 const WIDTH = config.width;
 const { array, number } = PropTypes;
-
-const Instruction = () => {
-  const styles = reactCSS({
-    default: {
-      instruction: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        border: '2px solid #02ddba',
-        borderRadius: 15,
-        marginLeft: 20,
-        marginRight: 20,
-        marginTop: 45,
-        color: 'white',
-        padding: 30,
-        position: 'absolute',
-      },
-    },
-  });
-  if (store.getState().showInstruction === true) {
-    return (
-      <div style={styles.instruction}>
-        <p>
-          All flashcards in this deck would be diplayed in a loop. Please click on the green button if you DO NOT want to see this flashcard in the next round. Click on the red button if you want to review this card again in the next round.
-        </p>
-      </div>
-    );
-  } else
-    return <div />;
-};
-
 class Deck extends PureComponent {
   static PropTypes = {
     cards: array,
@@ -110,7 +83,6 @@ class Deck extends PureComponent {
       this.setState({
         cardPadding: paddingTop,
       });
-      console.log(15, cardWidth, displayLength, lineNumber, paddingTop);
     }
   }
 
@@ -235,9 +207,8 @@ class Deck extends PureComponent {
             </span>
           </div>
         : <div style={styles.deck}>
+            <Instruction />
             <div style={styles.navBar}>
-              <Instruction />
-
               <span>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
@@ -301,6 +272,7 @@ class Deck extends PureComponent {
                 value="✔"
               />
             </div>
+            <ProgressBar />
           </div>;
     } else if (
       this.props.cardsLoaded &&

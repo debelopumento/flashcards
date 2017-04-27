@@ -1,10 +1,14 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import reactCSS from 'reactcss';
+import store from '../store';
+import * as actions from '../actions/actionIndex';
 
 const responseFacebook = response => {
-    console.log('successful login');
-    location.reload();
+    const facebookId = response.id;
+    store.dispatch({ type: 'LOGIN', payload: null });
+    store.dispatch(actions.updateFacebookId(facebookId));
+    store.dispatch(actions.lookupUser(facebookId));
 };
 
 const FacebookLoginButton = () => (

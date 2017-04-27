@@ -5,8 +5,6 @@ const host = process.env.NODE_ENV === 'production'
     ? window.location.href
     : 'http://localhost:8080/';
 
-//const host = 'https://virtual-flashcards.herokuapp.com/';
-
 export const updateFacebookId = facebookId => ({
     type: 'UPDATE_FACEBOOKID',
     payload: facebookId,
@@ -88,6 +86,7 @@ export const deleteDeck = (deckId, userId) =>
 export const passCard = cardIndex =>
     dispatch => {
         const cards = store.getState().cards;
+        dispatch(incrementGreenCount());
         if (cards.length === 1) {
             dispatch({
                 type: 'FINISHED_DECK',
@@ -206,6 +205,7 @@ export const unloadCards = () =>
         dispatch({ type: 'UNLOAD_CARDS', payload: null });
         dispatch({ type: 'RESET_CARDS', payload: null });
         dispatch({ type: 'RESET_DECK', payload: null });
+        dispatch({ type: 'REST_GREEN_COUNT', payload: null });
     };
 
 export const finishedDeck = () => ({
@@ -224,7 +224,6 @@ export const lookupUser = facebookId =>
         return axios
             .get(url)
             .then(data => {
-                console.log(1, data.data.data[0]);
                 dispatch(updateUserId(data.data.data[0]._id));
                 dispatch(updateDecks(data.data.data[0].decks));
             })
@@ -256,5 +255,10 @@ export const showCurrentDeck = () => ({
 
 export const toggleInstruction = () => ({
     type: 'TOGGLE_INSTRUCTION',
+    payload: null,
+});
+
+export const incrementGreenCount = () => ({
+    type: 'INCREMENT_GREEN_COUNT',
     payload: null,
 });
