@@ -224,7 +224,6 @@ export const lookupUser = facebookId =>
         return axios
             .get(url)
             .then(data => {
-                console.log(1, data.data.data[0]);
                 dispatch(updateUserId(data.data.data[0]._id));
                 dispatch(updateDecks(data.data.data[0].decks));
             })

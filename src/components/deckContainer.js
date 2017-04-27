@@ -50,7 +50,6 @@ class DeckContainer extends PureComponent {
       return (
         <div key={index} style={styles.deck}>
           <span style={styles.deckNameContainer}>
-            fakjdfhkjsh
             <Link style={styles.deckName} to={`/${deck.deckId}`}>
               {deck.deckName}
             </Link>
