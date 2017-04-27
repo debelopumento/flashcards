@@ -1,6 +1,8 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import reactCSS from 'reactcss';
+import store from '../store';
+import * as actions from '../actions/actionIndex';
 
 const responseFacebook = response => {
     console.log('successful login');
