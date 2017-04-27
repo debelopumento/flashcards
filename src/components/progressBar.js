@@ -16,16 +16,12 @@ class ProgressBar extends PureComponent {
     this.setState({ deckLength: deckLength });
     const slotLength = Math.round(100 / deckLength);
     this.setState({ slotLength: slotLength });
-    console.log(2, deckLength, slotLength);
   }
 
   render() {
-    console.log(15, this.props);
-    console.log(16, this.state);
     const greenWidth = this.state.slotLength * this.props.greenCount + '%';
     const greyCount = this.props.cardIndex;
     const greyWidth = this.state.slotLength * greyCount + '%';
-    console.log(17, greenWidth, greyWidth);
 
     const styles = reactCSS({
       default: {

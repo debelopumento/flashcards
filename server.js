@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('common'));
 app.use(express.static('build'));
-//app.use('/build', express.static('public'));
+//app.use(express.static('public'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/build/index.html');
