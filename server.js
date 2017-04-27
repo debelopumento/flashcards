@@ -55,6 +55,20 @@ app.get('/main/:facebookId', (req, res) => {
         });
 });
 
+//update the order of decks for a user in users collection
+app.put('/rearrangeDecks/:userId', (req, res) => {
+    const userId = req.params.userId;
+    Users.findByIdAndUpdate(userId, req.body)
+        .exec()
+        .then(data => {
+            console.log(20, data);
+            res.json({ data });
+        })
+        .catch(err => {
+            res.json({ message: 'Internal server error' });
+        });
+});
+
 //create a new deck, add this deck to decks collection and add its id to users collection
 app.post('/createDeck/:deckName/:userId', (req, res) => {
     const deckName = req.params.deckName;
