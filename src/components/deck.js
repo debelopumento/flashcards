@@ -111,12 +111,14 @@ class Deck extends PureComponent {
         cardContainer: {
           width: '100%',
           height: 350,
+          paddingLeft: 0,
           display: 'table',
         },
         textArea: {
           height: '100%',
-          width: '95%',
-          paddingTop: this.state.cardPadding,
+          width: '100%',
+          marginLeft: 0,
+          //paddingTop: this.state.cardPadding,
           paddingLeft: 15,
           paddingRight: 15,
           backgroundColor: '#4a4c52',
@@ -126,7 +128,7 @@ class Deck extends PureComponent {
           color: 'white',
           resize: 'none',
           border: 0,
-          fontSize: 60,
+          fontSize: 50,
         },
 
         buttonContainer: {
@@ -251,12 +253,13 @@ class Deck extends PureComponent {
               >
                 <i className="fa fa-trash-o fa-lg" aria-hidden="true" />
               </button>
-              <textArea
+              <span
                 style={styles.textArea}
                 onClick={this.flipcard}
                 type="submit"
-                value={this.state.display}
-              />
+              >
+                {this.state.display}
+              </span>
             </div>
             <div style={styles.buttonContainer}>
               <input
