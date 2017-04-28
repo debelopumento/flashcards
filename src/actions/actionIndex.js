@@ -191,6 +191,17 @@ export const goToNextCard = () =>
         }
     };
 
+export const goToLastCard = () =>
+    dispatch => {
+        const cardLength = store.getState().cards.length;
+        const cardIndex = store.getState().cardIndex;
+        if (cardIndex === 0) {
+            dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardLength - 1 });
+        } else {
+            dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardIndex - 1 });
+        }
+    };
+
 export const updateUserId = userId => ({
     type: 'LOAD_USERID',
     payload: userId,
@@ -217,8 +228,8 @@ export const lookupDeck = deckId =>
 
 export const unloadCards = () =>
     dispatch => {
-        dispatch({ type: 'UNLOAD_CARDS', payload: null });
-        dispatch({ type: 'RESET_CARDS', payload: null });
+        //dispatch({ type: 'UNLOAD_CARDS', payload: null });
+        //dispatch({ type: 'RESET_CARDS', payload: null });
         dispatch({ type: 'RESET_DECK', payload: null });
         dispatch({ type: 'REST_GREEN_COUNT', payload: null });
     };

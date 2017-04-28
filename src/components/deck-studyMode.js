@@ -11,7 +11,7 @@ import ProgressBar from './progressBar';
 
 const WIDTH = config.width;
 const { array, number } = PropTypes;
-class Deck extends PureComponent {
+class Deck_StudyMode extends PureComponent {
   static PropTypes = {
     cards: array,
     cardIndex: number,
@@ -32,13 +32,13 @@ class Deck extends PureComponent {
     this.setState({ showFront: !this.state.showFront });
   };
 
-  no = () => {
+  next = () => {
     this.props.goToNextCard();
     this.setState({ showFront: true });
   };
 
-  yes = () => {
-    this.props.passCard(this.props.cardIndex);
+  last = () => {
+    this.props.goToLastCard();
     this.setState({ showFront: true });
   };
 
@@ -144,24 +144,14 @@ class Deck extends PureComponent {
           marginLeft: '20',
           color: '#4a4c52',
         },
-        button_cross: {
-          borderRadius: '100%',
-          border: 'none',
-          backgroundColor: '#ff795b',
-          color: 'white',
+
+        button_nav: {
+          borderRadius: 25,
+          border: '2px solid #02ddba',
+          //backgroundColor: '#02ddba',
+          color: '#02ddba',
           fontSize: 60,
           width: 120,
-          height: 120,
-          margin: 15,
-        },
-        button_check: {
-          borderRadius: '100%',
-          border: 'none',
-          backgroundColor: '#02ddba',
-          color: 'white',
-          fontSize: 60,
-          width: 120,
-          height: 120,
           margin: 15,
         },
         congrats: {
@@ -265,17 +255,19 @@ class Deck extends PureComponent {
               </span>
             </div>
             <div style={styles.buttonContainer}>
-              <input
-                style={styles.button_cross}
-                onClick={this.no}
-                type="submit"
-                value="✘"
+
+              <i
+                style={styles.button_nav}
+                className="fa fa-arrow-left"
+                aria-hidden="true"
+                onClick={this.last}
               />
-              <input
-                style={styles.button_check}
-                onClick={this.yes}
-                type="submit"
-                value="✔"
+
+              <i
+                style={styles.button_nav}
+                className="fa fa-arrow-right"
+                aria-hidden="true"
+                onClick={this.next}
               />
             </div>
             <ProgressBar />
@@ -332,5 +324,6 @@ export default connect(
     deleteCard: actions.deleteCard,
     unloadCards: actions.unloadCards,
     toggleInstruction: actions.toggleInstruction,
+    goToLastCard: actions.goToLastCard,
   }
-)(Deck);
+)(Deck_StudyMode);

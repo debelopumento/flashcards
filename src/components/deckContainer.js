@@ -73,9 +73,13 @@ class DeckContainer extends PureComponent {
         },
         deckName: {
           margin: 'auto',
-          textDecoration: 'none',
           color: '#fbfbfb',
           fontSize: 40,
+        },
+        deckLink: {
+          color: '#fbfbfb',
+          fontSize: 15,
+          marginRight: 10,
         },
         iconContainer: {
           paddingRight: 20,
@@ -94,9 +98,14 @@ class DeckContainer extends PureComponent {
       const deck = decks[deckId];
       return (
         <div key={index} style={styles.deck}>
+
           <span style={styles.deckNameContainer}>
-            <Link style={styles.deckName} to={`/${deck.deckId}`}>
-              {deck.deckName}
+            <p style={styles.deckName}>{deck.deckName}</p>
+            <Link style={styles.deckLink} to={`/practice/${deck.deckId}`}>
+              Practice Mode
+            </Link>
+            <Link style={styles.deckLink} to={`/study/${deck.deckId}`}>
+              Study Mode
             </Link>
           </span>
           <div style={styles.iconContainer}>
