@@ -136,6 +136,19 @@ const greenCountReducer = (state = 0, action) => {
     }
 };
 
+const practiceModeReducer = (state = null, action) => {
+    switch (action.type) {
+        case 'SWITCH_TO_PRACTICE_MODE': {
+            return true;
+        }
+        case 'SWITCH_TO_STUDY_MODE': {
+            return false;
+        }
+        default:
+            return state;
+    }
+};
+
 const allReducers = combineReducers({
     userId: userIdReducer,
     facebookId: facebookIdReducer,
@@ -149,6 +162,7 @@ const allReducers = combineReducers({
     editCard: editCardReducer,
     showInstruction: showInstructionReducer,
     greenCount: greenCountReducer,
+    practiceMode: practiceModeReducer,
 });
 
 export default allReducers;

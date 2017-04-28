@@ -150,6 +150,7 @@ export const createNewCard = newCard =>
                 const cards = store.getState().cards;
                 const newCards = [...cards, addedCard];
                 dispatch(updateCards(newCards));
+                console.log(20, addedCard, cards, newCards);
             })
             .catch(e => {
                 console.log(e);

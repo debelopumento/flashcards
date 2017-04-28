@@ -50,6 +50,7 @@ class Deck_PracticeMode extends PureComponent {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
+    store.dispatch({ type: 'SWITCH_TO_PRACTICE_MODE', paylaod: null });
   }
   componentWillUnmount() {
     this.props.unloadCards();

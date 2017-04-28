@@ -48,6 +48,7 @@ class Deck_StudyMode extends PureComponent {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
+    store.dispatch({ type: 'SWITCH_TO_STUDY_MODE', payload: null });
   }
   componentWillUnmount() {
     this.props.unloadCards();
@@ -183,19 +184,8 @@ class Deck_StudyMode extends PureComponent {
             </span>
           </div>
         : <div style={styles.deck}>
-            <Instruction />
             <div style={styles.navBar}>
-              <span>
-                <i
-                  style={{
-                    marginLeft: 20,
-                    color: '#4a4c52',
-                  }}
-                  className="fa fa-question-circle fa-2x"
-                  aria-hidden="true"
-                  onClick={this.toggleInstruction}
-                />
-              </span>
+
               <span>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
