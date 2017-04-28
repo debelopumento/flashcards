@@ -137,20 +137,12 @@ class Deck extends PureComponent {
         },
 
         button_editCard: {
-          marginTop: 300,
-          marginLeft: '80%',
-          position: 'absolute',
-          color: 'white',
-          float: 'left',
+          marginLeft: '20',
+          color: '#4a4c52',
         },
         button_deleteCard: {
-          backgroundColor: '#4a4c52',
-          border: 'none',
-          marginTop: 287,
-          marginLeft: '88%',
-          position: 'absolute',
-          color: 'white',
-          float: 'left',
+          marginLeft: '20',
+          color: '#4a4c52',
         },
         button_cross: {
           borderRadius: '100%',
@@ -212,6 +204,17 @@ class Deck extends PureComponent {
             <Instruction />
             <div style={styles.navBar}>
               <span>
+                <i
+                  style={{
+                    marginLeft: 20,
+                    color: '#4a4c52',
+                  }}
+                  className="fa fa-question-circle fa-2x"
+                  aria-hidden="true"
+                  onClick={this.toggleInstruction}
+                />
+              </span>
+              <span>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
                 </Link>
@@ -224,35 +227,35 @@ class Deck extends PureComponent {
                   <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
                 </Link>
               </span>
+
               <span>
+
                 <i
-                  style={{
-                    marginLeft: 20,
-                    color: '#4a4c52',
-                  }}
-                  className="fa fa-question-circle fa-2x"
+                  style={styles.button_deleteCard}
+                  className="fa fa-trash-o fa-2x"
                   aria-hidden="true"
-                  onClick={this.toggleInstruction}
+                  onClick={this.deleteCard}
                 />
+
               </span>
+              <span>
+                <Link
+                  style={styles.button_editCard}
+                  to={
+                    `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
+                  }
+                >
+                  <i
+                    className="fa fa-pencil-square-o fa-2x"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </span>
+
             </div>
 
             <div style={styles.cardContainer}>
-              <Link
-                style={styles.button_editCard}
-                to={
-                  `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
-                }
-              >
-                <i className="fa fa-pencil-square-o fa-lg" aria-hidden="true" />
-              </Link>
-              <button
-                style={styles.button_deleteCard}
-                onClick={this.deleteCard}
-                type="submit"
-              >
-                <i className="fa fa-trash-o fa-lg" aria-hidden="true" />
-              </button>
+
               <span
                 style={styles.textArea}
                 onClick={this.flipcard}
