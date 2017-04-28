@@ -13,7 +13,6 @@ class DeckContainer extends PureComponent {
     if (deckIndex !== 0) {
       swappingDeckIndex = deckIndex - 1;
       for (let i = 0; i < oldDecks.length; i++) {
-        console.log(18, i, swappingDeckIndex, deckIndex, oldDecks);
         if (i === swappingDeckIndex) {
           newDecks[deckIndex] = oldDecks[swappingDeckIndex];
         } else if (i === deckIndex) {
@@ -21,7 +20,6 @@ class DeckContainer extends PureComponent {
         } else {
           newDecks[i] = oldDecks[i];
         }
-        console.log(20, newDecks);
       }
       this.props.updateDecks(newDecks);
       this.props.rearrangeDecks({ decks: newDecks });
@@ -36,8 +34,6 @@ class DeckContainer extends PureComponent {
     if (deckIndex < oldDecks.length - 1) {
       swappingDeckIndex = deckIndex + 1;
       for (let i = 0; i < oldDecks.length; i++) {
-        console.log(19, i, swappingDeckIndex, deckIndex, oldDecks);
-
         if (i === swappingDeckIndex) {
           newDecks[deckIndex] = oldDecks[swappingDeckIndex];
         } else if (i === deckIndex) {
@@ -45,7 +41,6 @@ class DeckContainer extends PureComponent {
         } else {
           newDecks[i] = oldDecks[i];
         }
-        console.log(21, newDecks);
       }
       this.props.updateDecks(newDecks);
       this.props.rearrangeDecks({ decks: newDecks });
@@ -102,31 +97,59 @@ class DeckContainer extends PureComponent {
               {deck.deckName}
             </Link>
           </span>
-          <span
-            style={{ color: 'red' }}
-            id={index}
-            className="up"
-            onClick={this.moveUp}
-          >
-            up
-          </span>
-          <span
-            style={{ color: 'red' }}
-            id={index}
-            className="down"
-            onClick={this.moveDown}
-          >
-            down
-          </span>
-          <span style={styles.iconContainer}>
-            <Link
-              style={styles.icon}
-              to={`/editdeck/${deck.deckId}-${deck.deckName}`}
+          <div style={styles.iconContainer}>
+            <span
+              style={{
+                color: 'white',
+                fontSize: 30,
+                display: 'block',
+                textAlign: 'center',
+              }}
+              id={index}
             >
-              <i className="fa fa-pencil-square-o fa-lg" aria-hidden="true" />
+              <i
+                id={index}
+                className="fa fa-caret-up fa-lg"
+                aria-hidden="true"
+                onClick={this.moveUp}
+              />
 
-            </Link>
-          </span>
+            </span>
+            <span
+              style={{
+                color: 'white',
+                display: 'block',
+                textAlign: 'center',
+                paddingLeft: 5,
+              }}
+            >
+              <Link
+                style={styles.icon}
+                to={`/editdeck/${deck.deckId}-${deck.deckName}`}
+              >
+                <i className="fa fa-pencil-square-o fa-lg" aria-hidden="true" />
+
+              </Link>
+            </span>
+            <span
+              style={{
+                color: 'white',
+                fontSize: 30,
+                display: 'block',
+                textAlign: 'center',
+              }}
+              id={index}
+              className="down"
+            >
+              <i
+                id={index}
+                className="fa fa-caret-down fa-lg"
+                aria-hidden="true"
+                onClick={this.moveDown}
+              />
+
+            </span>
+          </div>
         </div>
       );
     });
