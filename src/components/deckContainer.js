@@ -78,7 +78,7 @@ class DeckContainer extends PureComponent {
           fontSize: 40,
         },
         iconContainer: {
-          paddingRight: 35,
+          paddingRight: 20,
           verticalAlign: 'middle',
           display: 'table-cell',
           textAlign: 'right',
