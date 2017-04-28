@@ -24,7 +24,6 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('common'));
 app.use(express.static('build'));
-//app.use(express.static('public'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/build/index.html');
@@ -41,7 +40,16 @@ app.get('/main/:facebookId', (req, res) => {
                 //add a new user to userscollection
                 const newUser = {
                     facebookId: facebookId,
-                    decks: [],
+                    decks: [
+                        {
+                            deckName: 'Deck',
+                            deckId: '5903c3bc9d1de018214cfb2f',
+                        },
+                        {
+                            deckId: '5903c48a1a1725184fd58a08',
+                            deckName: 'Deck',
+                        },
+                    ],
                 };
                 Users.create(newUser).then(user => {
                     res.json({ user });
