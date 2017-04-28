@@ -46,7 +46,7 @@ class ProgressBar extends PureComponent {
         grey: {
           width: greyWidth,
           borderRadius: 2,
-          backgroundColor: '#ccc',
+          backgroundColor: '#ffeb6c',
           position: 'absolute',
           height: 25,
         },

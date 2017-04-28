@@ -20,20 +20,19 @@ class Card extends PureComponent {
     cardFront = event => {
         const cardFront = event.target.value;
         this.setState({ cardFront });
-        console.log(1, cardFront);
-        //this.state.cardFront = cardFront;
     };
     cardBack = event => {
         const cardBack = event.target.value;
         this.setState({ cardBack });
-        //this.state.cardBack = cardBack;
     };
 
     submit = event => {
         const cardFront = this.state.cardFront !== ''
             ? this.state.cardFront
             : this.props.editCard.cardFront;
-        const cardBack = this.state.cardBack;
+        const cardBack = this.state.cardBack !== ''
+            ? this.state.cardBack
+            : this.props.editCard.cardBack;
         const newCard = {
             cardFront,
             cardBack,
@@ -44,17 +43,18 @@ class Card extends PureComponent {
             ],
         };
         console.log(2, newCard, this.state.type);
+
         if (this.state.type === 'newCard') {
             this.props.createNewCard(newCard);
         } else {
             this.props.editCardAction(this.props.editCard._id, newCard);
         }
+        console.log(3);
         this.setState({ redirect: true });
     };
 
     componentWillMount() {
         this.props.hideCurrentDeck();
-
         if (this.state.type === 'editCard') {
             this.props.loadEditedCard();
         }
@@ -111,7 +111,10 @@ class Card extends PureComponent {
             },
         });
         if (this.state.redirect) {
-            return <Redirect to={`/${this.state.deckId}`} />;
+            const mode = this.props.practiceMode === true
+                ? 'practice'
+                : 'study';
+            return <Redirect to={`/${mode}/${this.state.deckId}`} />;
         }
 
         return (
@@ -158,6 +161,7 @@ export default connect(
     storeState => ({
         hideDeck: storeState.hideDeck,
         editCard: storeState.editCard,
+        practiceMode: storeState.practiceMode,
     }),
     {
         hideCurrentDeck: actions.hideCurrentDeck,

@@ -10,22 +10,11 @@ import Instruction from './instruction';
 import ProgressBar from './progressBar';
 
 const WIDTH = config.width;
-const { array, number } = PropTypes;
-class Deck extends PureComponent {
-  static PropTypes = {
-    cards: array,
-    cardIndex: number,
-  };
-
-  static defaultProps = {
-    cards: null,
-    cardIndex: 0,
-  };
-
+class Deck_PracticeMode extends PureComponent {
   state = {
     showFront: true,
     display: '',
-    cardPadding: '30%',
+    cardFontSize: 50,
   };
 
   flipcard = () => {
@@ -61,6 +50,7 @@ class Deck extends PureComponent {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
+    store.dispatch({ type: 'SWITCH_TO_PRACTICE_MODE', paylaod: null });
   }
   componentWillUnmount() {
     this.props.unloadCards();
@@ -79,9 +69,9 @@ class Deck extends PureComponent {
       if (lineNumber === 0) {
         lineNumber++;
       }
-      const paddingTop = 140 - (lineNumber - 1) * 35;
+      const cardFontSize = 60 - lineNumber * 4;
       this.setState({
-        cardPadding: paddingTop,
+        cardFontSize: cardFontSize,
       });
     }
   }
@@ -111,12 +101,14 @@ class Deck extends PureComponent {
         cardContainer: {
           width: '100%',
           height: 350,
+          paddingLeft: 0,
           display: 'table',
         },
         textArea: {
           height: '100%',
-          width: '95%',
-          paddingTop: this.state.cardPadding,
+          width: '100%',
+          marginLeft: 0,
+          marginRight: 0,
           paddingLeft: 15,
           paddingRight: 15,
           backgroundColor: '#4a4c52',
@@ -124,9 +116,8 @@ class Deck extends PureComponent {
           verticalAlign: 'middle',
           textAlign: 'center',
           color: 'white',
-          resize: 'none',
           border: 0,
-          fontSize: 60,
+          fontSize: this.state.cardFontSize,
         },
 
         buttonContainer: {
@@ -135,20 +126,12 @@ class Deck extends PureComponent {
         },
 
         button_editCard: {
-          marginTop: 300,
-          marginLeft: '80%',
-          position: 'absolute',
-          color: 'white',
-          float: 'left',
+          marginLeft: '20',
+          color: '#4a4c52',
         },
         button_deleteCard: {
-          backgroundColor: '#4a4c52',
-          border: 'none',
-          marginTop: 287,
-          marginLeft: '88%',
-          position: 'absolute',
-          color: 'white',
-          float: 'left',
+          marginLeft: '20',
+          color: '#4a4c52',
         },
         button_cross: {
           borderRadius: '100%',
@@ -210,6 +193,17 @@ class Deck extends PureComponent {
             <Instruction />
             <div style={styles.navBar}>
               <span>
+                <i
+                  style={{
+                    marginLeft: 20,
+                    color: '#4a4c52',
+                  }}
+                  className="fa fa-question-circle fa-2x"
+                  aria-hidden="true"
+                  onClick={this.toggleInstruction}
+                />
+              </span>
+              <span>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
                 </Link>
@@ -222,41 +216,42 @@ class Deck extends PureComponent {
                   <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
                 </Link>
               </span>
+
               <span>
+
                 <i
-                  style={{
-                    marginLeft: 20,
-                    color: '#4a4c52',
-                  }}
-                  className="fa fa-question-circle fa-2x"
+                  style={styles.button_deleteCard}
+                  className="fa fa-trash-o fa-2x"
                   aria-hidden="true"
-                  onClick={this.toggleInstruction}
+                  onClick={this.deleteCard}
                 />
+
               </span>
+              <span>
+                <Link
+                  style={styles.button_editCard}
+                  to={
+                    `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
+                  }
+                >
+                  <i
+                    className="fa fa-pencil-square-o fa-2x"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </span>
+
             </div>
 
             <div style={styles.cardContainer}>
-              <Link
-                style={styles.button_editCard}
-                to={
-                  `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
-                }
-              >
-                <i className="fa fa-pencil-square-o fa-lg" aria-hidden="true" />
-              </Link>
-              <button
-                style={styles.button_deleteCard}
-                onClick={this.deleteCard}
-                type="submit"
-              >
-                <i className="fa fa-trash-o fa-lg" aria-hidden="true" />
-              </button>
-              <textArea
+
+              <span
                 style={styles.textArea}
                 onClick={this.flipcard}
                 type="submit"
-                value={this.state.display}
-              />
+              >
+                {this.state.display}
+              </span>
             </div>
             <div style={styles.buttonContainer}>
               <input
@@ -327,4 +322,4 @@ export default connect(
     unloadCards: actions.unloadCards,
     toggleInstruction: actions.toggleInstruction,
   }
-)(Deck);
+)(Deck_PracticeMode);

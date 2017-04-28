@@ -69,6 +69,21 @@ export const editDeck = (deckName, deckId) =>
             });
     };
 
+export const rearrangeDecks = decks =>
+    dispatch => {
+        const userId = store.getState().userId;
+        const url = host + 'rearrangeDecks/' + userId;
+        return axios
+            .put(url, decks)
+            .then(data => {
+                const newDecks = data.data;
+                return newDecks;
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
 export const deleteDeck = (deckId, userId) =>
     dispatch => {
         const url = host + 'deletedeck/' + deckId + '/' + userId;
@@ -135,6 +150,7 @@ export const createNewCard = newCard =>
                 const cards = store.getState().cards;
                 const newCards = [...cards, addedCard];
                 dispatch(updateCards(newCards));
+                console.log(20, addedCard, cards, newCards);
             })
             .catch(e => {
                 console.log(e);
@@ -176,6 +192,17 @@ export const goToNextCard = () =>
         }
     };
 
+export const goToLastCard = () =>
+    dispatch => {
+        const cardLength = store.getState().cards.length;
+        const cardIndex = store.getState().cardIndex;
+        if (cardIndex === 0) {
+            dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardLength - 1 });
+        } else {
+            dispatch({ type: 'UPDATE_CARD_INDEX', payload: cardIndex - 1 });
+        }
+    };
+
 export const updateUserId = userId => ({
     type: 'LOAD_USERID',
     payload: userId,
@@ -202,8 +229,8 @@ export const lookupDeck = deckId =>
 
 export const unloadCards = () =>
     dispatch => {
-        dispatch({ type: 'UNLOAD_CARDS', payload: null });
-        dispatch({ type: 'RESET_CARDS', payload: null });
+        //dispatch({ type: 'UNLOAD_CARDS', payload: null });
+        //dispatch({ type: 'RESET_CARDS', payload: null });
         dispatch({ type: 'RESET_DECK', payload: null });
         dispatch({ type: 'REST_GREEN_COUNT', payload: null });
     };
