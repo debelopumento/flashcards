@@ -9,6 +9,8 @@ class EditDeck extends PureComponent {
         deckName: '',
         redirect: false,
         deckId: '',
+        cardFront: '',
+        cardBack: '',
     };
 
     handleChange = event => {
@@ -19,7 +21,6 @@ class EditDeck extends PureComponent {
     submitChange = event => {
         const deckName = this.state.deckName;
         const deckId = this.state.deckId;
-        console.log(91, deckName);
         this.props.editDeck(deckName, deckId);
         this.setState({ redirect: true });
     };
@@ -30,8 +31,38 @@ class EditDeck extends PureComponent {
         this.setState({ redirect: true });
     };
 
+    cardFront = event => {
+        const cardFront = event.target.value;
+        this.setState({ cardFront });
+    };
+    cardBack = event => {
+        const cardBack = event.target.value;
+        this.setState({ cardBack });
+    };
+    submitNewCard = event => {
+        const cardFront = this.state.cardFront !== ''
+            ? this.state.cardFront
+            : this.props.editCard.cardFront;
+        const cardBack = this.state.cardBack;
+        const newCard = {
+            cardFront,
+            cardBack,
+            decks: [
+                {
+                    deckId: this.state.deckId,
+                },
+            ],
+        };
+        this.props.createNewCard(newCard);
+    };
+
+    componentDidMount() {
+        const deckId = this.state.deckId;
+        this.props.lookupDeck(deckId);
+        this.props.hideCurrentDeck();
+    }
+
     componentWillMount() {
-        console.log(2, this.props.match);
         this.setState({ deckId: this.props.match.params.deckId });
         this.setState({ deckName: this.props.match.params.deckName });
     }
@@ -51,7 +82,7 @@ class EditDeck extends PureComponent {
                     padding: 10,
                 },
                 inputArea: {
-                    height: 400,
+                    height: 150,
                 },
                 input: {
                     display: 'block',
@@ -63,7 +94,7 @@ class EditDeck extends PureComponent {
                     borderRadius: 2,
                     textAlign: 'center',
                     margin: 'auto',
-                    marginTop: 100,
+                    marginTop: 20,
                 },
                 buttonContainer: {
                     display: 'block',
@@ -80,8 +111,68 @@ class EditDeck extends PureComponent {
                     margin: 2,
                     marginTop: 15,
                 },
+                newCardInputContainer: {
+                    borderTop: '1px #eee solid',
+                    width: '100%',
+                    paddingTop: 15,
+                    textAlign: 'center',
+                    paddingBottom: 20,
+                    borderBottom: '1px #eee solid',
+                    marginBottom: 20,
+                },
+                cardInput: {
+                    height: 40,
+                    width: '96%',
+                    border: 'solid 1px #ccc',
+                    textAlign: 'center',
+                    margin: 5,
+                    fontSize: 15,
+                },
+                addNewCardButton: {
+                    width: '97%',
+                    height: 40,
+                    backgroundColor: '#ffeb6c',
+                    border: 'none',
+                    borderRadius: 2,
+                    textAlign: 'center',
+                    color: 'white',
+                    fontSize: 25,
+                    marginTop: 10,
+                },
+                cardList: {
+                    marginLeft: 15,
+                    color: '#aaa',
+                    width: '90%',
+                    display: 'flex',
+                    borderBottom: 'solid 1px #eee',
+                    marginBottom: 10,
+                },
+                cardListCardFront: {
+                    width: '50%',
+                },
+                cardListCardBack: {
+                    width: '50%',
+                    paddingBottom: 0,
+                },
             },
         });
+
+        const cards = this.props.cards;
+        const cardsLength = cards.length - 1;
+        const cardList = Object.keys(cards).map((cardId, index) => {
+            const card = cards[cardsLength - cardId];
+            return (
+                <div style={styles.cardList}>
+                    <div style={styles.cardListCardFront}>
+                        {card.cardFront}
+                    </div>
+                    <div style={styles.cardListCardBack}>
+                        {card.cardBack}
+                    </div>
+                </div>
+            );
+        });
+
         if (this.state.redirect) {
             return <Redirect to="/" />;
         }
@@ -116,6 +207,32 @@ class EditDeck extends PureComponent {
                             onClick={this.deleteDeck}
                         />
                     </div>
+
+                </div>
+                <div style={styles.newCardInputContainer}>
+
+                    <input
+                        style={styles.cardInput}
+                        type="text"
+                        placeholder="Card Front"
+                        onChange={this.cardFront}
+                    />
+                    <input
+                        style={styles.cardInput}
+                        type="text"
+                        placeholder="Card Back"
+                        onChange={this.cardBack}
+                    />
+                    <input
+                        style={styles.addNewCardButton}
+                        type="submit"
+                        value="+"
+                        onClick={this.submitNewCard}
+                    />
+
+                </div>
+                <div>
+                    {cardList}
                 </div>
             </div>
         );
@@ -125,9 +242,13 @@ class EditDeck extends PureComponent {
 export default connect(
     storeState => ({
         userId: storeState.userId,
+        cards: storeState.cards,
     }),
     {
         editDeck: actions.editDeck,
         deleteDeck: actions.deleteDeck,
+        lookupDeck: actions.lookupDeck,
+        hideCurrentDeck: actions.hideCurrentDeck,
+        createNewCard: actions.createNewCard,
     }
 )(EditDeck);

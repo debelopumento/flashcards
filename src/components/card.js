@@ -20,20 +20,19 @@ class Card extends PureComponent {
     cardFront = event => {
         const cardFront = event.target.value;
         this.setState({ cardFront });
-        console.log(1, cardFront);
-        //this.state.cardFront = cardFront;
     };
     cardBack = event => {
         const cardBack = event.target.value;
         this.setState({ cardBack });
-        //this.state.cardBack = cardBack;
     };
 
     submit = event => {
         const cardFront = this.state.cardFront !== ''
             ? this.state.cardFront
             : this.props.editCard.cardFront;
-        const cardBack = this.state.cardBack;
+        const cardBack = this.state.cardBack !== ''
+            ? this.state.cardBack
+            : this.props.editCard.cardBack;
         const newCard = {
             cardFront,
             cardBack,
@@ -43,7 +42,6 @@ class Card extends PureComponent {
                 },
             ],
         };
-        console.log(2, newCard, this.state.type);
         if (this.state.type === 'newCard') {
             this.props.createNewCard(newCard);
         } else {

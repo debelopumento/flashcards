@@ -25,7 +25,6 @@ class Deck extends PureComponent {
   state = {
     showFront: true,
     display: '',
-    cardPadding: '30%',
   };
 
   flipcard = () => {
@@ -118,7 +117,7 @@ class Deck extends PureComponent {
           height: '100%',
           width: '100%',
           marginLeft: 0,
-          //paddingTop: this.state.cardPadding,
+          marginRight: 0,
           paddingLeft: 15,
           paddingRight: 15,
           backgroundColor: '#4a4c52',

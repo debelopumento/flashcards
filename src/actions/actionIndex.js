@@ -76,7 +76,6 @@ export const rearrangeDecks = decks =>
         return axios
             .put(url, decks)
             .then(data => {
-                console.log(12, data.data);
                 const newDecks = data.data;
                 return newDecks;
             })
