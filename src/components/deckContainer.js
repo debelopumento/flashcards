@@ -23,7 +23,8 @@ class DeckContainer extends PureComponent {
       }
       this.props.updateDecks(newDecks);
       this.props.rearrangeDecks({ decks: newDecks });
-    }
+    } else
+      alert('Cannot move the first deck up!');
   };
 
   moveDown = event => {
@@ -44,7 +45,8 @@ class DeckContainer extends PureComponent {
       }
       this.props.updateDecks(newDecks);
       this.props.rearrangeDecks({ decks: newDecks });
-    }
+    } else
+      alert('Cannot move the last deck down');
   };
 
   render() {
