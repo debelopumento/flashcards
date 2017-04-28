@@ -27,8 +27,10 @@ class EditDeck extends PureComponent {
 
     deleteDeck = event => {
         const userId = this.props.userId;
-        this.props.deleteDeck(this.state.deckId, userId);
-        this.setState({ redirect: true });
+        if (confirm('Are you sure you want to delete this deck permanently?')) {
+            this.props.deleteDeck(this.state.deckId, userId);
+            this.setState({ redirect: true });
+        }
     };
 
     cardFront = event => {

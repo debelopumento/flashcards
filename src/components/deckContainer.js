@@ -77,7 +77,7 @@ class DeckContainer extends PureComponent {
           fontSize: 40,
         },
         deckLink: {
-          color: '#fbfbfb',
+          color: '#02ddba',
           fontSize: 15,
           marginRight: 10,
         },
