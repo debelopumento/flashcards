@@ -10,18 +10,7 @@ import Instruction from './instruction';
 import ProgressBar from './progressBar';
 
 const WIDTH = config.width;
-const { array, number } = PropTypes;
 class Deck_PracticeMode extends PureComponent {
-  static PropTypes = {
-    cards: array,
-    cardIndex: number,
-  };
-
-  static defaultProps = {
-    cards: null,
-    cardIndex: 0,
-  };
-
   state = {
     showFront: true,
     display: '',
@@ -126,7 +115,6 @@ class Deck_PracticeMode extends PureComponent {
           verticalAlign: 'middle',
           textAlign: 'center',
           color: 'white',
-          resize: 'none',
           border: 0,
           fontSize: this.state.cardFontSize,
         },

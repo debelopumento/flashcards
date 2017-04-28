@@ -12,24 +12,11 @@ import ProgressBar from './progressBar';
 const WIDTH = config.width;
 const { array, number } = PropTypes;
 class Deck_StudyMode extends PureComponent {
-  static PropTypes = {
-    cards: array,
-    cardIndex: number,
-  };
-
-  static defaultProps = {
-    cards: null,
-    cardIndex: 0,
-  };
-
   state = {
     showFront: true,
-    display: '',
-    cardFontSize: 50,
-  };
-
-  flipcard = () => {
-    this.setState({ showFront: !this.state.showFront });
+    cardFontSize: 40,
+    cardFront: '',
+    cardBack: '',
   };
 
   next = () => {
@@ -67,19 +54,21 @@ class Deck_StudyMode extends PureComponent {
   }
   componentDidUpdate() {
     if (this.props.cards.length > 0) {
-      const display = this.state.showFront === true
-        ? this.props.cards[this.props.cardIndex].cardFront
-        : this.props.cards[this.props.cardIndex].cardBack;
+      const cardFront = this.props.cards[this.props.cardIndex].cardFront;
+      const cardBack = this.props.cards[this.props.cardIndex].cardBack;
       this.setState({
-        display: display,
+        cardFront,
+        cardBack,
       });
-      const displayLength = display.length;
+      const displayLength = cardFront.length > cardBack.length
+        ? cardFront.length
+        : cardBack.length;
       const cardWidth = WIDTH / 32;
       const lineNumber = Math.ceil(displayLength / cardWidth);
       if (lineNumber === 0) {
         lineNumber++;
       }
-      const cardFontSize = 60 - lineNumber * 4;
+      const cardFontSize = 40 - lineNumber * 4;
       this.setState({
         cardFontSize: cardFontSize,
       });
@@ -112,22 +101,26 @@ class Deck_StudyMode extends PureComponent {
           width: '100%',
           height: 350,
           paddingLeft: 0,
-          display: 'table',
-        },
-        textArea: {
-          height: '100%',
-          width: '100%',
-          marginLeft: 0,
-          marginRight: 0,
-          paddingLeft: 15,
-          paddingRight: 15,
           backgroundColor: '#4a4c52',
-          display: 'table-cell',
-          verticalAlign: 'middle',
           textAlign: 'center',
+        },
+        cardFront: {
+          height: '42%',
+          width: '92%',
+          paddingTop: 15,
+          padding: 15,
           color: 'white',
-          resize: 'none',
-          border: 0,
+          textAlign: 'left',
+          fontSize: 40,
+          borderBottom: '1px solid white',
+        },
+        cardBack: {
+          height: '42%',
+          width: '92%',
+          paddingTop: 15,
+          padding: 15,
+          color: '#ddd',
+          textAlign: 'left',
           fontSize: this.state.cardFontSize,
         },
 
@@ -148,10 +141,9 @@ class Deck_StudyMode extends PureComponent {
         button_nav: {
           borderRadius: 25,
           border: '2px solid #02ddba',
-          //backgroundColor: '#02ddba',
           color: '#02ddba',
           fontSize: 60,
-          width: 120,
+          width: 90,
           margin: 15,
         },
         congrats: {
@@ -217,16 +209,13 @@ class Deck_StudyMode extends PureComponent {
                   <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
                 </Link>
               </span>
-
               <span>
-
                 <i
                   style={styles.button_deleteCard}
                   className="fa fa-trash-o fa-2x"
                   aria-hidden="true"
                   onClick={this.deleteCard}
                 />
-
               </span>
               <span>
                 <Link
@@ -241,28 +230,23 @@ class Deck_StudyMode extends PureComponent {
                   />
                 </Link>
               </span>
-
             </div>
 
             <div style={styles.cardContainer}>
-
-              <span
-                style={styles.textArea}
-                onClick={this.flipcard}
-                type="submit"
-              >
-                {this.state.display}
-              </span>
+              <div style={styles.cardFront}>
+                {this.state.cardFront}
+              </div><br />
+              <div style={styles.cardBack}>
+                {this.state.cardBack}
+              </div>
             </div>
             <div style={styles.buttonContainer}>
-
               <i
                 style={styles.button_nav}
                 className="fa fa-arrow-left"
                 aria-hidden="true"
                 onClick={this.last}
               />
-
               <i
                 style={styles.button_nav}
                 className="fa fa-arrow-right"
