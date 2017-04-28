@@ -212,7 +212,6 @@ class EditDeck extends PureComponent {
 
                 </div>
                 <div style={styles.newCardInputContainer}>
-
                     <input
                         style={styles.cardInput}
                         type="text"
@@ -233,7 +232,6 @@ class EditDeck extends PureComponent {
                         value="+"
                         onClick={this.submitNewCard}
                     />
-
                 </div>
                 <div>
                     {cardList}

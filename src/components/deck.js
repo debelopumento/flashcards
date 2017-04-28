@@ -25,6 +25,7 @@ class Deck extends PureComponent {
   state = {
     showFront: true,
     display: '',
+    cardFontSize: 50,
   };
 
   flipcard = () => {
@@ -78,9 +79,9 @@ class Deck extends PureComponent {
       if (lineNumber === 0) {
         lineNumber++;
       }
-      const paddingTop = 140 - (lineNumber - 1) * 35;
+      const cardFontSize = 60 - lineNumber * 4;
       this.setState({
-        cardPadding: paddingTop,
+        cardFontSize: cardFontSize,
       });
     }
   }
@@ -127,7 +128,7 @@ class Deck extends PureComponent {
           color: 'white',
           resize: 'none',
           border: 0,
-          fontSize: 50,
+          fontSize: this.state.cardFontSize,
         },
 
         buttonContainer: {
