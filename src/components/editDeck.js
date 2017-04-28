@@ -54,6 +54,8 @@ class EditDeck extends PureComponent {
             ],
         };
         this.props.createNewCard(newCard);
+        this.refs.cardInput1.value = '';
+        this.refs.cardInput2.value = '';
     };
 
     componentDidMount() {
@@ -216,12 +218,14 @@ class EditDeck extends PureComponent {
                         type="text"
                         placeholder="Card Front"
                         onChange={this.cardFront}
+                        ref="cardInput1"
                     />
                     <input
                         style={styles.cardInput}
                         type="text"
                         placeholder="Card Back"
                         onChange={this.cardBack}
+                        ref="cardInput2"
                     />
                     <input
                         style={styles.addNewCardButton}
