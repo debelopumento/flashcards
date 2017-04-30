@@ -75,7 +75,7 @@ class App extends PureComponent {
         <div className="App">
           <div style={styles.navBar}>
             <Link to="/newDeck" style={styles.icon}>
-              <i className="fa fa-plus-square-o fa-3x" aria-hidden="true" />
+              Create a New Deck
             </Link>
           </div>
           <DeckContainer />
