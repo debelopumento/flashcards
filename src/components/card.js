@@ -42,14 +42,11 @@ class Card extends PureComponent {
                 },
             ],
         };
-        console.log(2, newCard, this.state.type);
-
         if (this.state.type === 'newCard') {
             this.props.createNewCard(newCard);
         } else {
             this.props.editCardAction(this.props.editCard._id, newCard);
         }
-        console.log(3);
         this.setState({ redirect: true });
     };
 
