@@ -59,7 +59,7 @@ class LandingPage extends PureComponent {
                     <div style={styles.demo}>
                         <p>
                             Demo Account:
-                            <br />(Please click on the botton above and use the Email and password below to login)
+                            <br />(Please click on the button above and use the Email and password below to login)
                             <br />Email: oehpujksqa_1493162709@tfbnw.net
 
                             <br /><CopyToClipboard
