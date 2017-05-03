@@ -31,7 +31,9 @@ class App extends PureComponent {
       });
 
       FB.getLoginStatus(response => {
+        console.log(99, response)
         if (response.status === 'connected') {
+          
           FB.api('/me', response => {
             const facebookId = response.id;
             store.dispatch({ type: 'LOGIN', payload: null });
@@ -39,6 +41,7 @@ class App extends PureComponent {
             store.dispatch(actions.lookupUser(facebookId));
             store.dispatch({type: 'UPDATE_NAME', payload: response.name})
           });
+          
         }
       });
     };

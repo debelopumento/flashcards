@@ -117,6 +117,9 @@ const showInstructionReducer = (state = false, action) => {
         case 'TOGGLE_INSTRUCTION': {
             return !state;
         }
+        case 'SHOW_INSTRUCTION': {
+            return true
+        }
         default:
             return state;
     }

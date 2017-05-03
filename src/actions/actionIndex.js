@@ -253,7 +253,6 @@ export const updateNameOnServer = () =>
         const userId = store.getState().userId;
         const name = store.getState().name;
         const url = host + 'name/' + userId + '/' + name
-        console.log(2, userId, url)
         return axios
             .put(url)
             .then(datat => {
@@ -273,6 +272,7 @@ export const lookupUser = facebookId =>
                 dispatch(updateUserId(data.data.data[0]._id));
                 dispatch(updateDecks(data.data.data[0].decks));
                 dispatch(updateNameOnServer())
+                dispatch({ type: 'LOGIN', payload: null });
             })
             .catch(e => {
                 console.log(e);

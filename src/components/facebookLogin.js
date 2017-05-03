@@ -6,7 +6,7 @@ import * as actions from '../actions/actionIndex';
 
 const responseFacebook = response => {
     const facebookId = response.id;
-    store.dispatch({ type: 'LOGIN', payload: null });
+    //store.dispatch({ type: 'LOGIN', payload: null });
     store.dispatch(actions.updateFacebookId(facebookId));
     store.dispatch(actions.lookupUser(facebookId));
 };
