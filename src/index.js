@@ -24,7 +24,6 @@ ReactDOM.render(
                         component={Deck_PracticeMode}
                     />
                     <Route path="/study/:deck" component={Deck_StudyMode} />
-
                     <Route
                         path="/editdeck/:deckId-:deckName"
                         component={EditDeck}

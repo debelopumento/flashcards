@@ -63,6 +63,21 @@ app.get('/main/:facebookId', (req, res) => {
         });
 });
 
+//update user's name in db
+app.put('/name/:userId/:name', (req, res) => {
+    const name = req.params.name
+    const userId = req.params.userId
+    const request = {name: name}
+    Users.findByIdAndUpdate(userId, request)
+    .exec()
+    .then(data=> {
+        res.json({ data })
+    })
+    .catch(err=> {
+        res.json({ message: 'Internal server error' })
+    })
+})
+
 //update the order of decks for a user in users collection
 app.put('/rearrangeDecks/:userId', (req, res) => {
     const userId = req.params.userId;

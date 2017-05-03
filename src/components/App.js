@@ -37,6 +37,7 @@ class App extends PureComponent {
             store.dispatch({ type: 'LOGIN', payload: null });
             store.dispatch(actions.updateFacebookId(facebookId));
             store.dispatch(actions.lookupUser(facebookId));
+            store.dispatch({type: 'UPDATE_NAME', payload: response.name})
           });
         }
       });
@@ -100,5 +101,6 @@ export default connect(
   }),
   {
     resetDeck: actions.resetDeck,
+    updateNameOnServer: actions.updateNameOnServer,
   }
 )(App);

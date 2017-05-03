@@ -29,9 +29,11 @@ class Deck_StudyMode extends PureComponent {
     this.setState({ showFront: true });
   };
 
-  toggleInstruction = () => {
-    this.props.toggleInstruction();
-  };
+
+
+  speak =() => {
+
+  }
 
   deleteCard = () => {
     if (
@@ -43,6 +45,7 @@ class Deck_StudyMode extends PureComponent {
       );
     }
   };
+
 
   componentWillMount() {
     const deckId = this.props.match.params.deck;
@@ -200,14 +203,6 @@ class Deck_StudyMode extends PureComponent {
                 </Link>
               </span>
               <span>
-                <i
-                  style={styles.button_deleteCard}
-                  className="fa fa-trash-o fa-2x"
-                  aria-hidden="true"
-                  onClick={this.deleteCard}
-                />
-              </span>
-              <span>
                 <Link
                   style={styles.button_editCard}
                   to={
@@ -220,6 +215,24 @@ class Deck_StudyMode extends PureComponent {
                   />
                 </Link>
               </span>
+              {/*
+              <span>
+                  <i 
+                  style={styles.button_deleteCard}
+                  onClick={this.speak}
+                  className="fa fa-volume-up fa-2x" aria-hidden="true"></i>
+              </span>
+            */}
+              <span>
+                <i
+                  style={styles.button_deleteCard}
+                  className="fa fa-trash-o fa-2x"
+                  aria-hidden="true"
+                  onClick={this.deleteCard}
+                />
+              </span>
+              
+              
             </div>
 
             <div style={styles.cardContainer}>

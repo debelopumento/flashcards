@@ -149,6 +149,17 @@ const practiceModeReducer = (state = null, action) => {
     }
 };
 
+const nameReducer =(state=null, action) => {
+    switch (action.type) {
+        case 'UPDATE_NAME': {
+            return action.payload
+        }
+    default: return state
+    }
+    
+};
+
+
 const allReducers = combineReducers({
     userId: userIdReducer,
     facebookId: facebookIdReducer,
@@ -163,6 +174,7 @@ const allReducers = combineReducers({
     showInstruction: showInstructionReducer,
     greenCount: greenCountReducer,
     practiceMode: practiceModeReducer,
+    name: nameReducer,
 });
 
 export default allReducers;

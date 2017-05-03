@@ -10,6 +10,9 @@ export const updateFacebookId = facebookId => ({
     payload: facebookId,
 });
 
+
+
+
 export const updateDecks = decks => ({
     type: 'LOAD_DECKS',
     payload: decks,
@@ -245,6 +248,22 @@ export const resetDeck = () => ({
     payload: null,
 });
 
+export const updateNameOnServer = () => 
+    dispatch => {
+        const userId = store.getState().userId;
+        const name = store.getState().name;
+        const url = host + 'name/' + userId + '/' + name
+        console.log(2, userId, url)
+        return axios
+            .put(url)
+            .then(datat => {
+                console.log('Updated name on server')
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
+
 export const lookupUser = facebookId =>
     dispatch => {
         const url = host + 'main/' + facebookId;
@@ -253,6 +272,7 @@ export const lookupUser = facebookId =>
             .then(data => {
                 dispatch(updateUserId(data.data.data[0]._id));
                 dispatch(updateDecks(data.data.data[0].decks));
+                dispatch(updateNameOnServer())
             })
             .catch(e => {
                 console.log(e);

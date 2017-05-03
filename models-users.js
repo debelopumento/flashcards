@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const usersSchema = mongoose.Schema({
     id: String,
     facebookId: String,
+    name: String,
     decks: [
         {
             deckId: String,
@@ -15,6 +16,7 @@ usersSchema.methods.apiRepr = () => {
     return {
         id: this._id,
         facebookId: this.facebookId,
+        name: this.name,
         decks: this.decks,
     };
 };
