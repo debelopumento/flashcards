@@ -7,6 +7,7 @@ import * as actions from '../actions/actionIndex';
 import reactCSS from 'reactcss';
 import FacebookLoginButton from './facebookLogin';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import img from '../../public/images/screenShots_landingPage.png'
 
 class LandingPage extends PureComponent {
     demoLogin = () => {
@@ -23,15 +24,17 @@ class LandingPage extends PureComponent {
                     height: HEIGHT,
                 },
                 navBar: {
-                    height: '10%',
+                    height: 30,
                     paddingTop: 20,
                     paddingBottom: 0,
                     textAlign: 'center',
                     backgroundColor: '#4a4c52',
                 },
                 main: {
-                    height: '75%',
                     paddingTop: 30,
+                    paddingBottom: 20,
+                    marginBottom: 20,
+                    borderBottom: '1px #ccc solid',
                 },
                 demo: {
                     paddingTop: 100,
@@ -47,13 +50,17 @@ class LandingPage extends PureComponent {
                     height: 80,
                     fontSize: 16,
                     marginTop: 35,
+                    marginBottom: 20,
                 },
                 title: {
                     color: '#4a4c52',
-                    fontSize: 60,
+                    fontSize: 50,
                     padding: 10,
                 },
+                img: {
+                    width: '100%',
 
+                },
                 footer: {
                     height: '10%',
                     backgroundColor: '#4a4c52',
@@ -69,8 +76,9 @@ class LandingPage extends PureComponent {
                     <div style={styles.title}>Virtual Flashcards</div>
                     <FacebookLoginButton />
                     <div><input style={styles.button} type="submit" value="Demo" onClick={this.demoLogin}/></div>
+                    
                 </div>
-
+                <img style={styles.img} src={img} />
                 <div style={styles.footer} />
             </div>
         );

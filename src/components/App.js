@@ -9,6 +9,8 @@ import DeckContainer from './deckContainer';
 import { Link } from 'react-router-dom';
 import reactCSS from 'reactcss';
 import LandingPage from './landingPage';
+
+
 const { array } = PropTypes;
 
 class App extends PureComponent {
@@ -31,7 +33,6 @@ class App extends PureComponent {
       });
 
       FB.getLoginStatus(response => {
-        console.log(99, response)
         if (response.status === 'connected') {
           
           FB.api('/me', response => {
