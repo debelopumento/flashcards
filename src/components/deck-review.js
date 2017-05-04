@@ -1,20 +1,20 @@
-import React, { PureComponent, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions/actionIndex';
-import { Link } from 'react-router-dom';
-import Card from './card';
-import reactCSS from 'reactcss';
-import config from '../config';
-import store from '../store';
-import Instruction from './instruction';
-import ProgressBar from './progressBar';
+import React, { PureComponent, PropTypes } from "react";
+import { connect } from "react-redux";
+import * as actions from "../actions/actionIndex";
+import { Link } from "react-router-dom";
+import Card from "./card";
+import reactCSS from "reactcss";
+import config from "../config";
+import store from "../store";
+import Instruction from "./instruction";
+import ProgressBar from "./progressBar";
 
 const WIDTH = config.width;
-class Deck_PracticeMode extends PureComponent {
+class Deck_Review extends PureComponent {
   state = {
     showFront: true,
-    display: '',
-    cardFontSize: 50,
+    display: "",
+    cardFontSize: 50
   };
 
   flipcard = () => {
@@ -37,7 +37,7 @@ class Deck_PracticeMode extends PureComponent {
 
   deleteCard = () => {
     if (
-      confirm('Are you sure you want to delete this flashcard permanently?')
+      confirm("Are you sure you want to delete this flashcard permanently?")
     ) {
       this.props.deleteCard(
         this.props.cards[this.props.cardIndex]._id,
@@ -50,8 +50,8 @@ class Deck_PracticeMode extends PureComponent {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
-    store.dispatch({ type: 'SHOW_INSTRUCTION', paylaod: null });
-    store.dispatch({ type: 'SWITCH_TO_PRACTICE_MODE', paylaod: null });
+    store.dispatch({ type: "SHOW_INSTRUCTION", paylaod: null });
+    store.dispatch({ type: "SWITCH_TO_PRACTICE_MODE", paylaod: null });
   }
   componentWillUnmount() {
     this.props.unloadCards();
@@ -62,7 +62,7 @@ class Deck_PracticeMode extends PureComponent {
         ? this.props.cards[this.props.cardIndex].cardFront
         : this.props.cards[this.props.cardIndex].cardBack;
       this.setState({
-        display: display,
+        display: display
       });
       const displayLength = display.length;
       const cardWidth = WIDTH / 32;
@@ -72,7 +72,7 @@ class Deck_PracticeMode extends PureComponent {
       }
       const cardFontSize = 60 - lineNumber * 4;
       this.setState({
-        cardFontSize: cardFontSize,
+        cardFontSize: cardFontSize
       });
     }
   }
@@ -81,96 +81,96 @@ class Deck_PracticeMode extends PureComponent {
     const styles = reactCSS({
       default: {
         deck: {
-          height: '100%',
+          height: "100%"
         },
         navBar: {
           height: 40,
-          width: '100%',
-          backgroundColor: 'white',
-          textAlign: 'center',
+          width: "100%",
+          backgroundColor: "white",
+          textAlign: "center",
           paddingTop: 30,
-          paddingBottom: 0,
+          paddingBottom: 0
         },
         button_home: {
-          color: '#4a4c52',
+          color: "#4a4c52",
           paddingLeft: 20,
-          float: 'center',
+          float: "center"
         },
         button_addCard: {
-          float: 'right',
+          float: "right"
         },
         cardContainer: {
-          width: '100%',
+          width: "100%",
           height: 350,
           paddingLeft: 0,
-          display: 'table',
+          display: "table"
         },
         textArea: {
-          height: '100%',
-          width: '100%',
+          height: "100%",
+          width: "100%",
           marginLeft: 0,
           marginRight: 0,
           paddingLeft: 15,
           paddingRight: 15,
-          backgroundColor: '#4a4c52',
-          display: 'table-cell',
-          verticalAlign: 'middle',
-          textAlign: 'center',
-          color: 'white',
+          backgroundColor: "#4a4c52",
+          display: "table-cell",
+          verticalAlign: "middle",
+          textAlign: "center",
+          color: "white",
           border: 0,
-          fontSize: this.state.cardFontSize,
+          fontSize: this.state.cardFontSize
         },
 
         buttonContainer: {
-          width: '100%',
-          textAlign: 'center',
+          width: "100%",
+          textAlign: "center"
         },
 
         button_editCard: {
-          marginLeft: '20',
-          color: '#4a4c52',
+          marginLeft: "20",
+          color: "#4a4c52"
         },
         button_deleteCard: {
-          marginLeft: '20',
-          color: '#4a4c52',
+          marginLeft: "20",
+          color: "#4a4c52"
         },
         button_cross: {
-          borderRadius: '100%',
-          border: 'none',
-          backgroundColor: '#ff795b',
-          color: 'white',
+          borderRadius: "100%",
+          border: "none",
+          backgroundColor: "#ff795b",
+          color: "white",
           fontSize: 60,
           width: 120,
           height: 120,
-          margin: 15,
+          margin: 15
         },
         button_check: {
-          borderRadius: '100%',
-          border: 'none',
-          backgroundColor: '#02ddba',
-          color: 'white',
+          borderRadius: "100%",
+          border: "none",
+          backgroundColor: "#02ddba",
+          color: "white",
           fontSize: 60,
           width: 120,
           height: 120,
-          margin: 15,
+          margin: 15
         },
         congrats: {
-          width: '90%',
+          width: "90%",
           paddingTop: 200,
           fontSize: 30,
-          display: 'block',
+          display: "block",
           padding: 15,
-          color: '#4a4c52',
-          textAlign: 'center',
-          float: 'center',
+          color: "#4a4c52",
+          textAlign: "center",
+          float: "center"
         },
         congratSpan: {
           marginTop: 30,
-          display: 'block',
-          color: '#02ddba',
-          textDecoration: 'none',
-        },
-      },
+          display: "block",
+          color: "#02ddba",
+          textDecoration: "none"
+        }
+      }
     });
     if (
       this.props.cardsLoaded &&
@@ -197,7 +197,7 @@ class Deck_PracticeMode extends PureComponent {
                 <i
                   style={{
                     marginLeft: 20,
-                    color: '#4a4c52',
+                    color: "#4a4c52"
                   }}
                   className="fa fa-question-circle fa-2x"
                   aria-hidden="true"
@@ -231,9 +231,7 @@ class Deck_PracticeMode extends PureComponent {
               <span>
                 <Link
                   style={styles.button_editCard}
-                  to={
-                    `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
-                  }
+                  to={`/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`}
                 >
                   <i
                     className="fa fa-pencil-square-o fa-2x"
@@ -279,10 +277,10 @@ class Deck_PracticeMode extends PureComponent {
         <div>
           <span
             style={{
-              display: 'block',
+              display: "block",
               padding: 40,
               fontSize: 30,
-              color: '#4a4c52',
+              color: "#4a4c52"
             }}
           >
             There are no flashcards in this deck. Click on the button below to add a new card.
@@ -298,8 +296,7 @@ class Deck_PracticeMode extends PureComponent {
 
         </div>
       );
-    } else
-      return <div />;
+    } else return <div />;
   }
 }
 
@@ -311,7 +308,7 @@ export default connect(
     finishedDeck: storeState.finishedDeck,
     hideDeck: storeState.hideDeck,
     cardsLoaded: storeState.cardsLoaded,
-    showInstruction: storeState.showInstruction,
+    showInstruction: storeState.showInstruction
   }),
   {
     lookupDeck: actions.lookupDeck,
@@ -321,6 +318,6 @@ export default connect(
     showCurrentDeck: actions.showCurrentDeck,
     deleteCard: actions.deleteCard,
     unloadCards: actions.unloadCards,
-    toggleInstruction: actions.toggleInstruction,
+    toggleInstruction: actions.toggleInstruction
   }
-)(Deck_PracticeMode);
+)(Deck_Review);

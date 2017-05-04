@@ -1,16 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './store';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Deck_PracticeMode from './components/deck-practiceMode';
-import Deck_StudyMode from './components/deck-studyMode';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import store from "./store";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Deck_Review from "./components/deck-review";
+import Deck_Study from "./components/deck-study";
 
-import App from './components/App';
-import NewDeck from './components/newDeck';
-import EditDeck from './components/editDeck';
-import Card from './components/card';
-import { Link } from 'react-router-dom';
+import App from "./components/App";
+import NewDeck from "./components/newDeck";
+import EditDeck from "./components/editDeck";
+import Card from "./components/card";
+import { Link } from "react-router-dom";
+import "./index.css";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -19,11 +20,8 @@ ReactDOM.render(
                 <div>
                     <Route exact path="/" component={App} />
                     <Route path="/newDeck" component={NewDeck} />
-                    <Route
-                        path="/practice/:deck"
-                        component={Deck_PracticeMode}
-                    />
-                    <Route path="/study/:deck" component={Deck_StudyMode} />
+                    <Route path="/review/:deck" component={Deck_Review} />
+                    <Route path="/study/:deck" component={Deck_Study} />
                     <Route
                         path="/editdeck/:deckId-:deckName"
                         component={EditDeck}
@@ -34,5 +32,5 @@ ReactDOM.render(
             </Router>
         </div>
     </Provider>,
-    document.getElementById('root')
+    document.getElementById("root")
 );

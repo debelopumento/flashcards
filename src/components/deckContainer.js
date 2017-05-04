@@ -99,7 +99,7 @@ class DeckContainer extends PureComponent {
 
           <span style={styles.deckNameContainer}>
             <p style={styles.deckName}>{deck.deckName}</p>
-            <Link style={styles.deckLink} to={`/practice/${deck.deckId}`}>
+            <Link style={styles.deckLink} to={`/review/${deck.deckId}`}>
               Review Cards
             </Link>
             <Link style={styles.deckLink} to={`/study/${deck.deckId}`}>

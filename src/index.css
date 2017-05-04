@@ -28,9 +28,8 @@ button {
 */
 
 @media (min-width: 640px) {
-	body {
+	html {
 		width: 50%;
-		text-align: center;
-		margin: auto
+		margin: auto;
 	}
 }

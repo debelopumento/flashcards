@@ -1,22 +1,22 @@
-import React, { PureComponent, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions/actionIndex';
-import { Link } from 'react-router-dom';
-import Card from './card';
-import reactCSS from 'reactcss';
-import config from '../config';
-import store from '../store';
-import Instruction from './instruction';
-import ProgressBar from './progressBar';
+import React, { PureComponent, PropTypes } from "react";
+import { connect } from "react-redux";
+import * as actions from "../actions/actionIndex";
+import { Link } from "react-router-dom";
+import Card from "./card";
+import reactCSS from "reactcss";
+import config from "../config";
+import store from "../store";
+import Instruction from "./instruction";
+import ProgressBar from "./progressBar";
 
 const WIDTH = config.width;
 const { array, number } = PropTypes;
-class Deck_StudyMode extends PureComponent {
+class Deck_Study extends PureComponent {
   state = {
     showFront: true,
     cardFontSize: 40,
-    cardFront: '',
-    cardBack: '',
+    cardFront: "",
+    cardBack: ""
   };
 
   next = () => {
@@ -29,15 +29,11 @@ class Deck_StudyMode extends PureComponent {
     this.setState({ showFront: true });
   };
 
-
-
-  speak =() => {
-
-  }
+  speak = () => {};
 
   deleteCard = () => {
     if (
-      confirm('Are you sure you want to delete this flashcard permanently?')
+      confirm("Are you sure you want to delete this flashcard permanently?")
     ) {
       this.props.deleteCard(
         this.props.cards[this.props.cardIndex]._id,
@@ -46,12 +42,11 @@ class Deck_StudyMode extends PureComponent {
     }
   };
 
-
   componentWillMount() {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
-    store.dispatch({ type: 'SWITCH_TO_STUDY_MODE', payload: null });
+    store.dispatch({ type: "SWITCH_TO_STUDY_MODE", payload: null });
   }
   componentWillUnmount() {
     this.props.unloadCards();
@@ -62,7 +57,7 @@ class Deck_StudyMode extends PureComponent {
       const cardBack = this.props.cards[this.props.cardIndex].cardBack;
       this.setState({
         cardFront,
-        cardBack,
+        cardBack
       });
       const displayLength = cardFront.length > cardBack.length
         ? cardFront.length
@@ -74,7 +69,7 @@ class Deck_StudyMode extends PureComponent {
       }
       const cardFontSize = 40 - lineNumber * 4;
       this.setState({
-        cardFontSize: cardFontSize,
+        cardFontSize: cardFontSize
       });
     }
   }
@@ -83,90 +78,90 @@ class Deck_StudyMode extends PureComponent {
     const styles = reactCSS({
       default: {
         deck: {
-          height: '100%',
+          height: "100%"
         },
         navBar: {
           height: 40,
-          width: '100%',
-          backgroundColor: 'white',
-          textAlign: 'center',
+          width: "100%",
+          backgroundColor: "white",
+          textAlign: "center",
           paddingTop: 30,
-          paddingBottom: 0,
+          paddingBottom: 0
         },
         button_home: {
-          color: '#4a4c52',
+          color: "#4a4c52",
           paddingLeft: 20,
-          float: 'center',
+          float: "center"
         },
         button_addCard: {
-          float: 'right',
+          float: "right"
         },
         cardContainer: {
-          width: '100%',
+          width: "100%",
           height: 350,
           paddingLeft: 0,
-          backgroundColor: '#4a4c52',
-          textAlign: 'center',
+          backgroundColor: "#4a4c52",
+          textAlign: "center"
         },
         cardFront: {
-          height: '42%',
-          width: '92%',
+          height: "42%",
+          width: "92%",
           paddingTop: 15,
           padding: 15,
-          color: 'white',
-          textAlign: 'left',
+          color: "white",
+          textAlign: "left",
           fontSize: 40,
-          borderBottom: '1px solid white',
+          borderBottom: "1px solid white"
         },
         cardBack: {
-          height: '42%',
-          width: '92%',
+          height: "42%",
+          width: "92%",
           paddingTop: 15,
           padding: 15,
-          color: '#ddd',
-          textAlign: 'left',
-          fontSize: this.state.cardFontSize,
+          color: "#ddd",
+          textAlign: "left",
+          fontSize: this.state.cardFontSize
         },
 
         buttonContainer: {
-          width: '100%',
-          textAlign: 'center',
+          width: "100%",
+          textAlign: "center"
         },
 
         button_editCard: {
-          marginLeft: '20',
-          color: '#4a4c52',
+          marginLeft: "20",
+          color: "#4a4c52"
         },
         button_deleteCard: {
-          marginLeft: '20',
-          color: '#4a4c52',
+          marginLeft: "20",
+          color: "#4a4c52"
         },
 
         button_nav: {
           borderRadius: 25,
-          border: '2px solid #02ddba',
-          color: '#02ddba',
+          border: "2px solid #02ddba",
+          color: "#02ddba",
           fontSize: 60,
           width: 90,
-          margin: 15,
+          margin: 15
         },
         congrats: {
-          width: '90%',
+          width: "90%",
           paddingTop: 200,
           fontSize: 30,
-          display: 'block',
+          display: "block",
           padding: 15,
-          color: '#4a4c52',
-          textAlign: 'center',
-          float: 'center',
+          color: "#4a4c52",
+          textAlign: "center",
+          float: "center"
         },
         congratSpan: {
           marginTop: 30,
-          display: 'block',
-          color: '#02ddba',
-          textDecoration: 'none',
-        },
-      },
+          display: "block",
+          color: "#02ddba",
+          textDecoration: "none"
+        }
+      }
     });
     if (
       this.props.cardsLoaded &&
@@ -205,9 +200,7 @@ class Deck_StudyMode extends PureComponent {
               <span>
                 <Link
                   style={styles.button_editCard}
-                  to={
-                    `/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`
-                  }
+                  to={`/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`}
                 >
                   <i
                     className="fa fa-pencil-square-o fa-2x"
@@ -231,8 +224,7 @@ class Deck_StudyMode extends PureComponent {
                   onClick={this.deleteCard}
                 />
               </span>
-              
-              
+
             </div>
 
             <div style={styles.cardContainer}>
@@ -268,10 +260,10 @@ class Deck_StudyMode extends PureComponent {
         <div>
           <span
             style={{
-              display: 'block',
+              display: "block",
               padding: 40,
               fontSize: 30,
-              color: '#4a4c52',
+              color: "#4a4c52"
             }}
           >
             There are no flashcards in this deck. Click on the button below to add a new card.
@@ -287,8 +279,7 @@ class Deck_StudyMode extends PureComponent {
 
         </div>
       );
-    } else
-      return <div />;
+    } else return <div />;
   }
 }
 
@@ -300,7 +291,7 @@ export default connect(
     finishedDeck: storeState.finishedDeck,
     hideDeck: storeState.hideDeck,
     cardsLoaded: storeState.cardsLoaded,
-    showInstruction: storeState.showInstruction,
+    showInstruction: storeState.showInstruction
   }),
   {
     lookupDeck: actions.lookupDeck,
@@ -311,6 +302,6 @@ export default connect(
     deleteCard: actions.deleteCard,
     unloadCards: actions.unloadCards,
     toggleInstruction: actions.toggleInstruction,
-    goToLastCard: actions.goToLastCard,
+    goToLastCard: actions.goToLastCard
   }
-)(Deck_StudyMode);
+)(Deck_Study);
