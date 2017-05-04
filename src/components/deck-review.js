@@ -50,7 +50,7 @@ class Deck_Review extends PureComponent {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
-    store.dispatch({ type: "SHOW_INSTRUCTION", paylaod: null });
+    //store.dispatch({ type: "SHOW_INSTRUCTION", paylaod: null });
     store.dispatch({ type: "SWITCH_TO_PRACTICE_MODE", paylaod: null });
   }
   componentWillUnmount() {
@@ -103,7 +103,9 @@ class Deck_Review extends PureComponent {
           width: "100%",
           height: 350,
           paddingLeft: 0,
-          display: "table"
+          display: "table",
+          marginBottom: 0,
+          backgroundColor: "#4a4c52"
         },
         textArea: {
           height: "100%",
@@ -112,7 +114,6 @@ class Deck_Review extends PureComponent {
           marginRight: 0,
           paddingLeft: 15,
           paddingRight: 15,
-          backgroundColor: "#4a4c52",
           display: "table-cell",
           verticalAlign: "middle",
           textAlign: "center",
@@ -120,7 +121,17 @@ class Deck_Review extends PureComponent {
           border: 0,
           fontSize: this.state.cardFontSize
         },
-
+        flipcardButton: {
+          marginTop: 0,
+          width: 100,
+          border: 0,
+          borderRadius: 3,
+          color: "#eee",
+          fontSize: 13,
+          display: "table-row-group",
+          backgroundColor: "rgba(0,0,0,0)",
+          textDecoration: "underline"
+        },
         buttonContainer: {
           width: "100%",
           textAlign: "center"
@@ -139,7 +150,7 @@ class Deck_Review extends PureComponent {
           border: "none",
           backgroundColor: "#ff795b",
           color: "white",
-          fontSize: 60,
+          fontSize: 20,
           width: 120,
           height: 120,
           margin: 15
@@ -149,7 +160,7 @@ class Deck_Review extends PureComponent {
           border: "none",
           backgroundColor: "#02ddba",
           color: "white",
-          fontSize: 60,
+          fontSize: 20,
           width: 120,
           height: 120,
           margin: 15
@@ -217,16 +228,13 @@ class Deck_Review extends PureComponent {
                   <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
                 </Link>
               </span>
-
               <span>
-
                 <i
                   style={styles.button_deleteCard}
                   className="fa fa-trash-o fa-2x"
                   aria-hidden="true"
                   onClick={this.deleteCard}
                 />
-
               </span>
               <span>
                 <Link
@@ -239,31 +247,39 @@ class Deck_Review extends PureComponent {
                   />
                 </Link>
               </span>
-
             </div>
-
             <div style={styles.cardContainer}>
-
               <span
-                style={styles.textArea}
-                onClick={this.flipcard}
-                type="submit"
+                style={{
+                  display: "table-row"
+                }}
               >
+                {" "}
+                <input
+                  style={styles.flipcardButton}
+                  onClick={this.flipcard}
+                  type="submit"
+                  value="Flip Card"
+                />
+              </span>
+              <span style={styles.textArea}>
                 {this.state.display}
               </span>
+
             </div>
+
             <div style={styles.buttonContainer}>
               <input
                 style={styles.button_cross}
                 onClick={this.no}
                 type="submit"
-                value="✘"
+                value="I don't know"
               />
               <input
                 style={styles.button_check}
                 onClick={this.yes}
                 type="submit"
-                value="✔"
+                value="I know this"
               />
             </div>
             <ProgressBar />
