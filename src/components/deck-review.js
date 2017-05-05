@@ -50,7 +50,6 @@ class Deck_Review extends PureComponent {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
-    //store.dispatch({ type: "SHOW_INSTRUCTION", paylaod: null });
     store.dispatch({ type: "SWITCH_TO_PRACTICE_MODE", paylaod: null });
   }
   componentWillUnmount() {
@@ -101,7 +100,7 @@ class Deck_Review extends PureComponent {
         },
         cardContainer: {
           width: "100%",
-          height: 350,
+          height: 300,
           paddingLeft: 0,
           display: "table",
           marginBottom: 0,
@@ -283,6 +282,23 @@ class Deck_Review extends PureComponent {
               />
             </div>
             <ProgressBar />
+            <p style={{ color: "#666666" }}>
+              There are
+              {" "}
+              <span style={{ color: "#28d5ea" }}>
+                {this.props.cards.length + this.props.masteredCardNum}
+              </span>
+              {" "}
+              cards in this deck
+              <br />
+              You have mastered
+              {" "}
+              <span style={{ color: "#02ddba" }}>
+                {this.props.masteredCardNum}
+              </span>
+              {" "}
+              of them.
+            </p>
           </div>;
     } else if (
       this.props.cardsLoaded &&
@@ -324,7 +340,8 @@ export default connect(
     finishedDeck: storeState.finishedDeck,
     hideDeck: storeState.hideDeck,
     cardsLoaded: storeState.cardsLoaded,
-    showInstruction: storeState.showInstruction
+    showInstruction: storeState.showInstruction,
+    masteredCardNum: storeState.masteredCardNum
   }),
   {
     lookupDeck: actions.lookupDeck,
