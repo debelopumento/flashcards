@@ -46,8 +46,12 @@ app.get("/main/:facebookId", (req, res) => {
                             deckId: "5902d22621eaa57b02f3ead2"
                         },
                         {
-                            deckId: "5903c48a1a1725184fd58a08",
-                            deckName: "Deck"
+                            deckId: "590b92770a66580e1296b9c3",
+                            deckName: "Math"
+                        },
+                        {
+                            deckId: "58fe929ade9f56f7416a6b0e",
+                            deckName: "Japanese"
                         }
                     ]
                 };
