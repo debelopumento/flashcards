@@ -9,6 +9,8 @@ import DeckContainer from './deckContainer';
 import { Link } from 'react-router-dom';
 import reactCSS from 'reactcss';
 import LandingPage from './landingPage';
+
+
 const { array } = PropTypes;
 
 class App extends PureComponent {
@@ -32,12 +34,15 @@ class App extends PureComponent {
 
       FB.getLoginStatus(response => {
         if (response.status === 'connected') {
+          
           FB.api('/me', response => {
             const facebookId = response.id;
             store.dispatch({ type: 'LOGIN', payload: null });
             store.dispatch(actions.updateFacebookId(facebookId));
             store.dispatch(actions.lookupUser(facebookId));
+            store.dispatch({type: 'UPDATE_NAME', payload: response.name})
           });
+          
         }
       });
     };
@@ -100,5 +105,6 @@ export default connect(
   }),
   {
     resetDeck: actions.resetDeck,
+    updateNameOnServer: actions.updateNameOnServer,
   }
 )(App);

@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import reactCSS from 'reactcss';
-import * as actions from '../actions/actionIndex';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import reactCSS from "reactcss";
+import * as actions from "../actions/actionIndex";
 
 class DeckContainer extends PureComponent {
   moveUp = event => {
@@ -23,8 +23,7 @@ class DeckContainer extends PureComponent {
       }
       this.props.updateDecks(newDecks);
       this.props.rearrangeDecks({ decks: newDecks });
-    } else
-      alert('Cannot move the first deck up!');
+    } else alert("Cannot move the first deck up!");
   };
 
   moveDown = event => {
@@ -45,8 +44,7 @@ class DeckContainer extends PureComponent {
       }
       this.props.updateDecks(newDecks);
       this.props.rearrangeDecks({ decks: newDecks });
-    } else
-      alert('Cannot move the last deck down');
+    } else alert("Cannot move the last deck down");
   };
 
   render() {
@@ -54,44 +52,44 @@ class DeckContainer extends PureComponent {
       default: {
         deckContainer: {
           marginTop: 0,
-          width: '100%',
+          width: "100%"
         },
         deck: {
-          backgroundColor: '#4a4c52',
-          width: '100%',
-          display: 'table',
+          backgroundColor: "#4a4c52",
+          width: "100%",
+          display: "table",
           height: 200,
-          width: '100%',
-          borderBottom: '1px white solid',
+          width: "100%",
+          borderBottom: "1px white solid"
         },
         deckNameContainer: {
-          width: '70%',
-          verticalAlign: 'middle',
-          display: 'table-cell',
+          width: "80%",
+          verticalAlign: "middle",
+          display: "table-cell",
           paddingLeft: 35,
-          textAlign: 'left',
+          textAlign: "left"
         },
         deckName: {
-          margin: 'auto',
-          color: '#fbfbfb',
-          fontSize: 40,
+          margin: "auto",
+          color: "#fbfbfb",
+          fontSize: 40
         },
         deckLink: {
-          color: '#02ddba',
+          color: "#02ddba",
           fontSize: 15,
-          marginRight: 10,
+          marginRight: 10
         },
         iconContainer: {
           paddingRight: 20,
-          verticalAlign: 'middle',
-          display: 'table-cell',
-          textAlign: 'right',
+          verticalAlign: "middle",
+          display: "table-cell",
+          textAlign: "right"
         },
         icon: {
-          color: '#fbfbfb',
-          fontSize: 20,
-        },
-      },
+          color: "#fbfbfb",
+          fontSize: 20
+        }
+      }
     });
     const decks = this.props.decks;
     const decksDisplay = Object.keys(decks).map((deckId, index) => {
@@ -101,20 +99,20 @@ class DeckContainer extends PureComponent {
 
           <span style={styles.deckNameContainer}>
             <p style={styles.deckName}>{deck.deckName}</p>
-            <Link style={styles.deckLink} to={`/practice/${deck.deckId}`}>
-              Practice Mode
+            <Link style={styles.deckLink} to={`/review/${deck.deckId}`}>
+              Review Cards
             </Link>
             <Link style={styles.deckLink} to={`/study/${deck.deckId}`}>
-              Study Mode
+              Study Cards
             </Link>
           </span>
           <div style={styles.iconContainer}>
             <span
               style={{
-                color: 'white',
+                color: "white",
                 fontSize: 30,
-                display: 'block',
-                textAlign: 'center',
+                display: "block",
+                textAlign: "center"
               }}
               id={index}
             >
@@ -128,10 +126,10 @@ class DeckContainer extends PureComponent {
             </span>
             <span
               style={{
-                color: 'white',
-                display: 'block',
-                textAlign: 'center',
-                paddingLeft: 5,
+                color: "white",
+                display: "block",
+                textAlign: "center",
+                paddingLeft: 5
               }}
             >
               <Link
@@ -144,10 +142,10 @@ class DeckContainer extends PureComponent {
             </span>
             <span
               style={{
-                color: 'white',
+                color: "white",
                 fontSize: 30,
-                display: 'block',
-                textAlign: 'center',
+                display: "block",
+                textAlign: "center"
               }}
               id={index}
               className="down"
@@ -176,10 +174,10 @@ class DeckContainer extends PureComponent {
 
 export default connect(
   storeState => ({
-    decks: storeState.decks,
+    decks: storeState.decks
   }),
   {
     updateDecks: actions.updateDecks,
-    rearrangeDecks: actions.rearrangeDecks,
+    rearrangeDecks: actions.rearrangeDecks
   }
 )(DeckContainer);
