@@ -249,7 +249,21 @@ class Deck_Study extends PureComponent {
                 onClick={this.next}
               />
             </div>
-            <ProgressBar />
+            <p style={{ color: "#666666" }}>
+              There are
+              {" "}
+              <span style={{ color: "#28d5ea" }}>
+                {this.props.cards.length}
+              </span>
+              {" "}
+              cards in this deck
+              <br />
+              You are studying card
+              {" "}
+              <span style={{ color: "#02ddba" }}>
+                {this.props.cardIndex + 1}
+              </span>
+            </p>
           </div>;
     } else if (
       this.props.cardsLoaded &&
@@ -290,8 +304,7 @@ export default connect(
     cardIndex: storeState.cardIndex,
     finishedDeck: storeState.finishedDeck,
     hideDeck: storeState.hideDeck,
-    cardsLoaded: storeState.cardsLoaded,
-    showInstruction: storeState.showInstruction
+    cardsLoaded: storeState.cardsLoaded
   }),
   {
     lookupDeck: actions.lookupDeck,
@@ -301,7 +314,6 @@ export default connect(
     showCurrentDeck: actions.showCurrentDeck,
     deleteCard: actions.deleteCard,
     unloadCards: actions.unloadCards,
-    toggleInstruction: actions.toggleInstruction,
     goToLastCard: actions.goToLastCard
   }
 )(Deck_Study);
