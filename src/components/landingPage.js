@@ -8,7 +8,10 @@ import reactCSS from "reactcss";
 import FacebookLoginButton from "./facebookLogin";
 import CopyToClipboard from "react-copy-to-clipboard";
 import "../index.css";
-import img from "../../public/images/screenShots_landingPage.png";
+import img1 from "../../public/images/landingPageImage-1.png";
+import img2 from "../../public/images/landingPageImage-2.png";
+import img3 from "../../public/images/landingPageImage-3.png";
+import img4 from "../../public/images/landingPageImage-4.png";
 
 class LandingPage extends PureComponent {
     demoLogin = () => {
@@ -58,6 +61,8 @@ class LandingPage extends PureComponent {
                 },
                 footer: {
                     height: "10%",
+                    color: "white",
+                    fontSize: 10,
                     backgroundColor: "#4a4c52",
                     verticalAlign: "bottom"
                 }
@@ -79,11 +84,45 @@ class LandingPage extends PureComponent {
                                 onClick={this.demoLogin}
                             />
                         </div>
+                    </div>
 
+                    <div className="block">
+                        <img className="landingPageImg" src={img3} />
+                        <h4 className="landingPageText right color1">
+                            Online flashcards are a great way to study! Learn a foreign language, practice your multiplication table or prepare for your MCAT by memorizing every term.
+                        </h4>{" "}
+                    </div>
+                    <div className="block">
+                        <img className="landingPageImg" src={img1} />
+                        <h4 className="landingPageText left color2">
+                            Flashcards are effective because they are founded on the principles of rote and memorization. With Virtual Flashcards, you can use our web-based flashcard maker to create your own set.
+                        </h4>{" "}
+                    </div>
+                    <div className="block">
+                        <img className="landingPageImg" src={img2} />
+                        <h4 className="landingPageText right color3">
+                            You can study mobile flashcards for your Android, iPhone or Windows device, allowing you to take your flashcards on the go! Study on the bus or train, or on any occasion you have some free time.
+                        </h4>{" "}
+                    </div>
+                    <div className="block">
+                        <img className="landingPageImg" src={img4} />
+                        <h4 className="landingPageText left color4">
+                            When you create flashcards with Virtual Flashcards, they travel with you! Continuously reviewing your flash cards will ensure you’ll retain more of the information you’re studying with little effort required.
+                        </h4>{" "}
                     </div>
                 </div>
-                <img style={styles.img} src={img} />
-                <div style={styles.footer} />
+
+                <div style={styles.footer}>
+                    Built with &lt;3 by
+                    {" "}
+                    <a
+                        style={{ color: "white" }}
+                        href="https://debelopumento.github.io/portfolio/"
+                        target="blank"
+                    >
+                        Di Ye
+                    </a>
+                </div>
             </div>
         );
     }

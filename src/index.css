@@ -14,6 +14,36 @@ html, body {
 	margin: auto;
 }
 
+.landingPageImg {
+	width: 98%;
+	display: 'inline-block';
+}
+
+.landingPageText {
+	padding: 5px;
+}
+
+.block {
+	display: block;
+	width: 100%;
+}
+
+.color1 {
+	color: #6fcbc1;
+}
+
+.color2 {
+	color: #d4c5a8;
+}
+
+.color3 {
+	color: #7098cc;
+}
+
+.color4 {
+	color: #ffa089;
+}
+
 button {
 	background-color: white;
 	color: #aaa;
@@ -33,13 +63,29 @@ button {
 */
 
 @media (min-width: 640px) {
-	body {
-		width: 100%;
-		margin: auto;
-	}
-	.main {
-		width: 50%;
-		margin: auto;
 
+	.main {
+		width: 70%;
+
+	}
+	.landingPageImg {
+		width: 40%;
+
+	}
+
+	.landingPageText {
+		margin-top: 32%;
+		width: 55%;
+		font-size: 14px;
+		text-align: justify;
+	}
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+	}
+	.block {
+		margin: auto;
 	}
 }
