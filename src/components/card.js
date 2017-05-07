@@ -1,20 +1,21 @@
-import React, { PureComponent } from 'react';
-import { Redirect } from 'react-router';
-import { connect } from 'react-redux';
-import * as actions from '../actions/actionIndex';
-import { Link } from 'react-router-dom';
-import reactCSS from 'reactcss';
+import React, { PureComponent } from "react";
+import { Redirect } from "react-router";
+import { connect } from "react-redux";
+import * as actions from "../actions/actionIndex";
+import { Link } from "react-router-dom";
+import reactCSS from "reactcss";
+import "../index.css";
 
 class Card extends PureComponent {
     state = {
-        cardFront: '',
-        cardBack: '',
+        cardFront: "",
+        cardBack: "",
         redirect: false,
         deckId: this.props.match.params.deck,
-        cardId: '',
+        cardId: "",
         type: this.props.match.params.card === undefined
-            ? 'newCard'
-            : 'editCard',
+            ? "newCard"
+            : "editCard"
     };
 
     cardFront = event => {
@@ -27,10 +28,10 @@ class Card extends PureComponent {
     };
 
     submit = event => {
-        const cardFront = this.state.cardFront !== ''
+        const cardFront = this.state.cardFront !== ""
             ? this.state.cardFront
             : this.props.editCard.cardFront;
-        const cardBack = this.state.cardBack !== ''
+        const cardBack = this.state.cardBack !== ""
             ? this.state.cardBack
             : this.props.editCard.cardBack;
         const newCard = {
@@ -38,11 +39,11 @@ class Card extends PureComponent {
             cardBack,
             decks: [
                 {
-                    deckId: this.state.deckId,
-                },
-            ],
+                    deckId: this.state.deckId
+                }
+            ]
         };
-        if (this.state.type === 'newCard') {
+        if (this.state.type === "newCard") {
             this.props.createNewCard(newCard);
         } else {
             this.props.editCardAction(this.props.editCard._id, newCard);
@@ -52,7 +53,7 @@ class Card extends PureComponent {
 
     componentWillMount() {
         this.props.hideCurrentDeck();
-        if (this.state.type === 'editCard') {
+        if (this.state.type === "editCard") {
             this.props.loadEditedCard();
         }
     }
@@ -68,54 +69,54 @@ class Card extends PureComponent {
                     height: 40,
                     paddingTop: 20,
                     paddingBottom: 0,
-                    textAlign: 'center',
+                    textAlign: "center"
                 },
                 button_home: {
-                    float: 'center',
-                    color: '#4a4c52',
-                    padding: 10,
+                    float: "center",
+                    color: "#4a4c52",
+                    padding: 10
                 },
                 inputArea: {
                     height: 400,
                     paddingTop: 100,
-                    textAlign: 'center',
+                    textAlign: "center"
                 },
                 input: {
                     height: 80,
-                    width: '96%',
-                    border: '1px #cccccc solid',
+                    width: "96%",
+                    border: "1px #cccccc solid",
                     fontSize: 30,
-                    color: '#555555',
+                    color: "#555555",
                     borderRadius: 2,
-                    textAlign: 'center',
-                    verticalAlign: 'middle',
-                    margin: 'auto',
-                    marginTop: 20,
+                    textAlign: "center",
+                    verticalAlign: "middle",
+                    margin: "auto",
+                    marginTop: 20
                 },
                 button: {
-                    display: 'block',
+                    display: "block",
                     height: 80,
-                    width: 'calc(96% + 3px)',
+                    width: "calc(96% + 3px)",
                     fontSize: 20,
-                    backgroundColor: '#02ddba',
+                    backgroundColor: "#02ddba",
                     border: 0,
                     borderRadius: 2,
-                    color: 'white',
-                    margin: 'auto',
+                    color: "white",
+                    margin: "auto",
                     marginTop: 15,
-                    fontSize: 30,
-                },
-            },
+                    fontSize: 30
+                }
+            }
         });
         if (this.state.redirect) {
             const mode = this.props.practiceMode === true
-                ? 'practice'
-                : 'study';
+                ? "practice"
+                : "study";
             return <Redirect to={`/${mode}/${this.state.deckId}`} />;
         }
 
         return (
-            <div>
+            <div className="main">
                 <div style={styles.navBar}>
                     <Link style={styles.button_home} to="/">
                         <i className="fa fa-home fa-2x" aria-hidden="true" />
@@ -127,9 +128,9 @@ class Card extends PureComponent {
                         type="text"
                         onChange={this.cardFront}
                         placeholder={
-                            this.state.type === 'editCard'
+                            this.state.type === "editCard"
                                 ? this.props.editCard.cardFront
-                                : 'Flashcard Front'
+                                : "Flashcard Front"
                         }
                     />
                     <input
@@ -137,9 +138,9 @@ class Card extends PureComponent {
                         type="text"
                         onChange={this.cardBack}
                         placeholder={
-                            this.state.type === 'editCard'
+                            this.state.type === "editCard"
                                 ? this.props.editCard.cardBack
-                                : 'Flashcard Back'
+                                : "Flashcard Back"
                         }
                     />
                     <input
@@ -158,13 +159,13 @@ export default connect(
     storeState => ({
         hideDeck: storeState.hideDeck,
         editCard: storeState.editCard,
-        practiceMode: storeState.practiceMode,
+        practiceMode: storeState.practiceMode
     }),
     {
         hideCurrentDeck: actions.hideCurrentDeck,
         showCurrentDeck: actions.showCurrentDeck,
         createNewCard: actions.createNewCard,
         loadEditedCard: actions.loadEditedCard,
-        editCardAction: actions.editCardAction,
+        editCardAction: actions.editCardAction
     }
 )(Card);

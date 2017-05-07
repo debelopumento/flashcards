@@ -9,11 +9,6 @@ html, body {
 	text-align: center;
 }
 
-.main {
-	width: 100%;
-	margin: auto;
-}
-
 button {
 	background-color: white;
 	color: #aaa;
@@ -33,13 +28,8 @@ button {
 */
 
 @media (min-width: 640px) {
-	body {
-		width: 100%;
-		margin: auto;
-	}
-	.main {
+	html {
 		width: 50%;
 		margin: auto;
-
 	}
 }

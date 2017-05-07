@@ -8,6 +8,7 @@ import config from "../config";
 import store from "../store";
 import Instruction from "./instruction";
 import ProgressBar from "./progressBar";
+import "../index.css";
 
 const WIDTH = config.width;
 class Deck_Review extends PureComponent {
@@ -188,117 +189,124 @@ class Deck_Review extends PureComponent {
       this.props.cards.length > 0
     ) {
       return this.props.finishedDeck === true
-        ? <div style={styles.congrats}>
-            <span style={styles.congratSpan}>
-              Congratulations!
-              <br />
-              You have finished this deck. Click on the button below to go back to the main screen.
-            </span>
-            <span style={styles.congratSpan}>
-              <Link style={styles.button_home} to="/">
-                <i className="fa fa-home fa-2x" aria-hidden="true" />
-              </Link>
-            </span>
-          </div>
-        : <div style={styles.deck}>
-            <Instruction />
-            <div style={styles.navBar}>
-              <span>
-                <i
-                  style={{
-                    marginLeft: 20,
-                    color: "#4a4c52"
-                  }}
-                  className="fa fa-question-circle fa-2x"
-                  aria-hidden="true"
-                  onClick={this.toggleInstruction}
-                />
+        ? <div className="main">
+            <div style={styles.congrats}>
+              <span style={styles.congratSpan}>
+                Congratulations!
+                <br />
+                You have finished this deck. Click on the button below to go back to the main screen.
               </span>
-              <span>
+              <span style={styles.congratSpan}>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
                 </Link>
               </span>
-              <span>
-                <Link
-                  style={styles.button_home}
-                  to={`/${this.props.match.params.deck}/newCard`}
-                >
-                  <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
-                </Link>
-              </span>
-              <span>
-                <i
-                  style={styles.button_deleteCard}
-                  className="fa fa-trash-o fa-2x"
-                  aria-hidden="true"
-                  onClick={this.deleteCard}
-                />
-              </span>
-              <span>
-                <Link
-                  style={styles.button_editCard}
-                  to={`/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`}
-                >
+            </div>
+          </div>
+        : <div className="main">
+            <div style={styles.deck}>
+              <Instruction />
+              <div style={styles.navBar}>
+                <span>
                   <i
-                    className="fa fa-pencil-square-o fa-2x"
+                    style={{
+                      marginLeft: 20,
+                      color: "#4a4c52"
+                    }}
+                    className="fa fa-question-circle fa-2x"
                     aria-hidden="true"
+                    onClick={this.toggleInstruction}
                   />
-                </Link>
-              </span>
-            </div>
-            <div style={styles.cardContainer}>
-              <span
-                style={{
-                  display: "table-row"
-                }}
-              >
-                {" "}
+                </span>
+                <span>
+                  <Link style={styles.button_home} to="/">
+                    <i className="fa fa-home fa-2x" aria-hidden="true" />
+                  </Link>
+                </span>
+                <span>
+                  <Link
+                    style={styles.button_home}
+                    to={`/${this.props.match.params.deck}/newCard`}
+                  >
+                    <i
+                      className="fa fa-plus-square-o fa-2x"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </span>
+                <span>
+                  <i
+                    style={styles.button_deleteCard}
+                    className="fa fa-trash-o fa-2x"
+                    aria-hidden="true"
+                    onClick={this.deleteCard}
+                  />
+                </span>
+                <span>
+                  <Link
+                    style={styles.button_editCard}
+                    to={`/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`}
+                  >
+                    <i
+                      className="fa fa-pencil-square-o fa-2x"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </span>
+              </div>
+              <div style={styles.cardContainer}>
+                <span
+                  style={{
+                    display: "table-row"
+                  }}
+                >
+                  {" "}
+                  <input
+                    style={styles.flipcardButton}
+                    onClick={this.flipcard}
+                    type="submit"
+                    value="Flip Card"
+                  />
+                </span>
+                <span style={styles.textArea}>
+                  {this.state.display}
+                </span>
+
+              </div>
+
+              <div style={styles.buttonContainer}>
                 <input
-                  style={styles.flipcardButton}
-                  onClick={this.flipcard}
+                  style={styles.button_cross}
+                  onClick={this.no}
                   type="submit"
-                  value="Flip Card"
+                  value="I don't know"
                 />
-              </span>
-              <span style={styles.textArea}>
-                {this.state.display}
-              </span>
-
+                <input
+                  style={styles.button_check}
+                  onClick={this.yes}
+                  type="submit"
+                  value="I know this"
+                />
+              </div>
+              <ProgressBar />
+              <p style={{ color: "#666666" }}>
+                There are
+                {" "}
+                <span style={{ color: "#28d5ea" }}>
+                  {this.props.cards.length + this.props.masteredCardNum}
+                </span>
+                {" "}
+                cards in this deck
+                <br />
+                You have mastered
+                {" "}
+                <span style={{ color: "#02ddba" }}>
+                  {this.props.masteredCardNum}
+                </span>
+                {" "}
+                of them.
+              </p>
             </div>
-
-            <div style={styles.buttonContainer}>
-              <input
-                style={styles.button_cross}
-                onClick={this.no}
-                type="submit"
-                value="I don't know"
-              />
-              <input
-                style={styles.button_check}
-                onClick={this.yes}
-                type="submit"
-                value="I know this"
-              />
-            </div>
-            <ProgressBar />
-            <p style={{ color: "#666666" }}>
-              There are
-              {" "}
-              <span style={{ color: "#28d5ea" }}>
-                {this.props.cards.length + this.props.masteredCardNum}
-              </span>
-              {" "}
-              cards in this deck
-              <br />
-              You have mastered
-              {" "}
-              <span style={{ color: "#02ddba" }}>
-                {this.props.masteredCardNum}
-              </span>
-              {" "}
-              of them.
-            </p>
           </div>;
     } else if (
       this.props.cardsLoaded &&
@@ -306,7 +314,7 @@ class Deck_Review extends PureComponent {
       this.props.hideDeck === false
     ) {
       return (
-        <div>
+        <div className="main">
           <span
             style={{
               display: "block",
