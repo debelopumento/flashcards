@@ -62,7 +62,7 @@ button {
 	overflow: hidden;
 */
 
-@media (min-width: 640px) {
+@media (min-width: 640px) and (max-width: 1000px){
 
 	.main {
 		width: 70%;
@@ -89,3 +89,31 @@ button {
 		margin: auto;
 	}
 }
+
+@media (min-width: 1000px) {
+	.main {
+		width: 70%;
+
+	}
+	.landingPageImg {
+		width: 40%;
+
+	}
+
+	.landingPageText {
+		margin-top: 32%;
+		width: 55%;
+		font-size: 20px;
+		text-align: justify;
+	}
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+	}
+	.block {
+		margin: auto;
+	}
+}
+
