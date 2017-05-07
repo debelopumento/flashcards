@@ -9,6 +9,7 @@ import DeckContainer from './deckContainer';
 import { Link } from 'react-router-dom';
 import reactCSS from 'reactcss';
 import LandingPage from './landingPage';
+import "../index.css";
 
 
 const { array } = PropTypes;
@@ -77,19 +78,18 @@ class App extends PureComponent {
 
     if (this.props.logedIn === true) {
       return (
-        <div className="App">
+        <div className="main">
           <div style={styles.navBar}>
             <Link to="/newDeck" style={styles.icon}>
               Create a New Deck
             </Link>
           </div>
           <DeckContainer />
-
         </div>
       );
     } else {
       return (
-        <div className="App">
+        <div>
           <LandingPage />
         </div>
       );

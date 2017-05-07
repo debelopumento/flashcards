@@ -8,6 +8,7 @@ import config from "../config";
 import store from "../store";
 import Instruction from "./instruction";
 import ProgressBar from "./progressBar";
+import "../index.css";
 
 const WIDTH = config.width;
 const { array, number } = PropTypes;
@@ -169,46 +170,52 @@ class Deck_Study extends PureComponent {
       this.props.cards.length > 0
     ) {
       return this.props.finishedDeck === true
-        ? <div style={styles.congrats}>
-            <span style={styles.congratSpan}>
-              Congratulations!
-              <br />
-              You have finished this deck. Click on the button below to go back to the main screen.
-            </span>
-            <span style={styles.congratSpan}>
-              <Link style={styles.button_home} to="/">
-                <i className="fa fa-home fa-2x" aria-hidden="true" />
-              </Link>
-            </span>
-          </div>
-        : <div style={styles.deck}>
-            <div style={styles.navBar}>
-
-              <span>
+        ? <div className="main">
+            <div style={styles.congrats}>
+              <span style={styles.congratSpan}>
+                Congratulations!
+                <br />
+                You have finished this deck. Click on the button below to go back to the main screen.
+              </span>
+              <span style={styles.congratSpan}>
                 <Link style={styles.button_home} to="/">
                   <i className="fa fa-home fa-2x" aria-hidden="true" />
                 </Link>
               </span>
-              <span>
-                <Link
-                  style={styles.button_home}
-                  to={`/${this.props.match.params.deck}/newCard`}
-                >
-                  <i className="fa fa-plus-square-o fa-2x" aria-hidden="true" />
-                </Link>
-              </span>
-              <span>
-                <Link
-                  style={styles.button_editCard}
-                  to={`/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`}
-                >
-                  <i
-                    className="fa fa-pencil-square-o fa-2x"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </span>
-              {/*
+            </div>
+          </div>
+        : <div className="main">
+            <div style={styles.deck}>
+              <div style={styles.navBar}>
+
+                <span>
+                  <Link style={styles.button_home} to="/">
+                    <i className="fa fa-home fa-2x" aria-hidden="true" />
+                  </Link>
+                </span>
+                <span>
+                  <Link
+                    style={styles.button_home}
+                    to={`/${this.props.match.params.deck}/newCard`}
+                  >
+                    <i
+                      className="fa fa-plus-square-o fa-2x"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </span>
+                <span>
+                  <Link
+                    style={styles.button_editCard}
+                    to={`/${this.props.match.params.deck}/editCard/${this.props.cards[this.props.cardIndex]._id}`}
+                  >
+                    <i
+                      className="fa fa-pencil-square-o fa-2x"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </span>
+                {/*
               <span>
                   <i 
                   style={styles.button_deleteCard}
@@ -216,54 +223,55 @@ class Deck_Study extends PureComponent {
                   className="fa fa-volume-up fa-2x" aria-hidden="true"></i>
               </span>
             */}
-              <span>
-                <i
-                  style={styles.button_deleteCard}
-                  className="fa fa-trash-o fa-2x"
-                  aria-hidden="true"
-                  onClick={this.deleteCard}
-                />
-              </span>
+                <span>
+                  <i
+                    style={styles.button_deleteCard}
+                    className="fa fa-trash-o fa-2x"
+                    aria-hidden="true"
+                    onClick={this.deleteCard}
+                  />
+                </span>
 
-            </div>
-
-            <div style={styles.cardContainer}>
-              <div style={styles.cardFront}>
-                {this.state.cardFront}
-              </div><br />
-              <div style={styles.cardBack}>
-                {this.state.cardBack}
               </div>
+
+              <div style={styles.cardContainer}>
+                <div style={styles.cardFront}>
+                  {this.state.cardFront}
+                </div><br />
+                <div style={styles.cardBack}>
+                  {this.state.cardBack}
+                </div>
+              </div>
+              <div style={styles.buttonContainer}>
+                <i
+                  style={styles.button_nav}
+                  className="fa fa-arrow-left"
+                  aria-hidden="true"
+                  onClick={this.last}
+                />
+                <i
+                  style={styles.button_nav}
+                  className="fa fa-arrow-right"
+                  aria-hidden="true"
+                  onClick={this.next}
+                />
+              </div>
+              <p style={{ color: "#666666" }}>
+                There are
+                {" "}
+                <span style={{ color: "#28d5ea" }}>
+                  {this.props.cards.length}
+                </span>
+                {" "}
+                cards in this deck
+                <br />
+                You are studying card
+                {" "}
+                <span style={{ color: "#02ddba" }}>
+                  {this.props.cardIndex + 1}
+                </span>
+              </p>
             </div>
-            <div style={styles.buttonContainer}>
-              <i
-                style={styles.button_nav}
-                className="fa fa-arrow-left"
-                aria-hidden="true"
-                onClick={this.last}
-              />
-              <i
-                style={styles.button_nav}
-                className="fa fa-arrow-right"
-                aria-hidden="true"
-                onClick={this.next}
-              />
-            </div>
-            <p style={{ color: "#666666" }}>
-              There are
-              {" "}
-              <span style={{ color: "#28d5ea" }}>
-                {this.props.cards.length}
-              </span>
-              {" "}
-              cards in this deck
-              <br />
-              You are studying card
-              {" "}
-              <span style={{ color: "#02ddba" }}>
-                {this.props.cardIndex + 1}
-              </span>
-            </p>
           </div>;
     } else if (
       this.props.cardsLoaded &&
@@ -271,7 +279,7 @@ class Deck_Study extends PureComponent {
       this.props.hideDeck === false
     ) {
       return (
-        <div>
+        <div className="main">
           <span
             style={{
               display: "block",
