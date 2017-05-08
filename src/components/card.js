@@ -107,7 +107,6 @@ class Card extends PureComponent {
                     display: "block",
                     height: 80,
                     width: "calc(96% + 3px)",
-                    fontSize: 20,
                     backgroundColor: "#02ddba",
                     border: 0,
                     borderRadius: 2,

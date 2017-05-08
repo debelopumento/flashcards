@@ -5,12 +5,10 @@ import store from "./store";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Deck_Review from "./components/deck-review";
 import Deck_Study from "./components/deck-study";
-
 import App from "./components/App";
 import NewDeck from "./components/newDeck";
 import EditDeck from "./components/editDeck";
 import Card from "./components/card";
-import { Link } from "react-router-dom";
 import "./index.css";
 
 ReactDOM.render(

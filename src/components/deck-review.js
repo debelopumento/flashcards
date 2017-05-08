@@ -1,8 +1,7 @@
-import React, { PureComponent, PropTypes } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/actionIndex";
 import { Link } from "react-router-dom";
-import Card from "./card";
 import reactCSS from "reactcss";
 import config from "../config";
 import store from "../store";
@@ -55,7 +54,6 @@ class Deck_Review extends PureComponent {
     store.dispatch({ type: "SWITCH_TO_PRACTICE_MODE", paylaod: null });
   }
   componentWillUnmount() {
-    console.log(11);
     this.props.unloadCards();
   }
   componentDidUpdate() {
@@ -68,7 +66,7 @@ class Deck_Review extends PureComponent {
       });
       const displayLength = display.length;
       const cardWidth = WIDTH / 32;
-      const lineNumber = Math.ceil(displayLength / cardWidth);
+      let lineNumber = Math.ceil(displayLength / cardWidth);
       if (lineNumber === 0) {
         lineNumber++;
       }

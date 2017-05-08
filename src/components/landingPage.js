@@ -1,12 +1,9 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
 import store from "../store";
 import * as actions from "../actions/actionIndex";
 import reactCSS from "reactcss";
 import FacebookLoginButton from "./facebookLogin";
-import CopyToClipboard from "react-copy-to-clipboard";
 import "../index.css";
 import img1 from "../../public/images/landingPageImage-1.png";
 import img2 from "../../public/images/landingPageImage-2.png";

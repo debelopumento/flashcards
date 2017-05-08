@@ -1,49 +1,45 @@
 /*global FB*/
 
-import React, { PureComponent, PropTypes } from 'react';
-import FacebookLoginButton from './facebookLogin';
-import { connect } from 'react-redux';
-import store from '../store';
-import * as actions from '../actions/actionIndex';
-import DeckContainer from './deckContainer';
-import { Link } from 'react-router-dom';
-import reactCSS from 'reactcss';
-import LandingPage from './landingPage';
+import React, { PureComponent, PropTypes } from "react";
+import { connect } from "react-redux";
+import store from "../store";
+import * as actions from "../actions/actionIndex";
+import DeckContainer from "./deckContainer";
+import { Link } from "react-router-dom";
+import reactCSS from "reactcss";
+import LandingPage from "./landingPage";
 import "../index.css";
-
 
 const { array } = PropTypes;
 
 class App extends PureComponent {
   static PropTypes = {
-    decks: array,
+    decks: array
   };
   state = {
-    decks: [],
+    decks: []
   };
 
   componentWillMount() {
     // This is called with the results from from FB.getLoginStatus().
     window.fbAsyncInit = () => {
       FB.init({
-        appId: '1914617068781649',
+        appId: "1914617068781649",
         cookie: true, // enable cookies to allow the server to access
         // the session
         xfbml: true, // parse social plugins on this page
-        version: 'v2.8', // use graph api version 2.8
+        version: "v2.8" // use graph api version 2.8
       });
 
       FB.getLoginStatus(response => {
-        if (response.status === 'connected') {
-          
-          FB.api('/me', response => {
+        if (response.status === "connected") {
+          FB.api("/me", response => {
             const facebookId = response.id;
-            store.dispatch({ type: 'LOGIN', payload: null });
+            store.dispatch({ type: "LOGIN", payload: null });
             store.dispatch(actions.updateFacebookId(facebookId));
             store.dispatch(actions.lookupUser(facebookId));
-            store.dispatch({type: 'UPDATE_NAME', payload: response.name})
+            store.dispatch({ type: "UPDATE_NAME", payload: response.name });
           });
-          
         }
       });
     };
@@ -54,9 +50,9 @@ class App extends PureComponent {
       if (d.getElementById(id)) return;
       js = d.createElement(s);
       js.id = id;
-      js.src = '//connect.facebook.net/en_US/sdk.js';
+      js.src = "//connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
+    })(document, "script", "facebook-jssdk");
   }
 
   render() {
@@ -66,14 +62,14 @@ class App extends PureComponent {
           height: 40,
           paddingTop: 20,
           paddingBottom: 0,
-          textAlign: 'center',
+          textAlign: "center"
         },
         icon: {
-          float: 'center',
-          color: '#4a4c52',
-          padding: 10,
-        },
-      },
+          float: "center",
+          color: "#4a4c52",
+          padding: 10
+        }
+      }
     });
 
     if (this.props.logedIn === true) {
@@ -101,10 +97,10 @@ export default connect(
   storeState => ({
     decks: storeState.decks,
     finishedDeck: storeState.finishedDeck,
-    logedIn: storeState.logedIn,
+    logedIn: storeState.logedIn
   }),
   {
     resetDeck: actions.resetDeck,
-    updateNameOnServer: actions.updateNameOnServer,
+    updateNameOnServer: actions.updateNameOnServer
   }
 )(App);

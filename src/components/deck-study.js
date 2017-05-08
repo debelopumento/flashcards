@@ -1,17 +1,13 @@
-import React, { PureComponent, PropTypes } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/actionIndex";
 import { Link } from "react-router-dom";
-import Card from "./card";
 import reactCSS from "reactcss";
 import config from "../config";
 import store from "../store";
-import Instruction from "./instruction";
-import ProgressBar from "./progressBar";
 import "../index.css";
 
 const WIDTH = config.width;
-const { array, number } = PropTypes;
 class Deck_Study extends PureComponent {
   state = {
     showFront: true,
@@ -65,7 +61,7 @@ class Deck_Study extends PureComponent {
         ? cardFront.length
         : cardBack.length;
       const cardWidth = WIDTH / 32;
-      const lineNumber = Math.ceil(displayLength / cardWidth);
+      let lineNumber = Math.ceil(displayLength / cardWidth);
       if (lineNumber === 0) {
         lineNumber++;
       }
