@@ -109,9 +109,7 @@ class Card extends PureComponent {
             }
         });
         if (this.state.redirect) {
-            const mode = this.props.practiceMode === true
-                ? "practice"
-                : "study";
+            const mode = this.props.practiceMode === true ? "review" : "study";
             return <Redirect to={`/${mode}/${this.state.deckId}`} />;
         }
 
