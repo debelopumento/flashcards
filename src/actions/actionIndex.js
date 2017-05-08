@@ -149,6 +149,22 @@ export const createNewCard = newCard => dispatch => {
         });
 };
 
+export const createNewCard_editDeckScreen = newCard => dispatch => {
+    const url = host + "createnewcard/";
+    return axios
+        .post(url, newCard)
+        .then(data => {
+            const addedCard = data.data.newCard;
+            const cards = store.getState().cards;
+            const newCards = [...cards, addedCard];
+            dispatch(updateCards(newCards));
+            //console.log(20, addedCard, cards);
+        })
+        .catch(e => {
+            console.log(e);
+        });
+};
+
 export const editCardAction = (cardId, newCard) => dispatch => {
     const url = host + "editCard/" + cardId;
     return axios
