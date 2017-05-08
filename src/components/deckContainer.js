@@ -56,7 +56,6 @@ class DeckContainer extends PureComponent {
         },
         deck: {
           backgroundColor: "#4a4c52",
-          width: "100%",
           display: "table",
           height: 200,
           width: "100%",

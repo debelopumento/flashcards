@@ -1,9 +1,7 @@
-import React from 'react';
-import FacebookLogin from 'react-facebook-login';
-import reactCSS from 'reactcss';
-import store from '../store';
-import * as actions from '../actions/actionIndex';
-
+import React from "react";
+import FacebookLogin from "react-facebook-login";
+import store from "../store";
+import * as actions from "../actions/actionIndex";
 
 const responseFacebook = response => {
     const facebookId = response.id;
@@ -19,7 +17,6 @@ const FacebookLoginButton = () => (
         fields="name,email,picture"
         callback={responseFacebook}
         icon="fa-facebook fa-lg"
-
     />
 );
 

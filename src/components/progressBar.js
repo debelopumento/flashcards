@@ -1,18 +1,12 @@
-import React, { PureComponent, PropTypes } from "react";
-import store from "../store";
+import React, { PureComponent } from "react";
 import reactCSS from "reactcss";
 import { connect } from "react-redux";
-import * as actions from "../actions/actionIndex";
-import config from "../config";
 
 class ProgressBar extends PureComponent {
   render() {
     const deckLength = this.props.cards.length + this.props.masteredCardNum;
     const slotLength = Math.round(100 / deckLength);
-
     const greenWidth = slotLength * this.props.masteredCardNum + "%";
-    console.log(22, greenWidth, deckLength, slotLength);
-
     const styles = reactCSS({
       default: {
         progressBar: {

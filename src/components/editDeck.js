@@ -20,6 +20,12 @@ class EditDeck extends PureComponent {
         this.setState({ deckName: deckName });
     };
 
+    _handleKeyPress = event => {
+        if (event.key === "Enter") {
+            this.submitChange();
+        }
+    };
+
     submitChange = event => {
         const deckName = this.state.deckName;
         const deckId = this.state.deckId;
@@ -43,11 +49,21 @@ class EditDeck extends PureComponent {
         const cardBack = event.target.value;
         this.setState({ cardBack });
     };
+
+    _handleKeyPressSubmitNewCard = event => {
+        if (event.key === "Enter") {
+            console.log(8);
+            this.submitNewCard();
+        }
+    };
+
     submitNewCard = event => {
         const cardFront = this.state.cardFront !== ""
             ? this.state.cardFront
             : this.props.editCard.cardFront;
-        const cardBack = this.state.cardBack;
+        const cardBack = this.state.cardBack !== ""
+            ? this.state.cardBack
+            : this.props.editCard.cardBack;
         const newCard = {
             cardFront,
             cardBack,
@@ -57,7 +73,7 @@ class EditDeck extends PureComponent {
                 }
             ]
         };
-        this.props.createNewCard(newCard);
+        this.props.createNewCard_editDeckScreen(newCard);
         this.refs.cardInput1.value = "";
         this.refs.cardInput2.value = "";
     };
@@ -168,7 +184,7 @@ class EditDeck extends PureComponent {
         const cardList = Object.keys(cards).map((cardId, index) => {
             const card = cards[cardsLength - cardId];
             return (
-                <div style={styles.cardList}>
+                <div key={index} style={styles.cardList}>
                     <div style={styles.cardListCardFront}>
                         {card.cardFront}
                     </div>
@@ -196,6 +212,7 @@ class EditDeck extends PureComponent {
                             type="text"
                             onChange={this.handleChange}
                             placeholder={this.state.deckName}
+                            onKeyPress={this._handleKeyPress}
                         />
                     </div>
                     <div style={styles.buttonContainer}>
@@ -229,6 +246,7 @@ class EditDeck extends PureComponent {
                         placeholder="Card Back"
                         onChange={this.cardBack}
                         ref="cardInput2"
+                        onKeyPress={this._handleKeyPressSubmitNewCard}
                     />
                     <input
                         style={styles.addNewCardButton}
@@ -255,6 +273,6 @@ export default connect(
         deleteDeck: actions.deleteDeck,
         lookupDeck: actions.lookupDeck,
         hideCurrentDeck: actions.hideCurrentDeck,
-        createNewCard: actions.createNewCard
+        createNewCard_editDeckScreen: actions.createNewCard_editDeckScreen
     }
 )(EditDeck);

@@ -1,8 +1,7 @@
-import React, { PureComponent, PropTypes } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/actionIndex";
 import { Link } from "react-router-dom";
-import Card from "./card";
 import reactCSS from "reactcss";
 import config from "../config";
 import store from "../store";
@@ -51,6 +50,7 @@ class Deck_Review extends PureComponent {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
+    store.dispatch({ type: "UPDATE_CARD_INDEX", payload: 0 });
     store.dispatch({ type: "SWITCH_TO_PRACTICE_MODE", paylaod: null });
   }
   componentWillUnmount() {
@@ -66,7 +66,7 @@ class Deck_Review extends PureComponent {
       });
       const displayLength = display.length;
       const cardWidth = WIDTH / 32;
-      const lineNumber = Math.ceil(displayLength / cardWidth);
+      let lineNumber = Math.ceil(displayLength / cardWidth);
       if (lineNumber === 0) {
         lineNumber++;
       }

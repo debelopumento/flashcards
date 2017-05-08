@@ -140,9 +140,25 @@ export const createNewCard = newCard => dispatch => {
         .then(data => {
             const addedCard = data.data.newCard;
             const cards = store.getState().cards;
+            //const newCards = [...cards, addedCard];
+            dispatch(updateCards(cards));
+            //console.log(20, addedCard, cards);
+        })
+        .catch(e => {
+            console.log(e);
+        });
+};
+
+export const createNewCard_editDeckScreen = newCard => dispatch => {
+    const url = host + "createnewcard/";
+    return axios
+        .post(url, newCard)
+        .then(data => {
+            const addedCard = data.data.newCard;
+            const cards = store.getState().cards;
             const newCards = [...cards, addedCard];
             dispatch(updateCards(newCards));
-            console.log(20, addedCard, cards, newCards);
+            //console.log(20, addedCard, cards);
         })
         .catch(e => {
             console.log(e);
@@ -220,7 +236,7 @@ export const unloadCards = () => dispatch => {
     dispatch({ type: "RESET_DECK", payload: null });
     dispatch({ type: "REST_GREEN_COUNT", payload: null });
     dispatch({ type: "RESET_MASTERED_CARDNUM", payload: null });
-    dispatch({ type: "UPDATE_CARD_INDEX", payload: 0 });
+    //dispatch({ type: "UPDATE_CARD_INDEX", payload: 0 });
 };
 
 export const finishedDeck = () => ({
@@ -266,6 +282,7 @@ export const loadEditedCard = () => dispatch => {
     const cards = store.getState().cards;
     const cardIndex = store.getState().cardIndex;
     const card = cards[cardIndex];
+    console.log(12, cards, cardIndex, card);
     dispatch({
         type: "LOAD_EDITED_CARD",
         payload: card

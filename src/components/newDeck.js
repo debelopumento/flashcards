@@ -17,6 +17,12 @@ class NewDeck extends PureComponent {
         this.setState({ deckName: deckName });
     };
 
+    _handleKeyPress = event => {
+        if (event.key === "Enter") {
+            this.submit();
+        }
+    };
+
     submit = event => {
         const deckName = this.state.deckName;
         store.dispatch(actions.createDeck(deckName));
@@ -56,7 +62,6 @@ class NewDeck extends PureComponent {
                     display: "block",
                     height: 80,
                     width: "calc(96% + 3px)",
-                    fontSize: 20,
                     backgroundColor: "#02ddba",
                     border: 0,
                     borderRadius: 2,
@@ -84,6 +89,7 @@ class NewDeck extends PureComponent {
                         type="text"
                         onChange={this.handleChange}
                         placeholder="Enter Deck Name"
+                        onKeyPress={this._handleKeyPress}
                     />
                     <input
                         style={styles.button}

@@ -1,5 +1,4 @@
-import React, { PureComponent, PropTypes } from "react";
-import store from "../store";
+import React, { PureComponent } from "react";
 import reactCSS from "reactcss";
 import { connect } from "react-redux";
 import * as actions from "../actions/actionIndex";

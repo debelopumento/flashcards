@@ -27,6 +27,12 @@ class Card extends PureComponent {
         this.setState({ cardBack });
     };
 
+    _handleKeyPress = event => {
+        if (event.key === "Enter") {
+            this.submit();
+        }
+    };
+
     submit = event => {
         const cardFront = this.state.cardFront !== ""
             ? this.state.cardFront
@@ -34,6 +40,10 @@ class Card extends PureComponent {
         const cardBack = this.state.cardBack !== ""
             ? this.state.cardBack
             : this.props.editCard.cardBack;
+
+        if (cardFront === "" || cardBack === "") {
+            alert("Please enter content for both front and back of the card.");
+        }
         const newCard = {
             cardFront,
             cardBack,
@@ -97,7 +107,6 @@ class Card extends PureComponent {
                     display: "block",
                     height: 80,
                     width: "calc(96% + 3px)",
-                    fontSize: 20,
                     backgroundColor: "#02ddba",
                     border: 0,
                     borderRadius: 2,
@@ -109,9 +118,7 @@ class Card extends PureComponent {
             }
         });
         if (this.state.redirect) {
-            const mode = this.props.practiceMode === true
-                ? "practice"
-                : "study";
+            const mode = this.props.practiceMode === true ? "review" : "study";
             return <Redirect to={`/${mode}/${this.state.deckId}`} />;
         }
 
@@ -132,6 +139,7 @@ class Card extends PureComponent {
                                 ? this.props.editCard.cardFront
                                 : "Flashcard Front"
                         }
+                        onKeyPress={this._handleKeyPress}
                     />
                     <input
                         style={styles.input}
@@ -142,6 +150,7 @@ class Card extends PureComponent {
                                 ? this.props.editCard.cardBack
                                 : "Flashcard Back"
                         }
+                        onKeyPress={this._handleKeyPress}
                     />
                     <input
                         style={styles.button}
