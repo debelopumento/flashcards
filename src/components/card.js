@@ -27,6 +27,12 @@ class Card extends PureComponent {
         this.setState({ cardBack });
     };
 
+    _handleKeyPress = event => {
+        if (event.key === "Enter") {
+            this.submit();
+        }
+    };
+
     submit = event => {
         const cardFront = this.state.cardFront !== ""
             ? this.state.cardFront
@@ -34,6 +40,10 @@ class Card extends PureComponent {
         const cardBack = this.state.cardBack !== ""
             ? this.state.cardBack
             : this.props.editCard.cardBack;
+
+        if (cardFront === "" || cardBack === "") {
+            alert("Please enter content for both front and back of the card.");
+        }
         const newCard = {
             cardFront,
             cardBack,
@@ -130,6 +140,7 @@ class Card extends PureComponent {
                                 ? this.props.editCard.cardFront
                                 : "Flashcard Front"
                         }
+                        onKeyPress={this._handleKeyPress}
                     />
                     <input
                         style={styles.input}
@@ -140,6 +151,7 @@ class Card extends PureComponent {
                                 ? this.props.editCard.cardBack
                                 : "Flashcard Back"
                         }
+                        onKeyPress={this._handleKeyPress}
                     />
                     <input
                         style={styles.button}
