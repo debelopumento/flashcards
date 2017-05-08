@@ -236,7 +236,7 @@ export const unloadCards = () => dispatch => {
     dispatch({ type: "RESET_DECK", payload: null });
     dispatch({ type: "REST_GREEN_COUNT", payload: null });
     dispatch({ type: "RESET_MASTERED_CARDNUM", payload: null });
-    dispatch({ type: "UPDATE_CARD_INDEX", payload: 0 });
+    //dispatch({ type: "UPDATE_CARD_INDEX", payload: 0 });
 };
 
 export const finishedDeck = () => ({
@@ -282,6 +282,7 @@ export const loadEditedCard = () => dispatch => {
     const cards = store.getState().cards;
     const cardIndex = store.getState().cardIndex;
     const card = cards[cardIndex];
+    console.log(12, cards, cardIndex, card);
     dispatch({
         type: "LOAD_EDITED_CARD",
         payload: card

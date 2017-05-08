@@ -47,6 +47,7 @@ class Deck_Study extends PureComponent {
     const deckId = this.props.match.params.deck;
     this.props.lookupDeck(deckId);
     this.props.showCurrentDeck();
+    store.dispatch({ type: "UPDATE_CARD_INDEX", payload: 0 });
     store.dispatch({ type: "SWITCH_TO_STUDY_MODE", payload: null });
   }
   componentWillUnmount() {
