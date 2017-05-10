@@ -278,6 +278,14 @@ app.delete("/deleteCard/:cardId", (req, res) => {
         });
 });
 
+app.get("/:section/:id", (req, res) => {
+    res.sendFile(__dirname + "/build/index.html");
+});
+
+app.get("/:section/:id/:stuff", (req, res) => {
+    res.sendFile(__dirname + "/build/index.html");
+});
+
 app.use("*", function(req, res) {
     res.status(404).json({ message: "Not Found" });
 });
