@@ -29,10 +29,6 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/build/index.html");
 });
 
-app.get("/:section/:id", (req, res) => {
-    res.sendFile(__dirname + "/build/index.html");
-});
-
 //look up user in users collection
 app.get("/main/:facebookId", (req, res) => {
     const facebookId = req.params.facebookId;
@@ -280,6 +276,10 @@ app.delete("/deleteCard/:cardId", (req, res) => {
         .catch(e => {
             res.json({ message: "Internal server error" });
         });
+});
+
+app.get("/:section/:id", (req, res) => {
+    res.sendFile(__dirname + "/build/index.html");
 });
 
 app.use("*", function(req, res) {
